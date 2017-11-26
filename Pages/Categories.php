@@ -34,7 +34,7 @@
                 </tr>
                 </thead>
                 <tbody id="categoryTable">
-
+                <tr><td colspan="4">No Records Found</td></tr>
                 </tbody>
             </table>
         </div>

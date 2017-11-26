@@ -23,7 +23,7 @@
             $json[$i]['CATEGORY_ID']= $row['CATEGORY_ID'];
             $json[$i]['CATEGORY']= $row['CATEGORY'];
 
-            $sql = "SELECT F.FEATURE, F.DATA_TYPE_ID, DT.TYPE,V.VALUE FROM PRODUCT_FEATURE_VALUES V
+            $sql = "SELECT V.ID,F.FEATURE, F.DATA_TYPE_ID, DT.TYPE,V.VALUE FROM PRODUCT_FEATURE_VALUES V
                         INNER JOIN PRODUCT_FEATURES F ON V.FEATURE_ID = F.ID
                         INNER JOIN DATA_TYPES DT ON F.DATA_TYPE_ID = DT.ID
                         INNER JOIN PRODUCTS P ON V.PRODUCT_ID = P.ID
@@ -33,6 +33,7 @@
             if($rows2 > 0) {
                 $j = 0;
                 while ($row2 = mysqli_fetch_array($result2)) {
+                    $json[$i]['FEATURES'][$j]['ID'] = $row2['ID'];
                     $json[$i]['FEATURES'][$j]['FEATURE']= $row2['FEATURE'];
                     $json[$i]['FEATURES'][$j]['DATA_TYPE_ID']= $row2['DATA_TYPE_ID'];
                     $json[$i]['FEATURES'][$j]['DATA_TYPE']= $row2['TYPE'];

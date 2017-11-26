@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 26, 2017 at 04:47 PM
+-- Generation Time: Nov 26, 2017 at 10:24 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -33,14 +33,15 @@ CREATE TABLE IF NOT EXISTS `currencies` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `CURRENCY` varchar(5) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `currencies`
 --
 
 INSERT INTO `currencies` (`ID`, `CURRENCY`) VALUES
-(1, 'EGP');
+(1, 'EGP'),
+(2, 'USD');
 
 -- --------------------------------------------------------
 
@@ -122,9 +123,7 @@ CREATE TABLE IF NOT EXISTS `persons` (
 --
 
 INSERT INTO `persons` (`ID`, `FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`, `PERSON_TYPE_ID`) VALUES
-(111111, 'Waleed', 'Halaby', 'admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', 1),
-(111123, 'Ahmed', 'Mohamed', 'ahmed@ahmed.com', '4297f44b13955235245b2497399d7a93', 1),
-(111124, 'Tamer', 'Hosny', 'tamer@tamer.com', '4297f44b13955235245b2497399d7a93', 1);
+(111111, 'Waleed', 'Halaby', 'admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', 1);
 
 -- --------------------------------------------------------
 
@@ -170,9 +169,7 @@ CREATE TABLE IF NOT EXISTS `person_feature_values` (
 --
 
 INSERT INTO `person_feature_values` (`ID`, `PERSON_ID`, `PERSON_FEATURE_ID`, `VALUE`) VALUES
-(6, 111111, 2, 'ACTIVE'),
-(7, 111123, 2, 'INACTIVE'),
-(8, 111124, 2, 'INACTIVE');
+(6, 111111, 2, 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -196,16 +193,6 @@ CREATE TABLE IF NOT EXISTS `person_privileges` (
 --
 
 INSERT INTO `person_privileges` (`ID`, `PRIVILEGE_ID`, `PERSON_ID`, `VALUE`) VALUES
-(11, 1, 111123, 1),
-(12, 2, 111123, 0),
-(13, 3, 111123, 0),
-(14, 4, 111123, 0),
-(15, 5, 111123, 1),
-(16, 6, 111123, 0),
-(17, 7, 111123, 0),
-(18, 8, 111123, 0),
-(19, 9, 111123, 0),
-(20, 10, 111123, 0),
 (21, 1, 111111, 1),
 (22, 2, 111111, 1),
 (23, 3, 111111, 1),
@@ -217,27 +204,9 @@ INSERT INTO `person_privileges` (`ID`, `PRIVILEGE_ID`, `PERSON_ID`, `VALUE`) VAL
 (29, 9, 111111, 1),
 (30, 10, 111111, 1),
 (41, 11, 111111, 1),
-(42, 11, 111123, 0),
 (61, 14, 111111, 1),
-(62, 14, 111123, 0),
 (64, 15, 111111, 1),
-(65, 15, 111123, 0),
-(145, 16, 111111, 1),
-(146, 16, 111123, 0),
-(147, 1, 111124, 0),
-(148, 2, 111124, 0),
-(149, 3, 111124, 0),
-(150, 4, 111124, 0),
-(151, 5, 111124, 0),
-(152, 6, 111124, 0),
-(153, 7, 111124, 0),
-(154, 8, 111124, 0),
-(155, 9, 111124, 0),
-(156, 10, 111124, 0),
-(157, 11, 111124, 0),
-(158, 14, 111124, 0),
-(159, 15, 111124, 0),
-(160, 16, 111124, 0);
+(145, 16, 111111, 1);
 
 -- --------------------------------------------------------
 
@@ -311,15 +280,25 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`ID`),
   KEY `CATEGORY_ID` (`CATEGORY_ID`),
   KEY `CURRENCY_ID` (`CURRENCY_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10106 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10125 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`ID`, `SKU_ID`, `NAME`, `PRICE`, `CURRENCY_ID`, `DESCRIPTION`, `CATEGORY_ID`) VALUES
-(10103, '#Y7CE77B5', 'Blouse', '123.94', 1, 'These are great blouses', 2),
-(10104, '#15SAMC0R', 'Pants', '324.12', 1, 'Best pants ever', 1);
+(10113, '#FD53AQX9', 'Onyx gemstone', '9.99', 2, 'Best bracelet for him that is made of gemstones over onyx', 7),
+(10114, '#KF1MHGEC', 'Brass leaf', '11.99', 2, 'Swarovski pearls, hammered brass link chain, peach pink resin flower', 7),
+(10115, '#RRQJ4UP0', 'Casio g-shock mt-g gps', '1503.49', 2, 'Hybrid wave ceptor mtg-g1000sg-1ajf mens japan import', 8),
+(10116, '#WKTIP7QQ', 'Joy brushed silver mesh', '119.00', 2, 'Most famous watch for her that is designed to comfort every typical models', 8),
+(10117, '#4HZQDZ7E', 'Live show gold earrings lulus', '12.12', 2, 'Take the live show gold earrings out for a night on the town! these unique antiqued gold earrings have swirling, engraved accents. earrings measure 2\" long.', 9),
+(10118, '#SK2P6EHO', 'Metallic silver triangle invisible ', '21.88', 2, 'Dangle geometric clip earrings, non pierced earrings, minimalist clip-ons', 9),
+(10119, '#691ZO147', 'Angel wings ring', '5.99', 2, 'Boho rings, angel jewelry, solid 925 sterling silver ring, christmas gift for women, silver rings, custom rings, initials', 10),
+(10120, '#WA2UBJU3', 'Auriferous nest ring', '3.99', 2, 'Three times around', 10),
+(10121, '#CAVWQV4U', 'Beautiful geometric marble pendant on gold chain', '13.99', 2, 'This would look so pretty layered with other necklaces. drop is 16â€ colors available: white square, white rectangle, black rectangle, green rectangle', 11),
+(10122, '#N3KQV3NO', 'Crystal teardrop necklace gold crystal pendant', '17.99', 2, 'Crystal necklace jewellery womens gifts delicate necklace summer necklace', 11),
+(10123, '#JQCX7ME8', 'Gold & iridescent rhinestone statement necklace', '25.00', 2, 'Necklace length: 36 centimetres,pendant width: 4, materials: zinc alloy, rhinestones\r\n', 11),
+(10124, '#2Q8N3HL0', 'Gold & silver rhinestone bib necklace', '16.00', 2, 'Necklace length: 18 centimetres, closure: lobster claw, adjustable length: yes, materials: zinc alloy, rhinestone', 11);
 
 -- --------------------------------------------------------
 
@@ -334,16 +313,31 @@ CREATE TABLE IF NOT EXISTS `products_images` (
   `IMAGE_PATH` varchar(200) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products_images`
 --
 
 INSERT INTO `products_images` (`ID`, `PRODUCT_ID`, `IMAGE_PATH`) VALUES
-(62, 10103, 'Assets/blouse.jpg'),
-(63, 10103, 'Assets/blouse2.jpg'),
-(64, 10104, 'Assets/8149171_fpx.jpg');
+(11, 10113, 'Assets/77d14787c43f17fc9b83bff1c0df472a.jpg'),
+(12, 10114, 'Assets/e1b43693aac195ea04fd81da9c54c29c.jpg'),
+(13, 10114, 'Assets/il_570xN.483022612_fmxe.jpg'),
+(14, 10115, 'Assets/51cBsznlwJL.jpg'),
+(15, 10116, 'Assets/joy_brushed_silver_mesjh.jpg'),
+(16, 10117, 'Assets/il_570xN.1379615023_6r4g.jpg'),
+(17, 10118, 'Assets/il_570xN.1152836979_2avt.jpg'),
+(18, 10119, 'Assets/il_570xN.1061071384_twd7.jpg'),
+(19, 10119, 'Assets/il_570xN.1061071460_nsrf.jpg'),
+(20, 10120, 'Assets/6ead3e2d9b3876a54710ff2a05895bfa.jpg'),
+(21, 10121, 'Assets/m_59e9d518bf6df5f5a9006af5.jpg'),
+(22, 10121, 'Assets/m_59e9d5136802785f29006b1f.jpg'),
+(23, 10122, 'Assets/il_570xN.1289822621_g98e.jpg'),
+(24, 10122, 'Assets/il_570xN.1285983691_dgkj.jpg'),
+(25, 10123, 'Assets/il_570xN.1300891573_5gnl.jpg'),
+(26, 10123, 'Assets/il_570xN.1253647410_po2f.jpg'),
+(27, 10124, 'Assets/il_570xN.1332352210_p1tf.jpg'),
+(28, 10124, 'Assets/il_570xN.1379615023_6r4g.jpg');
 
 -- --------------------------------------------------------
 
@@ -357,15 +351,18 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   `CATEGORY` varchar(200) NOT NULL,
   `IS_ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_categories`
 --
 
 INSERT INTO `product_categories` (`ID`, `CATEGORY`, `IS_ACTIVE`) VALUES
-(1, 'Earrings', 1),
-(2, 'Neclaces', 1);
+(7, 'Bracelets', 1),
+(8, 'Watches', 1),
+(9, 'Earrings', 1),
+(10, 'Rings', 1),
+(11, 'Necklaces', 1);
 
 -- --------------------------------------------------------
 
@@ -381,15 +378,14 @@ CREATE TABLE IF NOT EXISTS `product_features` (
   `IS_ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `DATA_TYPE_ID` (`DATA_TYPE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_features`
 --
 
 INSERT INTO `product_features` (`ID`, `FEATURE`, `DATA_TYPE_ID`, `IS_ACTIVE`) VALUES
-(4, 'Entry date', 2, 1),
-(5, 'Stock', 3, 1);
+(9, 'Handmade', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -406,16 +402,25 @@ CREATE TABLE IF NOT EXISTS `product_feature_values` (
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`,`FEATURE_ID`),
   KEY `FEATURE_ID` (`FEATURE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_feature_values`
 --
 
 INSERT INTO `product_feature_values` (`ID`, `PRODUCT_ID`, `FEATURE_ID`, `VALUE`) VALUES
-(11, 10103, 4, '2017-11-21'),
-(12, 10104, 4, '2017-11-13'),
-(13, 10104, 5, '231');
+(7, 10113, 9, 'true'),
+(8, 10114, 9, 'true'),
+(9, 10115, 9, 'true'),
+(10, 10116, 9, 'true'),
+(11, 10117, 9, 'off'),
+(12, 10118, 9, 'off'),
+(13, 10119, 9, 'off'),
+(14, 10120, 9, 'off'),
+(15, 10121, 9, 'off'),
+(16, 10122, 9, 'off'),
+(17, 10123, 9, 'off'),
+(18, 10124, 9, 'off');
 
 --
 -- Constraints for dumped tables

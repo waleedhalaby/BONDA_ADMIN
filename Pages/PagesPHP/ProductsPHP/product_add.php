@@ -228,6 +228,13 @@
         $('#addProductForm').submit(function(e){
             e.preventDefault();
 
+            $('.product-details-table tbody input[type=checkbox]').on('change',function(){
+                if($(this).val() === 'on')
+                    $(this).value = 'true';
+                else
+                    $(this).value = 'false';
+            });
+
             var values = '';
             for(var i = 0 ; i < counter ; i++){
                 values += $('#value'+i).val()+'$';

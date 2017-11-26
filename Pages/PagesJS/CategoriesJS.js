@@ -7,9 +7,11 @@ $(document).ready(function () {
         $('#content .box-content').html('Sorry, you don\'t have the privilege to update categories.');
     }
 
+    $('#categoryTable').html('');
+    var categories = [];
    $.get('Pages/PagesPHP/CategoriesPHP/GetCategories.php',function (data) {
        if(data !== ''){
-           var categories = $.parseJSON(data);
+           categories = $.parseJSON(data);
            $(categories).each(function (id,category) {
                if(category['PRODUCTS'] > 0){
                    var status,icon;
@@ -57,7 +59,10 @@ $(document).ready(function () {
                        '</tr>');
                }
            });
-           $('.datatable').DataTable();
        }
+       else{
+           products = [];
+       }
+       $('.datatable').DataTable();
    });
 });

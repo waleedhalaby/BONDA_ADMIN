@@ -2,7 +2,7 @@
 $PRODUCT_ID = $_GET['id'];
 ?>
 
-<div class="modal-product-content">
+<div class="modal-product-edit-content">
     <label>Product Details</label>
     <form id="editProductForm">
         <table class="table table-striped table-bordered product-details-table">
@@ -35,6 +35,7 @@ $PRODUCT_ID = $_GET['id'];
     var ProductID = <?php echo $PRODUCT_ID ?>;
     var imageName = '';
     var oldImage = '';
+    var counter = 0;
 
 
     $(document).ready(function(){
@@ -42,19 +43,18 @@ $PRODUCT_ID = $_GET['id'];
         var length = 0;
         $.get('Pages/PagesPHP/ProductsPHP/GetDetails.php?id=<?php echo $PRODUCT_ID ?>',function(data) {
             var product = $.parseJSON(data);
-            var counter = 0;
             var counter2 = 0;
             $('.product-details-table tbody').html(
                 '<tr><td>ID</td><td>['+product[0]['ID']+']</td></tr>'+
                 '<tr><td>SKU ID</td><td><input id="editSKUID" style="text-align: center" name="editSKUID" type="text" readonly value="'+product[0]['SKU_ID']+'"/></td></tr>'+
+                '<tr><td>NAME</td><td><input id="editName" name="editName" type="text" value="'+product[0]['NAME']+'"/></td></tr>'+
                 '<tr><td>PRICE</td><td><input id="editPrice" name="editPrice" type="number" step="0.01" value="'+product[0]['PRICE']+'"/></td></tr>'+
-                //'<tr><td>CURRENCY</td><td>'+currency+'</td></tr>'+
-                '<tr><td>DESCRIPTION</td><td><textarea id="editDesc" name="editDesc" class="cleditor">'+product[0]['DESCRIPTION']+'</textarea></td></tr>'
-                //'<tr><td>CATEGORY</td><td>'+category+'</td></tr>'
+                '<tr><td>DESCRIPTION</td><td><textarea id="editDescription" name="editDescription" class="cleditor">'+product[0]['DESCRIPTION']+'</textarea></td></tr>'+
+                '<tr><td>CATEGORY</td><td><span class="label label-warning">'+product[0]['CATEGORY']+'</span></td></tr>'
             );
             $(product[0]['FEATURES']).each(function(id,feature){
                 $('.product-details-table tbody').append(
-                    '<tr><td>'+feature['FEATURE']+'</td><td>'+InputEditDataType(counter,feature['DATA_TYPE'],feature['FEATURE'],feature['VALUE'])+'</td></tr>'
+                    '<tr><td>'+feature['FEATURE']+'</td><td>'+InputEditDataType(feature['ID'],feature['DATA_TYPE'],feature['FEATURE'],feature['VALUE'])+'</td></tr>'
                 );
                 counter++;
             });
@@ -122,6 +122,51 @@ $PRODUCT_ID = $_GET['id'];
                 var id = $(this).attr('id');
                 id = id.substr(id.length - 1);
                 HandleFileChange('fileupload'+id,'image'+id,'text'+id,'uploadImage'+id);
+            });
+
+            $('.product-details-table tbody input[type="checkbox"]').on('change',function(){
+                console.log('changed from '+$(this).prop('checked'));
+                if($(this).prop('checked') === true)
+                    $(this).val('true');
+                else
+                    $(this).val('false');
+                console.log(' to '+$(this).val());
+            });
+
+            $('#editProductForm').submit(function(e){
+                e.preventDefault();
+
+
+
+                var values = '';
+                var featureIds = '';
+                for(var i = 0 ; i < counter ; i++){
+                    var id = $('.val').attr('id');
+                    featureIds += id.substr(id.length - 1)+'$';
+                    values += $('.val').val()+'$';
+                }
+
+                var url = "Pages/PagesPHP/ProductsPHP/UpdateProduct.php?id=<?php echo $PRODUCT_ID ?>&values="+values+"&featureids="+featureIds;
+
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: $('#editProductForm').serialize(),
+                    success: function (data) {
+                        if(data === '') {
+                            $('#content').load('Pages/Products.php');
+                            $('#message').html('');
+                            $('#message').html('<div class="container-fluid text-center"><span class="label label-warning">Product is Updated Successfully.</span></div>');
+                        }
+                        else{
+                            $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');
+                        }
+                    },
+                    error: function(data){
+                        $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</div>');
+                    }
+                });
             });
         });
     });

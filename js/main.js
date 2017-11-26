@@ -97,7 +97,7 @@ function InputDataType(id,datatype,feature){
             return '<input type="number" step="0.01" id="value'+id+'" name="value'+id+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
             break;
         case 'BOOLEAN':
-            return '<input type="checkbox" id="value'+id+'" name="value'+id+'"/>';
+            return '<input type="checkbox" value="off" id="value'+id+'" name="value'+id+'"/>';
         break;
     }
 }
@@ -105,20 +105,23 @@ function InputDataType(id,datatype,feature){
 function InputEditDataType(id,datatype,feature,value){
     switch (datatype){
         case 'STRING':
-            return '<input type="text" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
+            return '<input class="val" type="text" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
             break;
         case 'DATETIME':
-            return '<input type="date" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
+            return '<input class="val" type="date" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
             break;
         case 'INTEGER':
-            return '<input type="number" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
+            return '<input class="val" type="number" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
             break;
         case 'DOUBLE':
         case 'DECIMAL':
-            return '<input type="number" step="0.01" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
+            return '<input class="val" type="number" step="0.01" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
             break;
         case 'BOOLEAN':
-            return '<input type="checkbox" id="value'+id+'" name="value'+id+'" value="'+value+'"/>';
+            if(value === "true")
+                return '<input class="val" type="checkbox" id="value'+id+'" name="value'+id+'" checked/>';
+            else
+                return '<input class="val" type="checkbox" id="value'+id+'" name="value'+id+'"/>';
             break;
     }
 }
