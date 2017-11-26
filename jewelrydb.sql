@@ -1,26 +1,26 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 23, 2017 at 10:29 AM
--- Server version: 5.6.12-log
--- PHP Version: 5.4.16
+-- Host: 127.0.0.1:3306
+-- Generation Time: Nov 26, 2017 at 04:47 PM
+-- Server version: 5.7.19
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `jewelrydb`
 --
-CREATE DATABASE IF NOT EXISTS `jewelrydb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `jewelrydb`;
 
 -- --------------------------------------------------------
 
@@ -28,11 +28,12 @@ USE `jewelrydb`;
 -- Table structure for table `currencies`
 --
 
+DROP TABLE IF EXISTS `currencies`;
 CREATE TABLE IF NOT EXISTS `currencies` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `CURRENCY` varchar(5) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `currencies`
@@ -47,11 +48,12 @@ INSERT INTO `currencies` (`ID`, `CURRENCY`) VALUES
 -- Table structure for table `data_types`
 --
 
+DROP TABLE IF EXISTS `data_types`;
 CREATE TABLE IF NOT EXISTS `data_types` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `TYPE` varchar(200) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `data_types`
@@ -71,6 +73,7 @@ INSERT INTO `data_types` (`ID`, `TYPE`) VALUES
 -- Table structure for table `pages`
 --
 
+DROP TABLE IF EXISTS `pages`;
 CREATE TABLE IF NOT EXISTS `pages` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `TITLE` varchar(150) NOT NULL,
@@ -78,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `ICON` varchar(150) NOT NULL,
   `PARENT` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
@@ -102,6 +105,7 @@ INSERT INTO `pages` (`ID`, `TITLE`, `LINK`, `ICON`, `PARENT`) VALUES
 -- Table structure for table `persons`
 --
 
+DROP TABLE IF EXISTS `persons`;
 CREATE TABLE IF NOT EXISTS `persons` (
   `ID` int(6) NOT NULL AUTO_INCREMENT,
   `FIRST_NAME` varchar(150) NOT NULL,
@@ -111,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `persons` (
   `PERSON_TYPE_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=111132 ;
+) ENGINE=InnoDB AUTO_INCREMENT=111125 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `persons`
@@ -119,7 +123,8 @@ CREATE TABLE IF NOT EXISTS `persons` (
 
 INSERT INTO `persons` (`ID`, `FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`, `PERSON_TYPE_ID`) VALUES
 (111111, 'Waleed', 'Halaby', 'admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', 1),
-(111123, 'Ahmed', 'Mohamed', 'ahmed@ahmed.com', '4297f44b13955235245b2497399d7a93', 1);
+(111123, 'Ahmed', 'Mohamed', 'ahmed@ahmed.com', '4297f44b13955235245b2497399d7a93', 1),
+(111124, 'Tamer', 'Hosny', 'tamer@tamer.com', '4297f44b13955235245b2497399d7a93', 1);
 
 -- --------------------------------------------------------
 
@@ -127,13 +132,14 @@ INSERT INTO `persons` (`ID`, `FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`, `PE
 -- Table structure for table `person_features`
 --
 
+DROP TABLE IF EXISTS `person_features`;
 CREATE TABLE IF NOT EXISTS `person_features` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `FEATURE` varchar(200) NOT NULL,
   `PERSON_TYPE_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_features`
@@ -148,6 +154,7 @@ INSERT INTO `person_features` (`ID`, `FEATURE`, `PERSON_TYPE_ID`) VALUES
 -- Table structure for table `person_feature_values`
 --
 
+DROP TABLE IF EXISTS `person_feature_values`;
 CREATE TABLE IF NOT EXISTS `person_feature_values` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PERSON_ID` int(11) NOT NULL,
@@ -156,15 +163,16 @@ CREATE TABLE IF NOT EXISTS `person_feature_values` (
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`,`PERSON_FEATURE_ID`),
   KEY `FEATURE_ID` (`PERSON_FEATURE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_feature_values`
 --
 
 INSERT INTO `person_feature_values` (`ID`, `PERSON_ID`, `PERSON_FEATURE_ID`, `VALUE`) VALUES
-(3, 111123, 2, 'INACTIVE'),
-(5, 111111, 2, 'ACTIVE');
+(6, 111111, 2, 'ACTIVE'),
+(7, 111123, 2, 'INACTIVE'),
+(8, 111124, 2, 'INACTIVE');
 
 -- --------------------------------------------------------
 
@@ -172,6 +180,7 @@ INSERT INTO `person_feature_values` (`ID`, `PERSON_ID`, `PERSON_FEATURE_ID`, `VA
 -- Table structure for table `person_privileges`
 --
 
+DROP TABLE IF EXISTS `person_privileges`;
 CREATE TABLE IF NOT EXISTS `person_privileges` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PRIVILEGE_ID` int(11) NOT NULL,
@@ -180,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `person_privileges` (
   PRIMARY KEY (`ID`),
   KEY `PRIVILEGE_ID` (`PRIVILEGE_ID`,`PERSON_ID`),
   KEY `PERSON_ID` (`PERSON_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=147 ;
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_privileges`
@@ -214,7 +223,21 @@ INSERT INTO `person_privileges` (`ID`, `PRIVILEGE_ID`, `PERSON_ID`, `VALUE`) VAL
 (64, 15, 111111, 1),
 (65, 15, 111123, 0),
 (145, 16, 111111, 1),
-(146, 16, 111123, 0);
+(146, 16, 111123, 0),
+(147, 1, 111124, 0),
+(148, 2, 111124, 0),
+(149, 3, 111124, 0),
+(150, 4, 111124, 0),
+(151, 5, 111124, 0),
+(152, 6, 111124, 0),
+(153, 7, 111124, 0),
+(154, 8, 111124, 0),
+(155, 9, 111124, 0),
+(156, 10, 111124, 0),
+(157, 11, 111124, 0),
+(158, 14, 111124, 0),
+(159, 15, 111124, 0),
+(160, 16, 111124, 0);
 
 -- --------------------------------------------------------
 
@@ -222,11 +245,12 @@ INSERT INTO `person_privileges` (`ID`, `PRIVILEGE_ID`, `PERSON_ID`, `VALUE`) VAL
 -- Table structure for table `person_types`
 --
 
+DROP TABLE IF EXISTS `person_types`;
 CREATE TABLE IF NOT EXISTS `person_types` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `TYPE` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_types`
@@ -242,11 +266,12 @@ INSERT INTO `person_types` (`ID`, `TYPE`) VALUES
 -- Table structure for table `privileges`
 --
 
+DROP TABLE IF EXISTS `privileges`;
 CREATE TABLE IF NOT EXISTS `privileges` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PRIVILEGE` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `privileges`
@@ -274,6 +299,7 @@ INSERT INTO `privileges` (`ID`, `PRIVILEGE`) VALUES
 -- Table structure for table `products`
 --
 
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `SKU_ID` varchar(20) DEFAULT NULL,
@@ -285,7 +311,15 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`ID`),
   KEY `CATEGORY_ID` (`CATEGORY_ID`),
   KEY `CURRENCY_ID` (`CURRENCY_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10134 ;
+) ENGINE=InnoDB AUTO_INCREMENT=10106 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`ID`, `SKU_ID`, `NAME`, `PRICE`, `CURRENCY_ID`, `DESCRIPTION`, `CATEGORY_ID`) VALUES
+(10103, '#Y7CE77B5', 'Blouse', '123.94', 1, 'These are great blouses', 2),
+(10104, '#15SAMC0R', 'Pants', '324.12', 1, 'Best pants ever', 1);
 
 -- --------------------------------------------------------
 
@@ -293,13 +327,23 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Table structure for table `products_images`
 --
 
+DROP TABLE IF EXISTS `products_images`;
 CREATE TABLE IF NOT EXISTS `products_images` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PRODUCT_ID` int(11) NOT NULL,
   `IMAGE_PATH` varchar(200) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products_images`
+--
+
+INSERT INTO `products_images` (`ID`, `PRODUCT_ID`, `IMAGE_PATH`) VALUES
+(62, 10103, 'Assets/blouse.jpg'),
+(63, 10103, 'Assets/blouse2.jpg'),
+(64, 10104, 'Assets/8149171_fpx.jpg');
 
 -- --------------------------------------------------------
 
@@ -307,12 +351,13 @@ CREATE TABLE IF NOT EXISTS `products_images` (
 -- Table structure for table `product_categories`
 --
 
+DROP TABLE IF EXISTS `product_categories`;
 CREATE TABLE IF NOT EXISTS `product_categories` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `CATEGORY` varchar(200) NOT NULL,
   `IS_ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_categories`
@@ -328,6 +373,7 @@ INSERT INTO `product_categories` (`ID`, `CATEGORY`, `IS_ACTIVE`) VALUES
 -- Table structure for table `product_features`
 --
 
+DROP TABLE IF EXISTS `product_features`;
 CREATE TABLE IF NOT EXISTS `product_features` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `FEATURE` varchar(200) NOT NULL,
@@ -335,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `product_features` (
   `IS_ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `DATA_TYPE_ID` (`DATA_TYPE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_features`
@@ -351,6 +397,7 @@ INSERT INTO `product_features` (`ID`, `FEATURE`, `DATA_TYPE_ID`, `IS_ACTIVE`) VA
 -- Table structure for table `product_feature_values`
 --
 
+DROP TABLE IF EXISTS `product_feature_values`;
 CREATE TABLE IF NOT EXISTS `product_feature_values` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PRODUCT_ID` int(11) NOT NULL,
@@ -359,7 +406,16 @@ CREATE TABLE IF NOT EXISTS `product_feature_values` (
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`,`FEATURE_ID`),
   KEY `FEATURE_ID` (`FEATURE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_feature_values`
+--
+
+INSERT INTO `product_feature_values` (`ID`, `PRODUCT_ID`, `FEATURE_ID`, `VALUE`) VALUES
+(11, 10103, 4, '2017-11-21'),
+(12, 10104, 4, '2017-11-13'),
+(13, 10104, 5, '231');
 
 --
 -- Constraints for dumped tables
@@ -381,8 +437,8 @@ ALTER TABLE `person_features`
 -- Constraints for table `person_feature_values`
 --
 ALTER TABLE `person_feature_values`
-  ADD CONSTRAINT `person_feature_values_ibfk_2` FOREIGN KEY (`PERSON_ID`) REFERENCES `persons` (`ID`),
-  ADD CONSTRAINT `person_feature_values_ibfk_1` FOREIGN KEY (`PERSON_FEATURE_ID`) REFERENCES `person_features` (`ID`);
+  ADD CONSTRAINT `person_feature_values_ibfk_1` FOREIGN KEY (`PERSON_FEATURE_ID`) REFERENCES `person_features` (`ID`),
+  ADD CONSTRAINT `person_feature_values_ibfk_2` FOREIGN KEY (`PERSON_ID`) REFERENCES `persons` (`ID`);
 
 --
 -- Constraints for table `person_privileges`
@@ -414,8 +470,9 @@ ALTER TABLE `product_features`
 -- Constraints for table `product_feature_values`
 --
 ALTER TABLE `product_feature_values`
-  ADD CONSTRAINT `product_feature_values_ibfk_2` FOREIGN KEY (`FEATURE_ID`) REFERENCES `product_features` (`ID`),
-  ADD CONSTRAINT `product_feature_values_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `products` (`ID`);
+  ADD CONSTRAINT `product_feature_values_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `products` (`ID`),
+  ADD CONSTRAINT `product_feature_values_ibfk_2` FOREIGN KEY (`FEATURE_ID`) REFERENCES `product_features` (`ID`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
