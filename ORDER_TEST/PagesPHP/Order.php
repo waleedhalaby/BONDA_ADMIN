@@ -1,9 +1,6 @@
 <?php
-$con = mysqli_connect('localhost:3306','root','','jewelrydb');
+require ('../DBCONNECT.php');
 
-if(mysqli_connect_errno()){
-    echo 'Failed to connect to MYSQL: ' . mysqli_connect_error();
-}
 session_start();
 
 $PERSON_ID = $_SESSION['PERSON_ID'];
@@ -20,6 +17,5 @@ $result = mysqli_query($con,$sql);
 $sql = "UPDATE carts SET CART_STATUS_ID = 2 WHERE ID = '".$CART_ID."'";
 $result = mysqli_query($con,$sql);
 
-$_SESSION['COUNT'] = null;
 echo true;
 ?>

@@ -1,9 +1,6 @@
 <?php
-$con = mysqli_connect('localhost:3306','root','','jewelrydb');
+require ('../DBCONNECT.php');
 
-if(mysqli_connect_errno()){
-    echo 'Failed to connect to MYSQL: ' . mysqli_connect_error();
-}
 
 $sql = "SELECT P.ID,P.SKU_ID,P.NAME,P.PRICE,C.CURRENCY, CT.CATEGORY,P.DESCRIPTION FROM products P 
             INNER JOIN currencies C ON P.CURRENCY_ID = C.ID

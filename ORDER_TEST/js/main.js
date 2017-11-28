@@ -1,4 +1,10 @@
 $(document).ready(function(){
+    $('#main_content').load('PagesPHP/Shop.php');
+
+    $('#cartBtn').on('click',function(){
+        $('#main_content').load('PagesPHP/Cart.php');
+    });
+
     $.get('PagesPHP/GetProduct.php',function(data){
         var products = $.parseJSON(data);
         var counter = 1;

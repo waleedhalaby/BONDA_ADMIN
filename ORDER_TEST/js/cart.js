@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var cartId = 0;
-    $.get('GetCart.php',function(data){
+    $.get('PagesPHP/GetCart.php',function(data){
         var cart = $.parseJSON(data);
         if(cart['DETAILS'].length > 0){
             $('#orderDiv').css('visibility','visible');
@@ -31,7 +31,7 @@ $(document).ready(function(){
     });
 
     $('#orderBtn').on('click',function(){
-        var url = 'Order.php?id='+cartId;
+        var url = 'PagesPHP/Order.php?id='+cartId;
         $.ajax({
             type: "POST",
             url: url,
@@ -40,7 +40,7 @@ $(document).ready(function(){
                 console.log(data);
                 if(data === "1") {
                     alert('Your cart is ordered successfully');
-                    document.location.href="../index.php";
+                    document.location.href="index.php";
                 }
                 else{
                     alert('Error occurred, please contact your administrator.');

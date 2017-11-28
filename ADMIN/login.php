@@ -31,6 +31,11 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a class="brand" href="index.php"><span>BONDA</span></a>
+            <div class="nav-no-collapse header-nav">
+                <div class="nav pull-right">
+                    <a style="background-color: #0e90d2" href="../index.html" id="backBtn" class="btn btn-primary"><span class="icon icon-backward"></span> BACK</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

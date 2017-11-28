@@ -1,9 +1,6 @@
 <?php
-$con = mysqli_connect('localhost:3306','root','','jewelrydb');
+require ('../DBCONNECT.php');
 
-if(mysqli_connect_errno()){
-    echo 'Failed to connect to MYSQL: ' . mysqli_connect_error();
-}
 session_start();
 
 $PERSON_ID = $_SESSION['PERSON_ID'];
@@ -33,7 +30,6 @@ if($rows > 0){
 
     $sql = "INSERT INTO cart_details (CART_ID,PRODUCT_ID,QUANTITY,PRICE) VALUES ('".$CART_ID."','".$PRODUCT_ID."','1','".$PRICE."')";
     $result = mysqli_query($con,$sql);
-    $_SESSION['COUNT'] += 1;
     echo true;
 }
 else{
@@ -51,7 +47,6 @@ else{
 
         $sql = "INSERT INTO cart_details (CART_ID,PRODUCT_ID,QUANTITY,PRICE) VALUES ('".$CART_ID."','".$PRODUCT_ID."','1','".$PRICE."')";
         $result = mysqli_query($con,$sql);
-        $_SESSION['COUNT'] += 1;
         echo true;
     }
     else{
