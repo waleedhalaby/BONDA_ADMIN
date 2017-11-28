@@ -1,7 +1,7 @@
 <?php
     require ('DBCONNECT.php');
 
-    $sql = 'SELECT * FROM PAGES';
+    $sql = 'SELECT * FROM pages';
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
 

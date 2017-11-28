@@ -21,13 +21,13 @@ if(isset($_POST['editDescription'])||empty($_POST['editDescription'])){
     $DESCRIPTION = addcslashes($DESCRIPTION,"';");
 }
 
-$sql = "UPDATE PRODUCTS SET NAME='".$NAME."', PRICE='".$PRICE."', DESCRIPTION='".$DESCRIPTION."'
+$sql = "UPDATE products SET NAME='".$NAME."', PRICE='".$PRICE."', DESCRIPTION='".$DESCRIPTION."'
         WHERE ID=".$ID;
 $result = mysqli_query($con, $sql);
 
 $i = 0;
 foreach($IDS AS $ID){
-    $sql = "UPDATE PRODUCT_FEATURE_VALUES SET VALUE = '".$CHANGES[$i]."' WHERE ID = '".$ID."'";
+    $sql = "UPDATE product_feature_values SET VALUE = '".$CHANGES[$i]."' WHERE ID = '".$ID."'";
     $result = mysqli_query($con,$sql);
     $i++;
 }

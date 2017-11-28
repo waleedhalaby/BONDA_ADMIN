@@ -3,8 +3,8 @@ require ('../../../Handlers/DBCONNECT.php');
 
 $MEMBER_ID = $_GET['id'];
 
-$sql = "SELECT PR.ID, PR.FIRST_NAME, PR.LAST_NAME, PR.EMAIL, PT.TYPE FROM PERSONS PR
-            INNER JOIN PERSON_TYPES PT ON PR.PERSON_TYPE_ID = PT.ID
+$sql = "SELECT PR.ID, PR.FIRST_NAME, PR.LAST_NAME, PR.EMAIL, PT.TYPE FROM persons PR
+            INNER JOIN person_types PT ON PR.PERSON_TYPE_ID = PT.ID
             WHERE PR.ID = ".$MEMBER_ID;
 $result = mysqli_query($con,$sql);
 $rows = mysqli_num_rows($result);
@@ -20,9 +20,9 @@ if($rows > 0){
             $json[$i]['EMAIL'] = $row['EMAIL'];
             $json[$i]['TYPE'] = $row['TYPE'];
 
-            $sql = "SELECT V.ID, F.FEATURE, V.VALUE FROM PERSON_FEATURE_VALUES V
-                        INNER JOIN PERSON_FEATURES F ON V.PERSON_FEATURE_ID = F.ID
-                        INNER JOIN PERSONS P ON V.PERSON_ID = P.ID
+            $sql = "SELECT V.ID, F.FEATURE, V.VALUE FROM person_feature_values V
+                        INNER JOIN person_features F ON V.PERSON_FEATURE_ID = F.ID
+                        INNER JOIN persons P ON V.PERSON_ID = P.ID
                         WHERE F.FEATURE NOT LIKE 'STATUS' AND P.ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
             $rows2 = mysqli_num_rows($result2);

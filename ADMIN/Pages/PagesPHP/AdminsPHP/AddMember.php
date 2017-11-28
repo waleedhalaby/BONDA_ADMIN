@@ -15,17 +15,17 @@ if($PASSWORD != $PASSWORD2){
     echo false;
 }
 else{
-    $sql = "INSERT INTO PERSONS (FIRST_NAME,LAST_NAME,EMAIL,PASSWORD,PERSON_TYPE_ID) VALUES
+    $sql = "INSERT INTO persons (FIRST_NAME,LAST_NAME,EMAIL,PASSWORD,PERSON_TYPE_ID) VALUES
         ('".$FIRST_NAME."','".$LAST_NAME."','".$EMAIL."','".md5($PASSWORD)."','".$ROLE."')";
     $result = mysqli_query($con,$sql);
 
     if($result){
-        $sql = "SELECT ID FROM PERSONS WHERE EMAIL = '".$EMAIL."'";
+        $sql = "SELECT ID FROM persons WHERE EMAIL = '".$EMAIL."'";
         $res = mysqli_query($con,$sql);
         $rows = mysqli_num_rows($res);
         if($rows > 0){
             while($MEMBER_ID = mysqli_fetch_assoc($res)){
-                $sql = "INSERT INTO PERSON_FEATURE_VALUES (PERSON_FEATURE_ID,PERSON_ID,VALUE) VALUES ('2','".$MEMBER_ID['ID']."','INACTIVE')";
+                $sql = "INSERT INTO person_feature_values (PERSON_FEATURE_ID,PERSON_ID,VALUE) VALUES ('2','".$MEMBER_ID['ID']."','INACTIVE')";
                 $result = mysqli_query($con, $sql);
 
                 $sql = "SELECT ID FROM PRIVILEGES";
@@ -33,7 +33,7 @@ else{
                 $rows = mysqli_num_rows($res2);
                 if($rows > 0){
                     while($row = mysqli_fetch_assoc($res2)){
-                        $sql = "INSERT INTO PERSON_PRIVILEGES (PERSON_ID,PRIVILEGE_ID,VALUE) VALUES ('".$MEMBER_ID['ID']."','".$row['ID']."','0')";
+                        $sql = "INSERT INTO person_privileges (PERSON_ID,PRIVILEGE_ID,VALUE) VALUES ('".$MEMBER_ID['ID']."','".$row['ID']."','0')";
                         $result = mysqli_query($con, $sql);
                     }
                     echo true;

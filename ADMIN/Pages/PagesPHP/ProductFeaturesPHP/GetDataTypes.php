@@ -2,7 +2,7 @@
     require('../../../Handlers/DBCONNECT.php');
     session_start();
 
-    $sql = "SELECT ID, TYPE FROM DATA_TYPES";
+    $sql = "SELECT ID, TYPE FROM data_types";
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
     $json = Array();

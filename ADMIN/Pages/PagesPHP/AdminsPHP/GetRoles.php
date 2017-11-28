@@ -1,7 +1,7 @@
 <?php
 require('../../../Handlers/DBCONNECT.php');
 
-$sql = "SELECT * FROM PERSON_TYPES";
+$sql = "SELECT * FROM person_types";
 $result = mysqli_query($con,$sql);
 $rows = mysqli_num_rows($result);
 

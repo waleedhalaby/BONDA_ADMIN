@@ -25,12 +25,12 @@ if(isset($_POST['addDescription'])||empty($_POST['addDescription'])){
 
 $CATEGORY = $_POST['addCategory'];
 
-$sql = "INSERT INTO PRODUCTS (SKU_ID,NAME,PRICE,CURRENCY_ID,DESCRIPTION,CATEGORY_ID)
+$sql = "INSERT INTO products (SKU_ID,NAME,PRICE,CURRENCY_ID,DESCRIPTION,CATEGORY_ID)
         VALUES ('" . $SKU_ID . "','" . $NAME . "','" . $PRICE . "','" . $CURRENCY . "','" . $DESCRIPTION . "','" . $CATEGORY . "')";
 $result = mysqli_query($con, $sql);
 
 
-$sql = "SELECT ID FROM PRODUCTS WHERE NAME = '" . $NAME . "'";
+$sql = "SELECT ID FROM products WHERE NAME = '" . $NAME . "'";
 $result = mysqli_query($con, $sql);
 $rows = mysqli_num_rows($result);
 
@@ -40,7 +40,7 @@ if ($rows > 0) {
          $i = 0;
         foreach ($CHANGES AS $CHANGE){
             if($CHANGE != '' && $IDS[$i] != ''){
-                $sql = "INSERT INTO PRODUCT_FEATURE_VALUES (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
+                $sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
                     ('".$ID."','".$IDS[$i]."','".$CHANGE."')";
                 $result2 = mysqli_query($con,$sql);
             }

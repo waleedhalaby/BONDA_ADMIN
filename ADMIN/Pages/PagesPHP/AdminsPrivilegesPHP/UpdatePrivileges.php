@@ -13,7 +13,7 @@ foreach ($changes as $value){
     $PERSON_PRIVILEGE_ID = $val[0];
     $VALUE = $val[1];
 
-    $sql = "UPDATE PERSON_PRIVILEGES SET VALUE = '".$VALUE."' WHERE ID = ".$PERSON_PRIVILEGE_ID;
+    $sql = "UPDATE person_privileges SET VALUE = '".$VALUE."' WHERE ID = ".$PERSON_PRIVILEGE_ID;
     $result = mysqli_query($con,$sql);
 
 }

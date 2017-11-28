@@ -17,12 +17,12 @@ for($i = 0; $i < $COUNTER ; $i++){
     $json[$i]['VALUE'] = $_POST['FEATURE'.$i];
 }
 
-$sql = "UPDATE PERSONS SET FIRST_NAME = '".$FIRST_NAME."',LAST_NAME = '".$LAST_NAME."',EMAIL = '".$EMAIL."' 
+$sql = "UPDATE persons SET FIRST_NAME = '".$FIRST_NAME."',LAST_NAME = '".$LAST_NAME."',EMAIL = '".$EMAIL."' 
         WHERE ID = ".$MEMBER_ID;
 $result = mysqli_query($con,$sql);
 
 for($i = 0; $i < $COUNTER ; $i++) {
-    $sql = "UPDATE PERSON_FEATURE_VALUES SET VALUE = " . $json[$i]['VALUE'] . "WHERE ID = " . $json[$i]['FEATURE_ID'];
+    $sql = "UPDATE person_feature_values SET VALUE = " . $json[$i]['VALUE'] . "WHERE ID = " . $json[$i]['FEATURE_ID'];
     $result = mysqli_query($con,$sql);
 }
 

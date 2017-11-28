@@ -2,7 +2,7 @@
     require('../../Handlers/DBCONNECT.php');
     session_start();
 
-    $sql = "SELECT ID, CURRENCY FROM CURRENCIES";
+    $sql = "SELECT ID, CURRENCY FROM currencies";
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
 

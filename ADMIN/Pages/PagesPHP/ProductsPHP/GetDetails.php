@@ -3,9 +3,9 @@
 
     $PRODUCT_ID = $_GET['id'];
 
-    $sql = "SELECT P.ID,P.SKU_ID,P.NAME,P.PRICE,C.ID AS CURRENCY_ID ,C.CURRENCY,P.DESCRIPTION, CT.ID AS CATEGORY_ID, CT.CATEGORY FROM PRODUCTS P 
-                INNER JOIN CURRENCIES C ON P.CURRENCY_ID = C.ID
-                INNER JOIN PRODUCT_CATEGORIES CT ON P.CATEGORY_ID = CT.ID
+    $sql = "SELECT P.ID,P.SKU_ID,P.NAME,P.PRICE,C.ID AS CURRENCY_ID ,C.CURRENCY,P.DESCRIPTION, CT.ID AS CATEGORY_ID, CT.CATEGORY FROM products P 
+                INNER JOIN currencies C ON P.CURRENCY_ID = C.ID
+                INNER JOIN product_categories CT ON P.CATEGORY_ID = CT.ID
                 WHERE P.ID = ".$PRODUCT_ID;
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
@@ -23,10 +23,10 @@
             $json[$i]['CATEGORY_ID']= $row['CATEGORY_ID'];
             $json[$i]['CATEGORY']= $row['CATEGORY'];
 
-            $sql = "SELECT V.ID,F.FEATURE, F.DATA_TYPE_ID, DT.TYPE,V.VALUE FROM PRODUCT_FEATURE_VALUES V
-                        INNER JOIN PRODUCT_FEATURES F ON V.FEATURE_ID = F.ID
-                        INNER JOIN DATA_TYPES DT ON F.DATA_TYPE_ID = DT.ID
-                        INNER JOIN PRODUCTS P ON V.PRODUCT_ID = P.ID
+            $sql = "SELECT V.ID,F.FEATURE, F.DATA_TYPE_ID, DT.TYPE,V.VALUE FROM product_feature_values V
+                        INNER JOIN product_features F ON V.FEATURE_ID = F.ID
+                        INNER JOIN data_types DT ON F.DATA_TYPE_ID = DT.ID
+                        INNER JOIN products P ON V.PRODUCT_ID = P.ID
                         WHERE P.ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
             $rows2 = mysqli_num_rows($result2);
@@ -45,7 +45,7 @@
                 $json[$i]['FEATURES'] = Array();
             }
 
-            $sql = "SELECT ID, IMAGE_PATH FROM PRODUCTS_IMAGES
+            $sql = "SELECT ID, IMAGE_PATH FROM products_images
                     WHERE PRODUCT_ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
             $rows2 = mysqli_num_rows($result2);

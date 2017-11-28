@@ -1,3 +1,4 @@
+<?php session_start(); $_SESSION['PERSON_ID'] = '111127'; $COUNT = 0; if(isset($_SESSION['COUNT'])){$COUNT = $_SESSION['COUNT'];} ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,6 @@
     <![endif]-->
 </head>
 <body>
-<?php session_start(); $_SESSION['PERSON_ID'] = '111127'; $COUNT = 0; if(isset($_SESSION['COUNT'])){$COUNT = $_SESSION['COUNT'];} ?>
 
 <nav class="navbar navbar-inverse bg-inverse">
     <a class="navbar-brand" href="../index.php"><span class="fa fa-address-book"></span> ORDER</a>

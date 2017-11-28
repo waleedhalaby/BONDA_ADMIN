@@ -1,13 +1,13 @@
 <?php
-$con = mysqli_connect('localhost:3306','root','','jewelryDB');
+$con = mysqli_connect('localhost:3306','root','','jewelrydb');
 
 if(mysqli_connect_errno()){
     echo 'Failed to connect to MYSQL: ' . mysqli_connect_error();
 }
 
-$sql = "SELECT P.ID,P.SKU_ID,P.NAME,P.PRICE,C.CURRENCY, CT.CATEGORY,P.DESCRIPTION FROM PRODUCTS P 
-            INNER JOIN CURRENCIES C ON P.CURRENCY_ID = C.ID
-            INNER JOIN PRODUCT_CATEGORIES CT ON P.CATEGORY_ID = CT.ID";
+$sql = "SELECT P.ID,P.SKU_ID,P.NAME,P.PRICE,C.CURRENCY, CT.CATEGORY,P.DESCRIPTION FROM products P 
+            INNER JOIN currencies C ON P.CURRENCY_ID = C.ID
+            INNER JOIN product_categories CT ON P.CATEGORY_ID = CT.ID";
 $result = mysqli_query($con,$sql);
 $rows = mysqli_num_rows($result);
 $json = Array();
@@ -23,7 +23,7 @@ if($rows > 0){
         $json[$i]['DESCRIPTION']= $row['DESCRIPTION'];
         $json[$i]['IMAGES'] = Array();
 
-        $sql = "SELECT IMAGE_PATH FROM PRODUCTS_IMAGES WHERE PRODUCT_ID = ".$row['ID'];
+        $sql = "SELECT IMAGE_PATH FROM products_images WHERE PRODUCT_ID = ".$row['ID'];
         $result2 = mysqli_query($con,$sql);
         if($result2 != null)
         {

@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect('localhost:3306','root','','jewelryDB');
+$con = mysqli_connect('localhost:3306','root','','jewelrydb');
 
 if(mysqli_connect_errno()){
     echo 'Failed to connect to MYSQL: ' . mysqli_connect_error();
@@ -10,7 +10,7 @@ session_start();
 $PERSON_ID = $_SESSION['PERSON_ID'];
 $json = Array();
 if(isset($_SESSION['COUNT'])){
-    $sql = "SELECT ID, TOTAL FROM CARTS WHERE PERSON_ID = '".$PERSON_ID."'";
+    $sql = "SELECT ID, TOTAL FROM carts WHERE PERSON_ID = '".$PERSON_ID."' AND CART_STATUS_ID <> 2";
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
     if($rows > 0){
@@ -22,15 +22,15 @@ if(isset($_SESSION['COUNT'])){
         }
         $json['ID'] = $CART_ID;
         $json['TOTAL'] = $TOTAL;
-        $sql = "SELECT P.ID, P.SKU_ID, P.NAME, CD.QUANTITY, CD.PRICE, C.CURRENCY FROM CART_DETAILS CD
-            INNER JOIN PRODUCTS P ON CD.PRODUCT_ID = P.ID 
-            INNER JOIN CURRENCIES C ON P.CURRENCY_ID = C.ID WHERE CART_ID='".$CART_ID."'";
+        $sql = "SELECT P.ID, P.SKU_ID, P.NAME, CD.QUANTITY, CD.PRICE, C.CURRENCY FROM cart_details CD
+            INNER JOIN products P ON CD.PRODUCT_ID = P.ID 
+            INNER JOIN currencies C ON P.CURRENCY_ID = C.ID WHERE CART_ID='".$CART_ID."'";
         $result = mysqli_query($con,$sql);
         $rows = mysqli_num_rows($result);
         if($rows > 0){
             $j = 0;
             while($row = mysqli_fetch_array($result)){
-                $sql = "SELECT IMAGE_PATH FROM PRODUCTS_IMAGES WHERE PRODUCT_ID = '".$row['ID']."'";
+                $sql = "SELECT IMAGE_PATH FROM products_images WHERE PRODUCT_ID = '".$row['ID']."'";
                 $result2 = mysqli_query($con,$sql);
                 $rows2 = mysqli_num_rows($result2);
                 $IMAGE = '';

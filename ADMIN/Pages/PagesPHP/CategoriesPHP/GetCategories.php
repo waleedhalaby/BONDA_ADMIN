@@ -2,7 +2,7 @@
     require('../../../Handlers/DBCONNECT.php');
     session_start();
 
-    $sql = "SELECT ID, CATEGORY, IS_ACTIVE FROM PRODUCT_CATEGORIES PC";
+    $sql = "SELECT ID, CATEGORY, IS_ACTIVE FROM product_categories PC";
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
     $json = Array();
@@ -12,7 +12,7 @@
             $json[$i]['ID'] = $row['ID'];
             $json[$i]['CATEGORY'] = $row['CATEGORY'];
             $json[$i]['IS_ACTIVE'] = $row['IS_ACTIVE'];
-            $sql = "SELECT COUNT(ID) FROM PRODUCTS WHERE CATEGORY_ID = ".$row['ID'];
+            $sql = "SELECT COUNT(ID) FROM products WHERE CATEGORY_ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
             $rows2 = mysqli_num_rows($result2);
             if($rows2 > 0){

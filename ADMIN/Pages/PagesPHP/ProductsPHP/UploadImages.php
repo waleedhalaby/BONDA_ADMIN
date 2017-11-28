@@ -33,7 +33,7 @@ if(isset($_FILES['file']["type"]))
             if(($ID != null || $ID != '') && ($IMAGE != null || $IMAGE != '')){
                 if($OLD_IMAGE != null || $OLD_IMAGE != '')
                 {
-                    $sql = "SELECT ID,IMAGE_PATH FROM PRODUCTS_IMAGES WHERE PRODUCT_ID = '".$ID."' AND IMAGE_PATH ='".$OLD_IMAGE."'";
+                    $sql = "SELECT ID,IMAGE_PATH FROM products_images WHERE PRODUCT_ID = '".$ID."' AND IMAGE_PATH ='".$OLD_IMAGE."'";
                     $result3 = mysqli_query($con,$sql);
                     $rows = mysqli_num_rows($result3);
                     $IS_UPDATED = false;
@@ -50,7 +50,7 @@ if(isset($_FILES['file']["type"]))
                             }
                         }
                         if($IS_UPDATED){
-                            $sql = "UPDATE PRODUCTS_IMAGES SET IMAGE_PATH = 'Assets/" . $IMAGE . "' WHERE ID = '" . $ID . "'";
+                            $sql = "UPDATE products_images SET IMAGE_PATH = 'Assets/" . $IMAGE . "' WHERE ID = '" . $ID . "'";
                             $result4 = mysqli_query($con, $sql);
                             echo "<div class='container-fluid text-center'><span class='label label-warning'>Image is updated successfully.<span>";
                         }
@@ -60,7 +60,7 @@ if(isset($_FILES['file']["type"]))
                     }
                 }
                 else{
-                    $sql = "INSERT INTO PRODUCTS_IMAGES (PRODUCT_ID,IMAGE_PATH) VALUES ('".$ID."','Assets/".$IMAGE."')";
+                    $sql = "INSERT INTO products_images (PRODUCT_ID,IMAGE_PATH) VALUES ('".$ID."','Assets/".$IMAGE."')";
                     $result2 = mysqli_query($con,$sql);
                     if (!file_exists("../../../Assets/" . $_FILES['file']["name"])) {
                         $sourcePath = $_FILES['file']['tmp_name']; // Storing source path of the file in a variable

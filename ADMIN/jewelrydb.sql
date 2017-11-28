@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
--- http://www.phpmyadmin.net
+-- version 4.6.6
+-- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 28, 2017 at 02:43 PM
--- Server version: 5.6.12-log
--- PHP Version: 5.4.16
+-- Generation Time: Nov 28, 2017 at 07:45 PM
+-- Server version: 10.1.24-MariaDB
+-- PHP Version: 7.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,13 +14,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `jewelrydb`
+-- Database: `id3784155_jewelrydb`
 --
-CREATE DATABASE IF NOT EXISTS `jewelrydb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `jewelrydb`;
 
 -- --------------------------------------------------------
 
@@ -28,21 +26,19 @@ USE `jewelrydb`;
 -- Table structure for table `carts`
 --
 
-CREATE TABLE IF NOT EXISTS `carts` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `carts` (
+  `ID` int(11) NOT NULL,
   `PERSON_ID` int(11) NOT NULL,
   `TOTAL` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PERSON_ID` (`PERSON_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  `CART_STATUS_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `carts`
 --
 
-INSERT INTO `carts` (`ID`, `PERSON_ID`, `TOTAL`) VALUES
-(7, 111126, '42.99'),
-(9, 111127, '27.87');
+INSERT INTO `carts` (`ID`, `PERSON_ID`, `TOTAL`, `CART_STATUS_ID`) VALUES
+(10, 111127, 1622.49, 2);
 
 -- --------------------------------------------------------
 
@@ -50,26 +46,40 @@ INSERT INTO `carts` (`ID`, `PERSON_ID`, `TOTAL`) VALUES
 -- Table structure for table `cart_details`
 --
 
-CREATE TABLE IF NOT EXISTS `cart_details` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cart_details` (
+  `ID` int(11) NOT NULL,
   `PRODUCT_ID` int(11) NOT NULL,
   `QUANTITY` int(11) NOT NULL,
   `PRICE` decimal(10,2) NOT NULL,
-  `CART_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PRODUCT_ID` (`PRODUCT_ID`),
-  KEY `CART_ID` (`CART_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+  `CART_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart_details`
 --
 
 INSERT INTO `cart_details` (`ID`, `PRODUCT_ID`, `QUANTITY`, `PRICE`, `CART_ID`) VALUES
-(12, 10122, 1, '17.99', 7),
-(13, 10123, 1, '25.00', 7),
-(18, 10119, 1, '5.99', 9),
-(19, 10118, 1, '21.88', 9);
+(21, 10115, 1, 1503.49, 10),
+(22, 10116, 1, 119.00, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_status`
+--
+
+CREATE TABLE `cart_status` (
+  `ID` int(11) NOT NULL,
+  `STATUS` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cart_status`
+--
+
+INSERT INTO `cart_status` (`ID`, `STATUS`) VALUES
+(1, 'PENDING'),
+(2, 'ORDERED');
 
 -- --------------------------------------------------------
 
@@ -77,11 +87,10 @@ INSERT INTO `cart_details` (`ID`, `PRODUCT_ID`, `QUANTITY`, `PRICE`, `CART_ID`) 
 -- Table structure for table `currencies`
 --
 
-CREATE TABLE IF NOT EXISTS `currencies` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `CURRENCY` varchar(5) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+CREATE TABLE `currencies` (
+  `ID` int(11) NOT NULL,
+  `CURRENCY` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `currencies`
@@ -97,11 +106,10 @@ INSERT INTO `currencies` (`ID`, `CURRENCY`) VALUES
 -- Table structure for table `data_types`
 --
 
-CREATE TABLE IF NOT EXISTS `data_types` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `TYPE` varchar(200) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+CREATE TABLE `data_types` (
+  `ID` int(11) NOT NULL,
+  `TYPE` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `data_types`
@@ -121,29 +129,23 @@ INSERT INTO `data_types` (`ID`, `TYPE`) VALUES
 -- Table structure for table `orders`
 --
 
-CREATE TABLE IF NOT EXISTS `orders` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orders` (
+  `ID` int(11) NOT NULL,
   `UNIQUE_ID` varchar(20) NOT NULL,
   `PERSON_ID` int(11) NOT NULL,
   `ORDER_DATE_TIME` datetime NOT NULL,
   `SHIP_DATE_TIME` datetime DEFAULT NULL,
   `ORDER_STATUS_ID` int(11) NOT NULL,
   `PAYMENT_TYPE_ID` int(11) NOT NULL,
-  `CART_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PERSON_ID` (`PERSON_ID`,`ORDER_STATUS_ID`,`PAYMENT_TYPE_ID`),
-  KEY `ORDER_STATUS_ID` (`ORDER_STATUS_ID`),
-  KEY `PAYMENT_TYPE_ID` (`PAYMENT_TYPE_ID`),
-  KEY `CART_ID` (`CART_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `CART_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`ID`, `UNIQUE_ID`, `PERSON_ID`, `ORDER_DATE_TIME`, `SHIP_DATE_TIME`, `ORDER_STATUS_ID`, `PAYMENT_TYPE_ID`, `CART_ID`) VALUES
-(4, '5a1c9abeaad0f', 111126, '2017-11-28 01:07:42', NULL, 5, 1, 7),
-(5, '5a1c9e4ee4213', 111127, '2017-11-28 01:22:54', NULL, 1, 1, 9);
+(6, '5a1d9079bbd33', 111127, '2017-11-28 18:36:09', NULL, 2, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -151,11 +153,10 @@ INSERT INTO `orders` (`ID`, `UNIQUE_ID`, `PERSON_ID`, `ORDER_DATE_TIME`, `SHIP_D
 -- Table structure for table `order_status`
 --
 
-CREATE TABLE IF NOT EXISTS `order_status` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `STATUS` varchar(30) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+CREATE TABLE `order_status` (
+  `ID` int(11) NOT NULL,
+  `STATUS` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_status`
@@ -174,14 +175,13 @@ INSERT INTO `order_status` (`ID`, `STATUS`) VALUES
 -- Table structure for table `pages`
 --
 
-CREATE TABLE IF NOT EXISTS `pages` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pages` (
+  `ID` int(11) NOT NULL,
   `TITLE` varchar(150) NOT NULL,
   `LINK` varchar(200) NOT NULL,
   `ICON` varchar(150) NOT NULL,
-  `PARENT` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+  `PARENT` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
@@ -209,12 +209,11 @@ INSERT INTO `pages` (`ID`, `TITLE`, `LINK`, `ICON`, `PARENT`) VALUES
 -- Table structure for table `payment_types`
 --
 
-CREATE TABLE IF NOT EXISTS `payment_types` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `payment_types` (
+  `ID` int(11) NOT NULL,
   `TYPE` varchar(30) NOT NULL,
-  `IS_ACTIVE` tinyint(1) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `IS_ACTIVE` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `payment_types`
@@ -230,16 +229,14 @@ INSERT INTO `payment_types` (`ID`, `TYPE`, `IS_ACTIVE`) VALUES
 -- Table structure for table `persons`
 --
 
-CREATE TABLE IF NOT EXISTS `persons` (
-  `ID` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `persons` (
+  `ID` int(6) NOT NULL,
   `FIRST_NAME` varchar(150) NOT NULL,
   `LAST_NAME` varchar(150) NOT NULL,
   `EMAIL` varchar(200) NOT NULL,
   `PASSWORD` varchar(200) NOT NULL,
-  `PERSON_TYPE_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=111128 ;
+  `PERSON_TYPE_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `persons`
@@ -257,13 +254,11 @@ INSERT INTO `persons` (`ID`, `FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`, `PE
 -- Table structure for table `person_features`
 --
 
-CREATE TABLE IF NOT EXISTS `person_features` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `person_features` (
+  `ID` int(11) NOT NULL,
   `FEATURE` varchar(200) NOT NULL,
-  `PERSON_TYPE_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `PERSON_TYPE_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_features`
@@ -278,15 +273,12 @@ INSERT INTO `person_features` (`ID`, `FEATURE`, `PERSON_TYPE_ID`) VALUES
 -- Table structure for table `person_feature_values`
 --
 
-CREATE TABLE IF NOT EXISTS `person_feature_values` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `person_feature_values` (
+  `ID` int(11) NOT NULL,
   `PERSON_ID` int(11) NOT NULL,
   `PERSON_FEATURE_ID` int(11) NOT NULL,
-  `VALUE` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PERSON_ID` (`PERSON_ID`,`PERSON_FEATURE_ID`),
-  KEY `FEATURE_ID` (`PERSON_FEATURE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+  `VALUE` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_feature_values`
@@ -304,15 +296,12 @@ INSERT INTO `person_feature_values` (`ID`, `PERSON_ID`, `PERSON_FEATURE_ID`, `VA
 -- Table structure for table `person_privileges`
 --
 
-CREATE TABLE IF NOT EXISTS `person_privileges` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `person_privileges` (
+  `ID` int(11) NOT NULL,
   `PRIVILEGE_ID` int(11) NOT NULL,
   `PERSON_ID` int(11) NOT NULL,
-  `VALUE` tinyint(1) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PRIVILEGE_ID` (`PRIVILEGE_ID`,`PERSON_ID`),
-  KEY `PERSON_ID` (`PERSON_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=212 ;
+  `VALUE` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_privileges`
@@ -391,11 +380,10 @@ INSERT INTO `person_privileges` (`ID`, `PRIVILEGE_ID`, `PERSON_ID`, `VALUE`) VAL
 -- Table structure for table `person_types`
 --
 
-CREATE TABLE IF NOT EXISTS `person_types` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `TYPE` varchar(100) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+CREATE TABLE `person_types` (
+  `ID` int(11) NOT NULL,
+  `TYPE` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_types`
@@ -411,11 +399,10 @@ INSERT INTO `person_types` (`ID`, `TYPE`) VALUES
 -- Table structure for table `privileges`
 --
 
-CREATE TABLE IF NOT EXISTS `privileges` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `PRIVILEGE` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+CREATE TABLE `privileges` (
+  `ID` int(11) NOT NULL,
+  `PRIVILEGE` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `privileges`
@@ -447,36 +434,33 @@ INSERT INTO `privileges` (`ID`, `PRIVILEGE`) VALUES
 -- Table structure for table `products`
 --
 
-CREATE TABLE IF NOT EXISTS `products` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `products` (
+  `ID` int(11) NOT NULL,
   `SKU_ID` varchar(20) DEFAULT NULL,
   `NAME` varchar(255) NOT NULL,
   `PRICE` decimal(10,2) NOT NULL,
   `CURRENCY_ID` int(11) NOT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
-  `CATEGORY_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `CATEGORY_ID` (`CATEGORY_ID`),
-  KEY `CURRENCY_ID` (`CURRENCY_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10126 ;
+  `CATEGORY_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`ID`, `SKU_ID`, `NAME`, `PRICE`, `CURRENCY_ID`, `DESCRIPTION`, `CATEGORY_ID`) VALUES
-(10113, '#FD53AQX9', 'Onyx gemstone', '9.99', 2, 'Best bracelet for him that is made of gemstones over onyx', 7),
-(10114, '#KF1MHGEC', 'Brass leaf', '11.99', 2, 'Swarovski pearls, hammered brass link chain, peach pink resin flower', 7),
-(10115, '#RRQJ4UP0', 'Casio g-shock mt-g gps', '1503.49', 2, 'Hybrid wave ceptor mtg-g1000sg-1ajf mens japan import', 8),
-(10116, '#WKTIP7QQ', 'Joy brushed silver mesh', '119.00', 2, 'Most famous watch for her that is designed to comfort every typical models', 8),
-(10117, '#4HZQDZ7E', 'Live show gold earrings lulus', '12.12', 2, 'Take the live show gold earrings out for a night on the town! these unique antiqued gold earrings have swirling, engraved accents. earrings measure 2" long.', 9),
-(10118, '#SK2P6EHO', 'Metallic silver triangle invisible ', '21.88', 2, 'Dangle geometric clip earrings, non pierced earrings, minimalist clip-ons', 9),
-(10119, '#691ZO147', 'Angel wings ring', '5.99', 2, 'Boho rings, angel jewelry, solid 925 sterling silver ring, christmas gift for women, silver rings, custom rings, initials', 10),
-(10120, '#WA2UBJU3', 'Auriferous nest ring', '3.99', 2, 'Three times around', 10),
-(10121, '#CAVWQV4U', 'Beautiful geometric marble pendant on gold chain', '13.99', 2, 'This would look so pretty layered with other necklaces. drop is 16â€ colors available: white square, white rectangle, black rectangle, green rectangle', 11),
-(10122, '#N3KQV3NO', 'Crystal teardrop necklace gold crystal pendant', '17.99', 2, 'Crystal necklace jewellery womens gifts delicate necklace summer necklace', 11),
-(10123, '#JQCX7ME8', 'Gold & iridescent rhinestone statement necklace', '25.00', 2, 'Necklace length: 36 centimetres,pendant width: 4, materials: zinc alloy, rhinestones\r\n', 11),
-(10124, '#2Q8N3HL0', 'Gold & silver rhinestone bib necklace', '16.00', 2, 'Necklace length: 18 centimetres, closure: lobster claw, adjustable length: yes, materials: zinc alloy, rhinestone', 11);
+(10113, '#FD53AQX9', 'Onyx gemstone', 9.99, 2, 'Best bracelet for him that is made of gemstones over onyx', 7),
+(10114, '#KF1MHGEC', 'Brass leaf', 11.99, 2, 'Swarovski pearls, hammered brass link chain, peach pink resin flower', 7),
+(10115, '#RRQJ4UP0', 'Casio g-shock mt-g gps', 1503.49, 2, 'Hybrid wave ceptor mtg-g1000sg-1ajf mens japan import', 8),
+(10116, '#WKTIP7QQ', 'Joy brushed silver mesh', 119.00, 2, 'Most famous watch for her that is designed to comfort every typical models', 8),
+(10117, '#4HZQDZ7E', 'Live show gold earrings lulus', 12.12, 2, 'Take the live show gold earrings out for a night on the town! these unique antiqued gold earrings have swirling, engraved accents. earrings measure 2\" long.', 9),
+(10118, '#SK2P6EHO', 'Metallic silver triangle invisible ', 21.88, 2, 'Dangle geometric clip earrings, non pierced earrings, minimalist clip-ons', 9),
+(10119, '#691ZO147', 'Angel wings ring', 5.99, 2, 'Boho rings, angel jewelry, solid 925 sterling silver ring, christmas gift for women, silver rings, custom rings, initials', 10),
+(10120, '#WA2UBJU3', 'Auriferous nest ring', 3.99, 2, 'Three times around', 10),
+(10121, '#CAVWQV4U', 'Beautiful geometric marble pendant on gold chain', 13.99, 2, 'This would look so pretty layered with other necklaces. drop is 16â€ colors available: white square, white rectangle, black rectangle, green rectangle', 11),
+(10122, '#N3KQV3NO', 'Crystal teardrop necklace gold crystal pendant', 17.99, 2, 'Crystal necklace jewellery womens gifts delicate necklace summer necklace', 11),
+(10123, '#JQCX7ME8', 'Gold & iridescent rhinestone statement necklace', 25.00, 2, 'Necklace length: 36 centimetres,pendant width: 4, materials: zinc alloy, rhinestones\r\n', 11),
+(10124, '#2Q8N3HL0', 'Gold & silver rhinestone bib necklace', 16.00, 2, 'Necklace length: 18 centimetres, closure: lobster claw, adjustable length: yes, materials: zinc alloy, rhinestone', 11);
 
 -- --------------------------------------------------------
 
@@ -484,13 +468,11 @@ INSERT INTO `products` (`ID`, `SKU_ID`, `NAME`, `PRICE`, `CURRENCY_ID`, `DESCRIP
 -- Table structure for table `products_images`
 --
 
-CREATE TABLE IF NOT EXISTS `products_images` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `products_images` (
+  `ID` int(11) NOT NULL,
   `PRODUCT_ID` int(11) NOT NULL,
-  `IMAGE_PATH` varchar(200) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PRODUCT_ID` (`PRODUCT_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+  `IMAGE_PATH` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products_images`
@@ -522,12 +504,11 @@ INSERT INTO `products_images` (`ID`, `PRODUCT_ID`, `IMAGE_PATH`) VALUES
 -- Table structure for table `product_categories`
 --
 
-CREATE TABLE IF NOT EXISTS `product_categories` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_categories` (
+  `ID` int(11) NOT NULL,
   `CATEGORY` varchar(200) NOT NULL,
-  `IS_ACTIVE` tinyint(1) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+  `IS_ACTIVE` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_categories`
@@ -546,14 +527,12 @@ INSERT INTO `product_categories` (`ID`, `CATEGORY`, `IS_ACTIVE`) VALUES
 -- Table structure for table `product_features`
 --
 
-CREATE TABLE IF NOT EXISTS `product_features` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_features` (
+  `ID` int(11) NOT NULL,
   `FEATURE` varchar(200) NOT NULL,
   `DATA_TYPE_ID` int(200) NOT NULL,
-  `IS_ACTIVE` tinyint(1) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `DATA_TYPE_ID` (`DATA_TYPE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  `IS_ACTIVE` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_features`
@@ -568,15 +547,12 @@ INSERT INTO `product_features` (`ID`, `FEATURE`, `DATA_TYPE_ID`, `IS_ACTIVE`) VA
 -- Table structure for table `product_feature_values`
 --
 
-CREATE TABLE IF NOT EXISTS `product_feature_values` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_feature_values` (
+  `ID` int(11) NOT NULL,
   `PRODUCT_ID` int(11) NOT NULL,
   `FEATURE_ID` int(11) NOT NULL,
-  `VALUE` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PRODUCT_ID` (`PRODUCT_ID`,`FEATURE_ID`),
-  KEY `FEATURE_ID` (`FEATURE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+  `VALUE` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_feature_values`
@@ -597,6 +573,254 @@ INSERT INTO `product_feature_values` (`ID`, `PRODUCT_ID`, `FEATURE_ID`, `VALUE`)
 (18, 10124, 9, 'off');
 
 --
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PERSON_ID` (`PERSON_ID`),
+  ADD KEY `CART_STATUS_ID` (`CART_STATUS_ID`);
+
+--
+-- Indexes for table `cart_details`
+--
+ALTER TABLE `cart_details`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PRODUCT_ID` (`PRODUCT_ID`),
+  ADD KEY `CART_ID` (`CART_ID`);
+
+--
+-- Indexes for table `cart_status`
+--
+ALTER TABLE `cart_status`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `currencies`
+--
+ALTER TABLE `currencies`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `data_types`
+--
+ALTER TABLE `data_types`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PERSON_ID` (`PERSON_ID`,`ORDER_STATUS_ID`,`PAYMENT_TYPE_ID`),
+  ADD KEY `ORDER_STATUS_ID` (`ORDER_STATUS_ID`),
+  ADD KEY `PAYMENT_TYPE_ID` (`PAYMENT_TYPE_ID`),
+  ADD KEY `CART_ID` (`CART_ID`);
+
+--
+-- Indexes for table `order_status`
+--
+ALTER TABLE `order_status`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `pages`
+--
+ALTER TABLE `pages`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `payment_types`
+--
+ALTER TABLE `payment_types`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `persons`
+--
+ALTER TABLE `persons`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`);
+
+--
+-- Indexes for table `person_features`
+--
+ALTER TABLE `person_features`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`);
+
+--
+-- Indexes for table `person_feature_values`
+--
+ALTER TABLE `person_feature_values`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PERSON_ID` (`PERSON_ID`,`PERSON_FEATURE_ID`),
+  ADD KEY `FEATURE_ID` (`PERSON_FEATURE_ID`);
+
+--
+-- Indexes for table `person_privileges`
+--
+ALTER TABLE `person_privileges`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PRIVILEGE_ID` (`PRIVILEGE_ID`,`PERSON_ID`),
+  ADD KEY `PERSON_ID` (`PERSON_ID`);
+
+--
+-- Indexes for table `person_types`
+--
+ALTER TABLE `person_types`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `privileges`
+--
+ALTER TABLE `privileges`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `CATEGORY_ID` (`CATEGORY_ID`),
+  ADD KEY `CURRENCY_ID` (`CURRENCY_ID`);
+
+--
+-- Indexes for table `products_images`
+--
+ALTER TABLE `products_images`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PRODUCT_ID` (`PRODUCT_ID`);
+
+--
+-- Indexes for table `product_categories`
+--
+ALTER TABLE `product_categories`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `product_features`
+--
+ALTER TABLE `product_features`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `DATA_TYPE_ID` (`DATA_TYPE_ID`);
+
+--
+-- Indexes for table `product_feature_values`
+--
+ALTER TABLE `product_feature_values`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PRODUCT_ID` (`PRODUCT_ID`,`FEATURE_ID`),
+  ADD KEY `FEATURE_ID` (`FEATURE_ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `cart_details`
+--
+ALTER TABLE `cart_details`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT for table `cart_status`
+--
+ALTER TABLE `cart_status`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `currencies`
+--
+ALTER TABLE `currencies`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `data_types`
+--
+ALTER TABLE `data_types`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `order_status`
+--
+ALTER TABLE `order_status`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `pages`
+--
+ALTER TABLE `pages`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `payment_types`
+--
+ALTER TABLE `payment_types`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `persons`
+--
+ALTER TABLE `persons`
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111128;
+--
+-- AUTO_INCREMENT for table `person_features`
+--
+ALTER TABLE `person_features`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `person_feature_values`
+--
+ALTER TABLE `person_feature_values`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `person_privileges`
+--
+ALTER TABLE `person_privileges`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
+--
+-- AUTO_INCREMENT for table `person_types`
+--
+ALTER TABLE `person_types`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `privileges`
+--
+ALTER TABLE `privileges`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10126;
+--
+-- AUTO_INCREMENT for table `products_images`
+--
+ALTER TABLE `products_images`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT for table `product_categories`
+--
+ALTER TABLE `product_categories`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `product_features`
+--
+ALTER TABLE `product_features`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `product_feature_values`
+--
+ALTER TABLE `product_feature_values`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
 -- Constraints for dumped tables
 --
 
@@ -604,23 +828,24 @@ INSERT INTO `product_feature_values` (`ID`, `PRODUCT_ID`, `FEATURE_ID`, `VALUE`)
 -- Constraints for table `carts`
 --
 ALTER TABLE `carts`
-  ADD CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`PERSON_ID`) REFERENCES `persons` (`ID`);
+  ADD CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`PERSON_ID`) REFERENCES `persons` (`ID`),
+  ADD CONSTRAINT `carts_ibfk_3` FOREIGN KEY (`CART_STATUS_ID`) REFERENCES `cart_status` (`ID`);
 
 --
 -- Constraints for table `cart_details`
 --
 ALTER TABLE `cart_details`
-  ADD CONSTRAINT `cart_details_ibfk_2` FOREIGN KEY (`CART_ID`) REFERENCES `carts` (`ID`),
-  ADD CONSTRAINT `cart_details_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `products` (`ID`);
+  ADD CONSTRAINT `cart_details_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `products` (`ID`),
+  ADD CONSTRAINT `cart_details_ibfk_2` FOREIGN KEY (`CART_ID`) REFERENCES `carts` (`ID`);
 
 --
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`CART_ID`) REFERENCES `carts` (`ID`),
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`PERSON_ID`) REFERENCES `persons` (`ID`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`ORDER_STATUS_ID`) REFERENCES `order_status` (`ID`),
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`PAYMENT_TYPE_ID`) REFERENCES `payment_types` (`ID`);
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`PAYMENT_TYPE_ID`) REFERENCES `payment_types` (`ID`),
+  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`CART_ID`) REFERENCES `carts` (`ID`);
 
 --
 -- Constraints for table `persons`

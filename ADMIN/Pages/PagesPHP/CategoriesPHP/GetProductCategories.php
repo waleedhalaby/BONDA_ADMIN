@@ -2,7 +2,7 @@
     require('../../../Handlers/DBCONNECT.php');
     session_start();
 
-    $sql = "SELECT ID, CATEGORY FROM PRODUCT_CATEGORIES WHERE IS_ACTIVE = 1";
+    $sql = "SELECT ID, CATEGORY FROM product_categories WHERE IS_ACTIVE = 1";
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
 

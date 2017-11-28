@@ -2,8 +2,8 @@
     require('../../../Handlers/DBCONNECT.php');
     session_start();
 
-    $sql = "SELECT PC.ID, PC.FEATURE, DT.TYPE, PC.IS_ACTIVE FROM PRODUCT_FEATURES PC
-            INNER JOIN DATA_TYPES DT ON PC.DATA_TYPE_ID = DT.ID WHERE PC.IS_ACTIVE = 1";
+    $sql = "SELECT PC.ID, PC.FEATURE, DT.TYPE, PC.IS_ACTIVE FROM product_features PC
+            INNER JOIN data_types DT ON PC.DATA_TYPE_ID = DT.ID WHERE PC.IS_ACTIVE = 1";
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
     $json = Array();

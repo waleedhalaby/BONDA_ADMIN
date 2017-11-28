@@ -7,8 +7,8 @@ if($_GET['id'] != 0){
     $ID = $_GET['id'];
 }
 
-$sql = "SELECT DISTINCT PP.ID, P.PRIVILEGE,PP.VALUE FROM PERSON_PRIVILEGES PP
-            INNER JOIN PRIVILEGES P ON PP.PRIVILEGE_ID = P.ID WHERE PP.PERSON_ID = ".$ID;
+$sql = "SELECT DISTINCT PP.ID, P.PRIVILEGE,PP.VALUE FROM person_privileges PP
+            INNER JOIN privileges P ON PP.PRIVILEGE_ID = P.ID WHERE PP.PERSON_ID = ".$ID;
 $result = mysqli_query($con,$sql);
 $rows = mysqli_num_rows($result);
 
