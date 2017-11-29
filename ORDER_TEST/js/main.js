@@ -5,14 +5,14 @@ $(document).ready(function(){
         $('#main_content').load('PagesPHP/Cart.php');
     });
 
-    $.get('PagesPHP/GetProduct.php',function(data){
+    $.get('PagesPHP/GetProducts.php',function(data){
         var products = $.parseJSON(data);
         var counter = 1;
         var counter2 = 1;
         $(products).each(function(id,product){
             $('#main_container .row#'+counter2).append(
                 '<div class="col-md-3">' +
-                '<a href="Product.php?id='+product['ID']+'">'+
+                '<a onclick="ShowProduct('+product['ID']+')">'+
                 '<div class="card" style="width: 20rem;">'+
                 '<img class="card-img-top" style="width:318px;height: 180px" src="/BONDA_ADMIN/ADMIN/'+product['IMAGES'][0]['IMAGE']+'" alt="'+product['NAME']+'"/>'+
                 '<div style="min-height: 200px;padding: 10px;" class="card-block">'+
@@ -34,6 +34,9 @@ $(document).ready(function(){
         });
     });
 });
+function ShowProduct(id){
+    $('#main_container').load('PagesPHP/Product.php?id='+id);
+}
 
 function AddToCart(id){
     var url = 'PagesPHP/AddToCart.php?id='+id;

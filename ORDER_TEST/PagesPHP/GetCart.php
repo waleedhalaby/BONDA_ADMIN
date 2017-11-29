@@ -5,6 +5,7 @@ session_start();
 
 $PERSON_ID = $_SESSION['PERSON_ID'];
 $json = Array();
+$json['DETAILS'] = Array();
 
 $sql = "SELECT ID, TOTAL FROM carts WHERE PERSON_ID = '".$PERSON_ID."' AND CART_STATUS_ID <> 2";
 $result = mysqli_query($con,$sql);
