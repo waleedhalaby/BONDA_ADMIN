@@ -9,8 +9,7 @@ $json['DETAILS'] = Array();
 
 $sql = "SELECT ID, TOTAL FROM carts WHERE PERSON_ID = '".$PERSON_ID."' AND CART_STATUS_ID <> 2";
 $result = mysqli_query($con,$sql);
-$rows = mysqli_num_rows($result);
-if($rows > 0){
+if(mysqli_num_rows($result) > 0){
     $CART_ID = 0;
     $TOTAL = 0;
     while($row = mysqli_fetch_array($result)){
@@ -23,8 +22,7 @@ if($rows > 0){
         INNER JOIN products P ON CD.PRODUCT_ID = P.ID 
         INNER JOIN currencies C ON P.CURRENCY_ID = C.ID WHERE CART_ID='".$CART_ID."'";
     $result = mysqli_query($con,$sql);
-    $rows = mysqli_num_rows($result);
-    if($rows > 0){
+    if(mysqli_num_rows($result) > 0){
         $j = 0;
         while($row = mysqli_fetch_array($result)){
             $sql = "SELECT IMAGE_PATH FROM products_images WHERE PRODUCT_ID = '".$row['ID']."'";

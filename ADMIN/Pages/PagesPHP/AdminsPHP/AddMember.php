@@ -28,8 +28,7 @@ elseif($PASSWORD != $PASSWORD2){
 else{
     $sql = "SELECT EMAIL FROM persons WHERE EMAIL = '".$EMAIL."'";
     $result = mysqli_query($con,$sql);
-    $rows = mysqli_num_rows($result);
-    if($rows > 0){
+    if(mysqli_num_rows($result) > 0){
         echo "E-mail is already exists.";
     }
     else{
@@ -40,16 +39,14 @@ else{
         if($result){
             $sql = "SELECT ID FROM persons WHERE EMAIL = '".$EMAIL."'";
             $res = mysqli_query($con,$sql);
-            $rows = mysqli_num_rows($res);
-            if($rows > 0){
+            if(mysqli_num_rows($res) > 0){
                 while($MEMBER_ID = mysqli_fetch_assoc($res)){
                     $sql = "INSERT INTO person_feature_values (PERSON_FEATURE_ID,PERSON_ID,VALUE) VALUES ('2','".$MEMBER_ID['ID']."','INACTIVE')";
                     $result = mysqli_query($con, $sql);
 
                     $sql = "SELECT ID FROM PRIVILEGES";
-                    $res2 = mysqli_query($con, $sql);
-                    $rows = mysqli_num_rows($res2);
-                    if($rows > 0){
+                    $res2 = mysqli_query($con,$sql);
+                    if(mysqli_num_rows($res2) > 0){
                         while($row = mysqli_fetch_assoc($res2)){
                             $sql = "INSERT INTO person_privileges (PERSON_ID,PRIVILEGE_ID,VALUE) VALUES ('".$MEMBER_ID['ID']."','".$row['ID']."','0')";
                             $result = mysqli_query($con, $sql);

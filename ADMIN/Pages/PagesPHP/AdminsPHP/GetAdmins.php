@@ -8,11 +8,10 @@
 			INNER JOIN person_types PT ON PR.PERSON_TYPE_ID = PT.ID
             WHERE PR.PERSON_TYPE_ID <> 2 AND PR.ID <> ".$_SESSION['id']." AND PR.ID <> 111111 AND (VF.FEATURE LIKE '%STATUS%')";
     $result = mysqli_query($con,$sql);
-    $rows = mysqli_num_rows($result);
-
-    if($rows > 0){
+    $json = Array();
+    if(mysqli_num_rows($result) > 0){
         $json = mysqli_fetch_all($result);
 
-        echo json_encode($json);
     }
+    echo json_encode($json);
 ?>

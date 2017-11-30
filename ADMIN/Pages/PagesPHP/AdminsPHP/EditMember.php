@@ -30,7 +30,7 @@ else{
     $sql = "SELECT EMAIL FROM persons WHERE EMAIL = '".$EMAIL."'";
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
-    if($rows > 0){
+    if(mysqli_num_rows($result) > 0){
         echo "E-mail is already exists.";
     }
     else {

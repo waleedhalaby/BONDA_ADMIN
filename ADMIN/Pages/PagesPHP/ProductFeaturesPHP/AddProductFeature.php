@@ -19,8 +19,7 @@ $result = mysqli_query($con,$sql);
 $sql = "SELECT PF.ID,DT.TYPE FROM product_features PF
         INNER JOIN data_types DT ON PF.DATA_TYPE_ID = DT.ID WHERE FEATURE = '".$FEATURE."'";
 $result = mysqli_query($con,$sql);
-$rows = mysqli_num_rows($result);
-if($rows > 0){
+if(mysqli_num_rows($result) > 0){
     $FEATURE_ID = 0;
     $TYPE = '';
     while($row = mysqli_fetch_array($result)) {
@@ -29,8 +28,7 @@ if($rows > 0){
     }
     $sql = "SELECT ID FROM products";
     $res2 = mysqli_query($con,$sql);
-    $rows2 = mysqli_num_rows($res2);
-    if($rows2 > 0) {
+    if(mysqli_num_rows($res2) > 0) {
         while ($PRODUCT_ID = mysqli_fetch_array($res2)) {
             $VAL = '';
             switch ($TYPE){

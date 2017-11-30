@@ -6,7 +6,7 @@ $(document).ready(function(){
 
    $.get('Handlers/GetMenu.php', function (data) {
        var array = $.parseJSON(data);
-       var firstLink = array[7][2];
+       var firstLink = array[0][2];
        $(array).each(function (id,val) {
            if(val[4] === "0" && !(val[2].indexOf('#') >= 0)){
                $('#menuDiv').append('<li style="cursor: pointer;" id="'+val[0]+'"><a><i class="'+val[3]+'"></i><span class="hidden-tablet"> '+val[1]+'</span></a></li>');

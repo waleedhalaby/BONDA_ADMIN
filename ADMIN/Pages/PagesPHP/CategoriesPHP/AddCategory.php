@@ -13,7 +13,7 @@ if(!isset($CATEGORY) || empty($CATEGORY) || $CATEGORY == ' '){
 else {
     $sql = "SELECT CATEGORY FROM categories WHERE CATEGORY = '" . $CATEGORY . "'";
     $result = mysqli_query($con, $sql);
-    if(empty($result)){
+    if(mysqli_num_rows($result) == 0){
         $sql = "INSERT INTO product_categories (CATEGORY,IS_ACTIVE) VALUES
         ('".$CATEGORY."','1')";
         $result = mysqli_query($con,$sql);

@@ -14,38 +14,43 @@
             $msg = "Passwords are not identical";
         }
         else {
-            $sql = "INSERT INTO persons (FIRST_NAME,LAST_NAME,EMAIL,PASSWORD,PERSON_TYPE_ID)
+            $sql = "SELECT * FROM persons WHERE EMAIL = '$email' AND PERSON_TYPE_ID = 2";
+            $query = mysqli_query($con,$sql);
+            if(mysqli_num_rows($query) > 0){
+                $msg = "E-mail is already exists.";
+            }
+            else{
+                $sql = "INSERT INTO persons (FIRST_NAME,LAST_NAME,EMAIL,PASSWORD,PERSON_TYPE_ID)
                     VALUES ('".ucfirst(strtolower($fname))."','".ucfirst(strtolower($lname))."',
                             '".strtolower($email)."','".md5($password)."','2')";
-            $query = mysqli_query($con,$sql);
+                $query = mysqli_query($con,$sql);
 
-            if ($query === false) {
-                echo "Could not successfully run query ($sql) from DB: " . mysqli_error($con);
-                exit;
-            }
-            $sql = "SELECT * FROM persons WHERE EMAIL = '$email' AND PASSWORD = '".md5($password)."' AND PERSON_TYPE_ID = 2";
-            $query = mysqli_query($con,$sql);
-
-            if (mysqli_num_rows($query) > 0) {
-                $PERSON_ID = 0;
-                $PERSON_NAME = '';
-                while($row = mysqli_fetch_array($query)){
-                    $PERSON_ID = $row['ID'];
-                    $PERSON_NAME = $row['FIRST_NAME'].' '.$row['LAST_NAME'];
+                if ($query === false) {
+                    echo "Could not successfully run query ($sql) from DB: " . mysqli_error($con);
+                    exit;
                 }
+                $sql = "SELECT * FROM persons WHERE EMAIL = '$email' AND PASSWORD = '".md5($password)."' AND PERSON_TYPE_ID = 2";
+                $query = mysqli_query($con,$sql);
 
-                $sql = "INSERT INTO person_feature_values (PERSON_ID,PERSON_FEATURE_ID,VALUE)
+                if (mysqli_num_rows($query) > 0) {
+                    $PERSON_ID = 0;
+                    $PERSON_NAME = '';
+                    while($row = mysqli_fetch_array($query)){
+                        $PERSON_ID = $row['ID'];
+                        $PERSON_NAME = $row['FIRST_NAME'].' '.$row['LAST_NAME'];
+                    }
+
+                    $sql = "INSERT INTO person_feature_values (PERSON_ID,PERSON_FEATURE_ID,VALUE)
                         VALUES ('".$PERSON_ID."','2','INACTIVE')";
-                $result = mysqli_query($con,$sql);
+                    $result = mysqli_query($con,$sql);
 
-                session_start();
-                $_SESSION['PERSON_ID'] = $PERSON_ID;
-                $_SESSION['PERSON_NAME'] = $PERSON_NAME;
-                header('Location: index.php');
-                exit;
+                    session_start();
+                    $_SESSION['PERSON_ID'] = $PERSON_ID;
+                    $_SESSION['PERSON_NAME'] = $PERSON_NAME;
+                    header('Location: index.php');
+                    exit;
+                }
             }
-
-            $msg = "Error occured, please <a href='#'>contact your administrator</a> to fix the problem.";
         }
     }
 ?>

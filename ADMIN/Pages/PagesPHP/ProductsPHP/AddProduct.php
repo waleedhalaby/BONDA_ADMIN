@@ -37,9 +37,8 @@ $result = mysqli_query($con, $sql);
 
 $sql = "SELECT ID FROM products WHERE NAME = '" . $NAME . "'";
 $result = mysqli_query($con, $sql);
-$rows = mysqli_num_rows($result);
 
-if ($rows > 0) {
+if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {
         $ID = $row['ID'];
          $i = 0;

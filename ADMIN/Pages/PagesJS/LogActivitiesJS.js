@@ -3,6 +3,10 @@ $(document).ready(function () {
         $('#content .box-content').html('Sorry, you don\'t have the privilege to view logs.');
     }
 
+    if(!CheckPrivilege('DELETE_LOGS')){
+        $('#deleteBtn').css('visibility','hidden');
+    }
+
     $('#deleteBtn').on('click',function(){
         var url = "Pages/PagesPHP/LogsPHP/DeleteLogs.php";
 

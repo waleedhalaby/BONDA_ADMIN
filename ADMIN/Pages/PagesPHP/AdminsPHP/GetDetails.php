@@ -7,12 +7,11 @@ $sql = "SELECT PR.ID, PR.FIRST_NAME, PR.LAST_NAME, PR.EMAIL, PT.TYPE FROM person
             INNER JOIN person_types PT ON PR.PERSON_TYPE_ID = PT.ID
             WHERE PR.ID = ".$MEMBER_ID;
 $result = mysqli_query($con,$sql);
-$rows = mysqli_num_rows($result);
 
-if($rows > 0){
+if(mysqli_num_rows($result) > 0){
     $json = Array();
     $i = 0;
-    if($rows > 0) {
+    if(mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_array($result)) {
             $json[$i]['ID'] = $row['ID'];
             $json[$i]['FIRST_NAME'] = $row['FIRST_NAME'];
@@ -25,9 +24,8 @@ if($rows > 0){
                         INNER JOIN persons P ON V.PERSON_ID = P.ID
                         WHERE F.FEATURE NOT LIKE 'STATUS' AND P.ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
-            $rows2 = mysqli_num_rows($result2);
 
-            if($rows2 > 0) {
+            if(mysqli_num_rows($result2) > 0) {
                 $j = 0;
                 while ($row2 = mysqli_fetch_array($result2)) {
                     $json[$i]['FEATURES'][$j]['ID']= $row2['FEATURE'];

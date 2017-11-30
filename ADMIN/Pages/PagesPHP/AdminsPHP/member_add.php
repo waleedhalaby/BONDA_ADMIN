@@ -38,7 +38,6 @@
                 url: url,
                 data: $('#addMemberForm').serialize(),
                 success: function (data) {
-                    console.log(data);
                     if(data.indexOf("successfully") >= 0){
                         $('#error').html('');
                         $('#content').load('Pages/Admins.php');

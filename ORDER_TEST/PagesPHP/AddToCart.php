@@ -16,8 +16,7 @@ while ($row = mysqli_fetch_array($result)){
 
 $sql = "SELECT ID,TOTAL FROM carts WHERE PERSON_ID = '".$PERSON_ID."' AND CART_STATUS_ID <> 2";
 $result = mysqli_query($con,$sql);
-$rows = mysqli_num_rows($result);
-if($rows > 0){
+if(mysqli_num_rows($result) > 0){
     $TOTAL = 0;
     $CART_ID = 0;
     while($row = mysqli_fetch_array($result)){
@@ -38,8 +37,7 @@ else{
 
     $sql = "SELECT ID FROM carts WHERE PERSON_ID = '".$PERSON_ID."'";
     $result = mysqli_query($con,$sql);
-    $rows = mysqli_num_rows($result);
-    if($rows > 0){
+    if(mysqli_num_rows($result) > 0){
         $CART_ID = 0;
         while ($row = mysqli_fetch_array($result)){
             $CART_ID = $row['ID'];
