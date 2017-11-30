@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 30, 2017 at 04:28 AM
+-- Generation Time: Nov 30, 2017 at 05:51 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `carts` (
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`),
   KEY `CART_STATUS_ID` (`CART_STATUS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `cart_details` (
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`),
   KEY `CART_ID` (`CART_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `log_activities` (
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`),
   KEY `PAGE_ID` (`PAGE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `ORDER_STATUS_ID` (`ORDER_STATUS_ID`),
   KEY `PAYMENT_TYPE_ID` (`PAYMENT_TYPE_ID`),
   KEY `CART_ID` (`CART_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `PARENT` int(11) NOT NULL,
   `IS_VISIBLE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
@@ -225,7 +225,8 @@ INSERT INTO `pages` (`ID`, `TITLE`, `LINK`, `ICON`, `PARENT`, `IS_VISIBLE`) VALU
 (13, 'Queued Orders', 'Pages/QueuedOrders.php', 'icon-envelope-alt', 4, 1),
 (14, 'Delivered Orders', 'Pages/DeliveredOrders.php', 'icon-shopping-cart', 4, 1),
 (15, 'Cancelled Orders', 'Pages/CancelledOrders.php', 'icon-ban-circle', 4, 1),
-(16, 'Log Activities', 'Pages/LogActivities.php', 'icon-user', 0, 1);
+(16, 'Log Activities', 'Pages/LogActivities.php', 'icon-user', 0, 1),
+(17, 'Search Orders', 'Pages/SearchOrders.php', 'icon-search', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -265,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `persons` (
   `PERSON_TYPE_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=111136 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=111148 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `persons`
@@ -311,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `person_feature_values` (
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`,`PERSON_FEATURE_ID`),
   KEY `FEATURE_ID` (`PERSON_FEATURE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_feature_values`
@@ -335,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `person_privileges` (
   PRIMARY KEY (`ID`),
   KEY `PRIVILEGE_ID` (`PRIVILEGE_ID`,`PERSON_ID`),
   KEY `PERSON_ID` (`PERSON_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=309 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=392 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_privileges`
@@ -361,7 +362,8 @@ INSERT INTO `person_privileges` (`ID`, `PRIVILEGE_ID`, `PERSON_ID`, `VALUE`) VAL
 (208, 19, 111111, 1),
 (210, 20, 111111, 1),
 (212, 21, 111111, 1),
-(308, 25, 111111, 1);
+(308, 25, 111111, 1),
+(369, 26, 111111, 1);
 
 -- --------------------------------------------------------
 
@@ -395,7 +397,7 @@ CREATE TABLE IF NOT EXISTS `privileges` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PRIVILEGE` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `privileges`
@@ -421,7 +423,8 @@ INSERT INTO `privileges` (`ID`, `PRIVILEGE`) VALUES
 (19, 'SHOW_DELIVERED_ORDER'),
 (20, 'SHOW_CANCELLED_ORDER'),
 (21, 'VIEW_LOGS'),
-(25, 'UPDATE_PRODUCT_FEATURE');
+(25, 'UPDATE_PRODUCT_FEATURE'),
+(26, 'DELETE_LOGS');
 
 -- --------------------------------------------------------
 
@@ -441,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`ID`),
   KEY `CATEGORY_ID` (`CATEGORY_ID`),
   KEY `CURRENCY_ID` (`CURRENCY_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10138 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10144 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -456,7 +459,7 @@ CREATE TABLE IF NOT EXISTS `products_images` (
   `IMAGE_PATH` varchar(200) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -470,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   `CATEGORY` varchar(200) NOT NULL,
   `IS_ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -510,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `product_feature_values` (
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`,`FEATURE_ID`),
   KEY `FEATURE_ID` (`FEATURE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables
