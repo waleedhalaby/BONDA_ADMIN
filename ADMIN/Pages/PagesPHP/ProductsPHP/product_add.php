@@ -65,10 +65,10 @@ $PERSON_ID = $_SESSION['id'];
         </div>
         <div style="text-align: left" class="row-fluid">
             <div class="col-md-12">
-                <button id="uploadImage1" class="btn btn-small btn-info" disabled onclick="SaveImageBtn(ProductID,'fileupload1','oldImage1','uploadImage1','removeImage1')">Upload Image</button>
-                <button id="uploadImage2" class="btn btn-small btn-info" disabled onclick="SaveImageBtn(ProductID,'fileupload2','oldImage2','uploadImage2','removeImage2')">Upload Image</button>
-                <button id="uploadImage3" class="btn btn-small btn-info" disabled onclick="SaveImageBtn(ProductID,'fileupload3','oldImage3','uploadImage3','removeImage3')">Upload Image</button>
-                <button id="uploadImage4" class="btn btn-small btn-info" disabled onclick="SaveImageBtn(ProductID,'fileupload4','oldImage4','uploadImage4','removeImage4')">Upload Image</button>
+                <button id="uploadImage1" class="btn btn-small btn-info" disabled onclick="SaveImageBtn('fileupload1','oldImage1','uploadImage1','removeImage1')">Upload Image</button>
+                <button id="uploadImage2" class="btn btn-small btn-info" disabled onclick="SaveImageBtn('fileupload2','oldImage2','uploadImage2','removeImage2')">Upload Image</button>
+                <button id="uploadImage3" class="btn btn-small btn-info" disabled onclick="SaveImageBtn('fileupload3','oldImage3','uploadImage3','removeImage3')">Upload Image</button>
+                <button id="uploadImage4" class="btn btn-small btn-info" disabled onclick="SaveImageBtn('fileupload4','oldImage4','uploadImage4','removeImage4')">Upload Image</button>
             </div>
         </div>
         <div style="text-align: left" class="row-fluid">
@@ -163,7 +163,7 @@ $PERSON_ID = $_SESSION['id'];
         });
     }
 
-    function SaveImageBtn(productid,file,image,uploadButton,removeButton){
+    function SaveImageBtn(file,image,uploadButton,removeButton){
         var fileInput = document.getElementById(file);
         oldImage = document.getElementById(image);
         var file_data = fileInput.files[0];
@@ -171,7 +171,6 @@ $PERSON_ID = $_SESSION['id'];
         form_data.append("file",file_data);
 
         var url = '';
-        console.log(oldImage.value);
 
         if(oldImage.value !== "0"){
             url = "Pages/PagesPHP/ProductsPHP/UploadImages.php?id="+ProductID+"&image="+imageName+"&oldimage="+oldImage.value;
@@ -265,6 +264,7 @@ $PERSON_ID = $_SESSION['id'];
                         $('#file').prop('disabled', false);
                         $('#uploadImageBtn').prop('disabled', false);
                         ProductID = data;
+                        console.log(ProductID);
                     }
                     else{
                         $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');

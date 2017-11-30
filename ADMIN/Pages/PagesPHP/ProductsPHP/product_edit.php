@@ -182,7 +182,6 @@ $PERSON_ID = $_SESSION['id'];
         form_data.append("file",file_data);
 
         var url = '';
-        console.log(oldImage.value);
 
         if(oldImage.value !== "0"){
             url = "Pages/PagesPHP/ProductsPHP/UploadImages.php?id="+ProductID+"&image="+imageName+"&oldimage="+oldImage.value;

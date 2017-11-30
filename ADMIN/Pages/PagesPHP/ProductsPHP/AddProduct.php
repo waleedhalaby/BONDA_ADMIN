@@ -61,7 +61,7 @@ if (mysqli_num_rows($result) > 0) {
          }
         $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
                                 ('".$DATETIME."','".$MAKER_ID."','9','Product [".$ID."] is added')";
-        $result = mysqli_query($con,$sql);
+        $result4 = mysqli_query($con,$sql);
         echo $ID;
     }
 }

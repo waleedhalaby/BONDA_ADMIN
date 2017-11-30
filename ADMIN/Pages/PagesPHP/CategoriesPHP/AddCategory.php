@@ -11,9 +11,12 @@ if(!isset($CATEGORY) || empty($CATEGORY) || $CATEGORY == ' '){
     echo "Category is required.";
 }
 else {
-    $sql = "SELECT CATEGORY FROM categories WHERE CATEGORY = '" . $CATEGORY . "'";
+    $sql = "SELECT CATEGORY FROM product_categories WHERE CATEGORY = '" . $CATEGORY . "'";
     $result = mysqli_query($con, $sql);
-    if(mysqli_num_rows($result) == 0){
+    if(mysqli_num_rows($result) > 0){
+        echo "Category is already exists.";
+    }
+    else{
         $sql = "INSERT INTO product_categories (CATEGORY,IS_ACTIVE) VALUES
         ('".$CATEGORY."','1')";
         $result = mysqli_query($con,$sql);
@@ -21,9 +24,6 @@ else {
                                 ('".$DATETIME."','".$MAKER_ID."','10','Category is added')";
         $result = mysqli_query($con,$sql);
         echo "Category is added successfully.";
-    }
-    else{
-        echo "Category is already exists.";
     }
 }
 ?>

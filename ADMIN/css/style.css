@@ -418,7 +418,7 @@ a.brand span {
 
 .nav-tabs.nav-stacked > li > a,
 .nav-tabs.nav-stacked > li > ul > li > a {
-	padding: 12px 10px 12px 10px;
+	padding: 10px 10px 10px 10px;
 	color: #fff;
 	border-top: none;
   	border-bottom: 1px solid transparent;
@@ -435,7 +435,7 @@ a.brand span {
 }
 
 .nav-tabs.nav-stacked > li > ul > li > a{
-	padding: 12px 10px 12px 10px;
+	padding: 10px 10px 10px 10px;
 	display: block;
 }
 
@@ -1012,13 +1012,20 @@ ul.messages li .message {
 			box-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.08), inset 0 1px hsla(0, 100%, 100%, 0.3);
 }
 
-.label,
-.badge {
-  	text-shadow: none;
+.label{
+	text-shadow: none;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	padding: 3px 6px;
+}
+
+.badge {
+  	text-shadow: none;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+	padding: 3px 1px;
 }
 
 .label {
