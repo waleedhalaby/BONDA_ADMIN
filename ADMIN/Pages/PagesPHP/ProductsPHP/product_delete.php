@@ -1,5 +1,8 @@
 <?php
     $PRODUCT_ID = $_GET['id'];
+
+    session_start();
+    $PERSON_ID = $_SESSION['id'];
 ?>
 
 <div class="modal-product-delete-content">
@@ -13,18 +16,23 @@
     $(document).ready(function(){
         $('#deleteProductForm').submit(function(e){
             e.preventDefault();
-            var url = "Pages/PagesPHP/ProductsPHP/DeleteProduct.php?id=<?php echo $PRODUCT_ID ?>";
+            var url = "Pages/PagesPHP/ProductsPHP/DeleteProduct.php?maker=<?php echo $PERSON_ID ?>&id=<?php echo $PRODUCT_ID ?>";
 
             $.ajax({
                 type: 'POST',
                 url: url,
                 data: $('#deleteProductForm').serialize(),
-                success: function () {
-                    $('#content').load('Pages/Products.php');
-                    $('.modal-product-delete-content').html('Product is Deleted Successfully.');
+                success: function (data) {
+                    if(data.indexOf("successfully") >=0){
+                        $('#content').load('Pages/Products.php');
+                        $('.modal-product-delete-content').html('<div class="container-fluid text-center"><span class="label label-warning">'+data+'</span></div>');
+                    }
+                    else{
+                        $('.modal-product-delete-content').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');
+                    }
                 },
                 error: function(data){
-                    $('.modal-product-delete-content').html('Error occurred, please contact your administrator.');
+                    $('.modal-product-delete-content').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');
                 }
             });
         });

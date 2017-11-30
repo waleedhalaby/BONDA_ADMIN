@@ -418,7 +418,7 @@ a.brand span {
 
 .nav-tabs.nav-stacked > li > a,
 .nav-tabs.nav-stacked > li > ul > li > a {
-	padding: 15px 10px 14px 10px;
+	padding: 12px 10px 12px 10px;
 	color: #fff;
 	border-top: none;
   	border-bottom: 1px solid transparent;
@@ -435,7 +435,7 @@ a.brand span {
 }
 
 .nav-tabs.nav-stacked > li > ul > li > a{
-	padding: 15px 10px 14px 10px;
+	padding: 12px 10px 12px 10px;
 	display: block;
 }
 
@@ -1868,6 +1868,8 @@ fieldset[disabled] .btn-link:focus {
 .image-see{
 	display:none;
 	position:absolute;
+	left: 80px;
+	top:80px;
 	width: 300px;
 	height: 300px;
 }

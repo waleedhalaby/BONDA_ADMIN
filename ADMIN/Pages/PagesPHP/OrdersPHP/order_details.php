@@ -10,7 +10,7 @@
 <h4>Order Details</h4>
 <table class="table table-striped table-bordered table-collapsed order-details-table">
     <thead>
-        <tr>
+        <tr style="background-color: #0c5460;color:#F4F4F4;">
             <th>IMAGE</th>
             <th>SKU_ID</th>
             <th>NAME</th>
@@ -38,18 +38,25 @@
             var order = $.parseJSON(data);
 
             $('.order-table tbody').append(
-                '<tr><td>UNIQUE ID</td><td>['+order['UNIQUE_ID']+']</td></tr>'+
-                '<tr><td>BY</td><td>'+order['PERSON']+'</td></tr>'+
-                '<tr><td>ORDER DATE</td><td>'+order['ORDER_DATE_TIME']+'</td></tr>'+
-                '<tr><td>PAYMENT TYPE</td><td>'+order['PAYMENT_TYPE']+'</td></tr>'+
-                '<tr><td>STATUS</td><td><label class="label label-warning">'+order['STATUS']+'</label></td></tr>'+
-                '<tr><td>TOTAL</td><td>'+order['TOTAL']+ ' ' +order['CURRENCY']+'</td></tr>'
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">UNIQUE ID</td><td>['+order['UNIQUE_ID']+']</td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">BY</td><td>'+order['PERSON']+'</td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">ORDER DATE</td><td>'+order['ORDER_DATE_TIME']+'</td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">PAYMENT TYPE</td><td>'+order['PAYMENT_TYPE']+'</td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">STATUS</td><td><label class="label label-warning">'+order['STATUS']+'</label></td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">TOTAL</td><td>'+order['TOTAL']+ ' ' +order['CURRENCY']+'</td></tr>'
             );
             if(order['DETAILS'].length > 0){
                 $(order['DETAILS']).each(function(id,detail){
+                    var image = '';
+                    if(detail['IMAGE'] !== ''){
+                        image = '<img id="'+detail['IMAGE_ID']+'" style="width: 30px; height:30px" src="'+detail['IMAGE']+'"/>' +
+                            '<img id="Big'+detail['IMAGE_ID']+'" style="display: none;position:absolute;width: 150px; height:150px" src="'+detail['IMAGE']+'"/>';
+                    }
+                    else{
+                        image = '<img style="width: 30px; height:30px" src="Images/default-image.png"/>';
+                    }
                     $('.order-details-table tbody').append(
-                        '<tr><td><img id="'+detail['IMAGE_ID']+'" style="width: 30px; height:30px" src="'+detail['IMAGE']+'"/>' +
-                        '<img id="Big'+detail['IMAGE_ID']+'" style="display: none;position:absolute;width: 150px; height:150px" src="'+detail['IMAGE']+'"/></td>'+
+                        '<tr><td>'+image+'</td>'+
                         '<td>'+detail['SKU_ID']+'</td>'+
                         '<td>'+detail['NAME']+'</td>'+
                         '<td>'+detail['QUANTITY']+'</td>'+

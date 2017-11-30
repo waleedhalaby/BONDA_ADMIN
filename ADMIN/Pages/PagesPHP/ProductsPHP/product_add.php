@@ -1,14 +1,23 @@
+<?php
+session_start();
+$PERSON_ID = $_SESSION['id'];
+?>
 <div class="modal-product-add-content">
-    <label>Product Details</label>
     <form id="addProductForm">
+        <label>Product Details (MANDATORY)</label>
         <table class="table table-striped table-bordered product-details-table">
             <tbody>
-            <tr><td>SKU ID</td><td colspan="2"><input name="addSKUID" id="addSKUID" type="text" readonly/></td></tr>
-            <tr><td>NAME*</td><td colspan="2"><input id="addName" name="addName" type="text" placeholder="Enter Name" required/></td></tr>
-            <tr><td>PRICE*</td><td colspan="2"><input id="addPrice" name="addPrice" type="number" placeholder="Enter Price" step="0.01" required/></td></tr>
-            <tr><td>CURRENCY*</td><td colspan="2"><select id="addCurrency" name="addCurrency" data-rel="chosen" required><option disabled selected>Select Currency</option></select></td></tr>
-            <tr><td>DESCRIPTION*</td><td colspan="2"><textarea id="addDescription" name="addDescription" class="cleditor" rows="3"></textarea></td></tr>
-            <tr><td>CATEGORY*</td><td colspan="2"><select id="addCategory" name="addCategory" data-rel="chosen" required><option disabled selected>Select Category</option></select></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">SKU ID</td><td colspan="2"><input name="addSKUID" id="addSKUID" type="text" readonly/></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">NAME*</td><td colspan="2"><input id="addName" name="addName" type="text" placeholder="Enter Name" required/></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">PRICE*</td><td colspan="2"><input id="addPrice" name="addPrice" type="number" placeholder="Enter Price" step="0.01" required/></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">CURRENCY*</td><td colspan="2"><select id="addCurrency" name="addCurrency" data-rel="chosen" required><option disabled selected>Select Currency</option></select></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">DESCRIPTION*</td><td colspan="2"><textarea id="addDescription" name="addDescription" class="cleditor" rows="3"></textarea></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">CATEGORY*</td><td colspan="2"><select id="addCategory" name="addCategory" data-rel="chosen" required><option disabled selected>Select Category</option></select></td></tr>
+            </tbody>
+        </table>
+        <label>Product Features Details (OPTIONAL)</label>
+        <table class="table table-striped table-bordered product-features-details-table">
+            <tbody>
             </tbody>
         </table>
         <div id="message" class="container-fluid text-center"></div>
@@ -90,9 +99,9 @@
         if(data !== ''){
             var features = $.parseJSON(data);
             $(features).each(function(id,feature){
-                $('.product-details-table tbody').append(
+                $('.product-features-details-table tbody').append(
                     '<tr>'+
-                    '<td>'+feature['FEATURE'].toUpperCase()+'</td>'+
+                    '<td style="background-color: #0c5460;color:#F4F4F4">'+feature['FEATURE'].toUpperCase()+'</td>'+
                     '<td>'+InputDataType(counter,feature['DATA_TYPE'],feature['FEATURE'])+'</td></tr>');
                 counter++;
                 ids+= feature['ID'] + '$';
@@ -137,7 +146,7 @@
             url: url,
             success: function (data) {
                 $('#content').load('Pages/Products.php');
-                $('#imageMessage').html('<div class="container-fluid text-center"><span class="label label-warning">Image is Removed Successfully.</span></div>');
+                $('#imageMessage').html('<div class="container-fluid text-center"><span class="label label-warning">Image is removed successfully.</span></div>');
                 $('#'+uploadButton).html('Upload Image');
                 $('#'+uploadButton).attr('disabled',true);
                 $('#'+uploadButton).removeClass('btn-warning');
@@ -240,7 +249,7 @@
                 values += $('#value'+i).val()+'$';
             }
 
-            var url = "Pages/PagesPHP/ProductsPHP/AddProduct.php?ids="+ids+"&values="+values;
+            var url = "Pages/PagesPHP/ProductsPHP/AddProduct.php?maker=<?php echo $PERSON_ID ?>&ids="+ids+"&values="+values;
 
 
             $.ajax({
@@ -251,7 +260,7 @@
                     if(data !== '') {
                         $('#content').load('Pages/Products.php');
                         $('#message').html('');
-                        $('.modal-product-add-content').html('<div class="container-fluid text-center"><span class="label label-warning">Product is Added Successfully.</span></div>');
+                        $('.modal-product-add-content').html('<div class="container-fluid text-center"><span class="label label-warning">Product is added successfully.</span></div>');
                         $('.modal-product-det-content').css('display','block');
                         $('#file').prop('disabled', false);
                         $('#uploadImageBtn').prop('disabled', false);

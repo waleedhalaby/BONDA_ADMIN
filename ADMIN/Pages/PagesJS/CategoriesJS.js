@@ -43,7 +43,7 @@ $(document).ready(function () {
                            'onclick="ShowModal(\'Category '+category['CATEGORY']+' Deactivate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=false\')">' +
                            '<i class="icon-eye-close"></i></a>';
                    }
-                   else if(val[2].indexOf('0') >= 0){
+                   else if(category['IS_ACTIVE'].indexOf('0') >= 0){
                        status = '<td class="center"><span class="label label-info">DEACTIVATED</span></td>';
                        icon = '<a id="updateCategoryBtn" class="btn btn-warning" ' +
                            'onclick="ShowModal(\'Category '+category['CATEGORY']+' Activate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=true\')">' +

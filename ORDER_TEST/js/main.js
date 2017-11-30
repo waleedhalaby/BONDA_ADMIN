@@ -10,11 +10,18 @@ $(document).ready(function(){
         var counter = 1;
         var counter2 = 1;
         $(products).each(function(id,product){
+            var image = '';
+            if(product['IMAGES'].length > 0){
+                image = '<img class="card-img-top" style="width:318px;height: 180px" src="/BONDA_ADMIN/ADMIN/'+product['IMAGES'][0]['IMAGE']+'" alt="'+product['NAME']+'"/>';
+            }
+            else{
+                image = '<img class="card-img-top" style="width:318px;height: 180px" src="/BONDA_ADMIN/ADMIN/Images/default-image.png" alt="'+product['NAME']+'"/>'
+            }
             $('#main_container .row#'+counter2).append(
                 '<div class="col-md-3">' +
                 '<a onclick="ShowProduct('+product['ID']+')">'+
                 '<div class="card" style="width: 20rem;">'+
-                '<img class="card-img-top" style="width:318px;height: 180px" src="/BONDA_ADMIN/ADMIN/'+product['IMAGES'][0]['IMAGE']+'" alt="'+product['NAME']+'"/>'+
+                image+
                 '<div style="min-height: 200px;padding: 10px;" class="card-block">'+
                 '<h4 class="card-title">'+product['NAME']+'</h4><label style="font-size: small;font-weight: 600;color: #f0f0f0;border-radius: 5px;padding: 3px 10px;" class="label bg-danger">'+product['CATEGORY']+'</label>'+
                 '<p class="card-text">'+product['DESCRIPTION'].substring(0,50)+'...'+'</p>'+

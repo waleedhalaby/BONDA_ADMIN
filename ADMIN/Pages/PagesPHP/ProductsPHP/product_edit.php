@@ -1,5 +1,7 @@
 <?php
 $PRODUCT_ID = $_GET['id'];
+session_start();
+$PERSON_ID = $_SESSION['id'];
 ?>
 
 <div class="modal-product-edit-content">
@@ -41,20 +43,20 @@ $PRODUCT_ID = $_GET['id'];
     $(document).ready(function(){
         var changes;
         var length = 0;
-        $.get('Pages/PagesPHP/ProductsPHP/GetDetails.php?id=<?php echo $PRODUCT_ID ?>',function(data) {
+        $.get('Pages/PagesPHP/ProductsPHP/GetEditDetails.php?id=<?php echo $PRODUCT_ID ?>',function(data) {
             var product = $.parseJSON(data);
             var counter2 = 0;
             $('.product-details-table tbody').html(
-                '<tr><td>ID</td><td>['+product[0]['ID']+']</td></tr>'+
-                '<tr><td>SKU ID</td><td><input id="editSKUID" style="text-align: center" name="editSKUID" type="text" readonly value="'+product[0]['SKU_ID']+'"/></td></tr>'+
-                '<tr><td>NAME</td><td><input id="editName" name="editName" type="text" value="'+product[0]['NAME']+'"/></td></tr>'+
-                '<tr><td>PRICE</td><td><input id="editPrice" name="editPrice" type="number" step="0.01" value="'+product[0]['PRICE']+'"/></td></tr>'+
-                '<tr><td>DESCRIPTION</td><td><textarea id="editDescription" name="editDescription" class="cleditor">'+product[0]['DESCRIPTION']+'</textarea></td></tr>'+
-                '<tr><td>CATEGORY</td><td><span class="label label-warning">'+product[0]['CATEGORY']+'</span></td></tr>'
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">ID</td><td>['+product[0]['ID']+']</td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">SKU ID</td><td><input id="editSKUID" style="text-align: center" name="editSKUID" type="text" readonly value="'+product[0]['SKU_ID']+'"/></td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">NAME</td><td><input id="editName" name="editName" type="text" value="'+product[0]['NAME']+'"/></td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">PRICE</td><td><input id="editPrice" name="editPrice" type="number" step="0.01" value="'+product[0]['PRICE']+'"/></td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">DESCRIPTION</td><td><textarea id="editDescription" name="editDescription" class="cleditor">'+product[0]['DESCRIPTION']+'</textarea></td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">CATEGORY</td><td><span class="label label-warning">'+product[0]['CATEGORY']+'</span></td></tr>'
             );
             $(product[0]['FEATURES']).each(function(id,feature){
                 $('.product-details-table tbody').append(
-                    '<tr><td>'+feature['FEATURE']+'</td><td>'+InputEditDataType(feature['ID'],feature['DATA_TYPE'],feature['FEATURE'],feature['VALUE'])+'</td></tr>'
+                    '<tr><td style="background-color: #0c5460;color:#F4F4F4;">'+feature['FEATURE']+'</td><td>'+InputEditDataType(feature['ID'],feature['DATA_TYPE'],feature['FEATURE'],feature['VALUE'])+'</td></tr>'
                 );
                 counter++;
             });
@@ -142,11 +144,11 @@ $PRODUCT_ID = $_GET['id'];
                 var featureIds = '';
                 for(var i = 0 ; i < counter ; i++){
                     var id = $('.val').attr('id');
-                    featureIds += id.substr(id.length - 1)+'$';
+                    featureIds += id.replace('value','')+'$';
                     values += $('.val').val()+'$';
                 }
 
-                var url = "Pages/PagesPHP/ProductsPHP/UpdateProduct.php?id=<?php echo $PRODUCT_ID ?>&values="+values+"&featureids="+featureIds;
+                var url = "Pages/PagesPHP/ProductsPHP/UpdateProduct.php?maker=<?php echo $PERSON_ID ?>&id=<?php echo $PRODUCT_ID ?>&values="+values+"&featureids="+featureIds;
 
 
                 $.ajax({
@@ -157,7 +159,7 @@ $PRODUCT_ID = $_GET['id'];
                         if(data === '') {
                             $('#content').load('Pages/Products.php');
                             $('#message').html('');
-                            $('#message').html('<div class="container-fluid text-center"><span class="label label-warning">Product is Updated Successfully.</span></div>');
+                            $('#message').html('<div class="container-fluid text-center"><span class="label label-warning">Product is updated successfully.</span></div>');
                         }
                         else{
                             $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');
@@ -228,7 +230,7 @@ $PRODUCT_ID = $_GET['id'];
             url: url,
             success: function (data) {
                 $('#content').load('Pages/Products.php');
-                $('#imageMessage').html('<div class="container-fluid text-center"><span class="label label-warning">Image is Removed Successfully.</span></div>');
+                $('#imageMessage').html('<div class="container-fluid text-center"><span class="label label-warning">Image is removed successfully.</span></div>');
                 $('#'+uploadButton).html('Upload Image');
                 $('#'+uploadButton).attr('disabled',true);
                 $('#'+uploadButton).removeClass('btn-warning');

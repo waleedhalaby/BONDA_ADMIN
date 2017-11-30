@@ -9,9 +9,16 @@ $(document).ready(function(){
             cartId= cart['ID'];
             $('#Total').html(total + ' ' + cart['DETAILS'][0]['CURRENCY']);
             $(cart['DETAILS']).each(function(id,detail){
+                var image = '';
+                if(detail['IMAGE'] !== ''){
+                    image = '<img src="/BONDA_ADMIN/ADMIN/'+detail['IMAGE']+'" style="width: 50px;"/>';
+                }
+                else{
+                    image = '<img src="/BONDA_ADMIN/ADMIN/Images/default-image.png" style="width: 50px;"/>'
+                }
                 $('#cartTable tbody').append(
                     '<tr>'+
-                    '<td><img src="/BONDA_ADMIN/ADMIN/'+detail['IMAGE']+'" style="width: 50px;"/></td>'+
+                    '<td>'+image+'</td>'+
                     '<td>'+detail['SKU_ID']+'</td>'+
                     '<td>'+detail['NAME']+'</td>'+
                     '<td>'+detail['QUANTITY']+'</td>'+

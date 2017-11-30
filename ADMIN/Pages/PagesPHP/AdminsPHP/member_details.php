@@ -13,15 +13,15 @@
             var person = $.parseJSON(data);
 
             $('.member-details-table tbody').html(
-                '<tr><td>ID</td><td>['+person[0]['ID']+']</td></tr>'+
-                '<tr><td>FIRST NAME</td><td>'+person[0]['FIRST_NAME']+'</td></tr>'+
-                '<tr><td>LAST NAME</td><td>'+person[0]['LAST_NAME']+'</td></tr>'+
-                '<tr><td>E-MAIL</td><td>'+person[0]['EMAIL']+'</td></tr>'+
-                '<tr><td>ROLE</td><td>'+person[0]['TYPE']+'</td></tr>'
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">ID</td><td>['+person[0]['ID']+']</td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">FIRST NAME</td><td>'+person[0]['FIRST_NAME']+'</td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">LAST NAME</td><td>'+person[0]['LAST_NAME']+'</td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">E-MAIL</td><td>'+person[0]['EMAIL']+'</td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">ROLE</td><td>'+person[0]['TYPE']+'</td></tr>'
             );
             $(person[0]['FEATURES']).each(function(id,feature){
                 $('.member-details-table tbody').append(
-                    '<tr><td>'+feature['FEATURE']+'</td><td>'+feature['VALUE']+'</td></tr>'
+                    '<tr><td style="background-color: #0c5460;color:#F4F4F4;">'+feature['FEATURE']+'</td><td>'+feature['VALUE']+'</td></tr>'
                 );
             });
         });

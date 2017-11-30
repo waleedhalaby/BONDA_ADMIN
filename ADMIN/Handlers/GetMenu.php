@@ -1,7 +1,7 @@
 <?php
     require ('DBCONNECT.php');
 
-    $sql = 'SELECT * FROM pages';
+    $sql = 'SELECT * FROM pages WHERE IS_VISIBLE = 1';
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
 

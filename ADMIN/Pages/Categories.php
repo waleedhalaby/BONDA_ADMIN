@@ -26,7 +26,7 @@
         <div class="box-content">
             <table class="table table-striped table-bordered bootstrap-datatable datatable">
                 <thead>
-                <tr>
+                <tr style="background-color: #0c5460;color:#F4F4F4;">
                     <th>Category</th>
                     <th>Number of Products</th>
                     <th>Status</th>

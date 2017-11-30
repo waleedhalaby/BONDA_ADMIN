@@ -27,7 +27,7 @@
                         INNER JOIN product_features F ON V.FEATURE_ID = F.ID
                         INNER JOIN data_types DT ON F.DATA_TYPE_ID = DT.ID
                         INNER JOIN products P ON V.PRODUCT_ID = P.ID
-                        WHERE F.IS_ACTIVE = '1' AND V.VALUE IS NOT NULL AND P.ID = ".$row['ID'];
+                        WHERE F.IS_ACTIVE = '1' AND P.ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
             $rows2 = mysqli_num_rows($result2);
             if($rows2 > 0) {

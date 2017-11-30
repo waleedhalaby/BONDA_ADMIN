@@ -1,5 +1,9 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
+date_default_timezone_set('Africa/Cairo');
+$DATETIME = date_create()->format('Y-m-d H:i:s');
+
+$MAKER_ID = $_GET['maker'];
 
 $MEMBER_ID = $_GET['id'];
 $COUNTER = $_GET['features'];
@@ -16,15 +20,33 @@ for($i = 0; $i < $COUNTER ; $i++){
     $json[$i]['FEATURE_ID'] = $_POST['FeatureID'];
     $json[$i]['VALUE'] = $_POST['FEATURE'.$i];
 }
-
-$sql = "UPDATE persons SET FIRST_NAME = '".$FIRST_NAME."',LAST_NAME = '".$LAST_NAME."',EMAIL = '".$EMAIL."' 
-        WHERE ID = ".$MEMBER_ID;
-$result = mysqli_query($con,$sql);
-
-for($i = 0; $i < $COUNTER ; $i++) {
-    $sql = "UPDATE person_feature_values SET VALUE = " . $json[$i]['VALUE'] . "WHERE ID = " . $json[$i]['FEATURE_ID'];
-    $result = mysqli_query($con,$sql);
+if(!isset($FIRST_NAME) || empty($FIRST_NAME) || $FIRST_NAME == ' '){
+    echo "First name is required.";
 }
+elseif(!isset($LAST_NAME) || empty($LAST_NAME) || $LAST_NAME == ' '){
+    echo "Last name is required.";
+}
+else{
+    $sql = "SELECT EMAIL FROM persons WHERE EMAIL = '".$EMAIL."'";
+    $result = mysqli_query($con,$sql);
+    $rows = mysqli_num_rows($result);
+    if($rows > 0){
+        echo "E-mail is already exists.";
+    }
+    else {
+        $sql = "UPDATE persons SET FIRST_NAME = '" . $FIRST_NAME . "',LAST_NAME = '" . $LAST_NAME . "',EMAIL = '" . $EMAIL . "' 
+            WHERE ID = " . $MEMBER_ID;
+        $result = mysqli_query($con, $sql);
 
-echo true;
+        for ($i = 0; $i < $COUNTER; $i++) {
+            $sql = "UPDATE person_feature_values SET VALUE = " . $json[$i]['VALUE'] . "WHERE ID = " . $json[$i]['FEATURE_ID'];
+            $result = mysqli_query($con, $sql);
+        }
+
+        $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
+                                    ('" . $DATETIME . "','" . $MAKER_ID . "','6','Member [" . $MEMBER_ID . "] is updated')";
+        $result = mysqli_query($con, $sql);
+        echo "Member is updated successfully.";
+    }
+}
 ?>

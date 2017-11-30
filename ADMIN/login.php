@@ -50,7 +50,7 @@
 
                         <div class="input-prepend" title="Email">
                             <span class="add-on"><i class="halflings-icon user"></i></span>
-                            <input class="input-large span10" name="email" id="email" type="text" placeholder="type e-mail"/>
+                            <input class="input-large span10" name="email" id="email" type="email" placeholder="type e-mail"/>
                         </div>
                         <div class="clearfix"></div>
 

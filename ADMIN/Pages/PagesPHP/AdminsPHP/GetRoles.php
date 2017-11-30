@@ -1,7 +1,7 @@
 <?php
 require('../../../Handlers/DBCONNECT.php');
 
-$sql = "SELECT * FROM person_types";
+$sql = "SELECT * FROM person_types WHERE ID <> '2'";
 $result = mysqli_query($con,$sql);
 $rows = mysqli_num_rows($result);
 

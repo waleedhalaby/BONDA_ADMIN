@@ -1,6 +1,5 @@
 $(document).ready(function () {
-
-
+    var PERSON_ID = $('#hiddenMemberID').val();
    $.get('Pages/PagesPHP/AdminsPHP/GetAdmins.php',function (data) {
        if(data !== ''){
            var array = $.parseJSON(data);
@@ -47,13 +46,13 @@ $(document).ready(function () {
                         changes += $(this).val()+ '_' +($(this).attr("checked") ? 1:0)+' ';
                     });
 
-                    $.post('Pages/PagesPHP/AdminsPrivilegesPHP/UpdatePrivileges.php',{id:ID,changes:changes},function(data){
+                    $.post('Pages/PagesPHP/AdminsPrivilegesPHP/UpdatePrivileges.php?maker='+PERSON_ID,{id:ID,changes:changes},function(data){
                         if(data.indexOf('true') >= 0){
                             $('#content').load('Pages/AdminsPrivileges.php');
-                            $('.box-content p#information').html('Privileges Are Updated Successfully.');
+                            $('.box-content p#information').html('<div class="container-fluid text-center"><span class="label label-warning">Privileges Are Updated Successfully.</span></div>');
                         }
                         else{
-                            $('.box-content p#information').html('Error occurred, please contact your administrator.');
+                            $('.box-content p#information').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');
                         }
                     });
                 });

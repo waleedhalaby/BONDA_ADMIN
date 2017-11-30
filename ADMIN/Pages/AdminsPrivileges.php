@@ -32,7 +32,7 @@
                     </select>
                 </div>
             </div>
-            <p class="text-center label label-warning" id="information"></p>
+            <p id="information"></p>
             <div class="privileges">
 
             </div>

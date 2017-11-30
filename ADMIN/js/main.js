@@ -1,14 +1,15 @@
 const MEMBER_PRIVILEGES = [];
+const CURRENT_PAGE = '';
 
 $(document).ready(function(){
    $('#profileDiv').load('Shared/profile.php');
 
    $.get('Handlers/GetMenu.php', function (data) {
        var array = $.parseJSON(data);
-       var firstLink = array[10][2];
+       var firstLink = array[7][2];
        $(array).each(function (id,val) {
            if(val[4] === "0" && !(val[2].indexOf('#') >= 0)){
-               $('#menuDiv').append('<li id="'+val[0]+'"><a><i class="'+val[3]+'"></i><span class="hidden-tablet"> '+val[1]+'</span></a></li>');
+               $('#menuDiv').append('<li style="cursor: pointer;" id="'+val[0]+'"><a><i class="'+val[3]+'"></i><span class="hidden-tablet"> '+val[1]+'</span></a></li>');
 
                $('#menuDiv li#'+val[0]).on('click',function(){
                    $('#content').load(val[2]);
@@ -17,14 +18,14 @@ $(document).ready(function(){
                });
            }
            else if(!(val[4].indexOf("0")) && val[2].indexOf('#') >= 0){
-               $('#menuDiv').append('<li id="'+val[0]+'"><a class="dropmenu"><i class="'+val[3]+'"></i><span class="hidden-tablet"> '+
+               $('#menuDiv').append('<li style="cursor: pointer;" id="'+val[0]+'"><a class="dropmenu"><i class="'+val[3]+'"></i><span class="hidden-tablet"> '+
                    val[1]+'</span><span class="icon-angle-down"></span></a>' +
                    '<ul>');
                $(array).each(function(id,val2){
                    if(val2[4].indexOf(val[0]) >= 0)
                    {
                        $('#menuDiv #'+val[0]+' ul').append(
-                           '<li id="'+val2[0]+'"><a class="submenu"><i class="'+val2[3]+'"></i><span class="hidden-tablet">'+val2[1]+'</span></a></li>'
+                           '<li style="cursor: pointer;" id="'+val2[0]+'"><a class="submenu"><i class="'+val2[3]+'"></i><span class="hidden-tablet">'+val2[1]+'</span></a></li>'
                        );
 
                        $('#menuDiv #'+val[0]+' ul li#'+val2[0]).on('click',function(){
@@ -46,7 +47,7 @@ $(document).ready(function(){
 
        });
 
-       $('#menuDiv li ul li:last').addClass('active');
+       $('#menuDiv li:first').addClass('active');
        $('#content').load(firstLink);
    });
 
@@ -105,16 +106,20 @@ function InputDataType(id,datatype,feature){
 function InputEditDataType(id,datatype,feature,value){
     switch (datatype){
         case 'STRING':
+            if(value === null){value = '';}
             return '<input class="val" type="text" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
             break;
         case 'DATETIME':
+            if(value === null){value = new Date();}
             return '<input class="val" type="date" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
             break;
         case 'INTEGER':
+            if(value === null){value = 0;}
             return '<input class="val" type="number" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
             break;
         case 'DOUBLE':
         case 'DECIMAL':
+            if(value === null){value = 0.00;}
             return '<input class="val" type="number" step="0.01" id="value'+id+'" name="value'+id+'" value="'+value+'" placeholder="Enter '+(feature.toLowerCase()).charAt(0).toUpperCase() + feature.slice(1) +'"/>';
             break;
         case 'BOOLEAN':
