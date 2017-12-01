@@ -23,12 +23,12 @@
             header("Location: ../index.php");
         }
         else{
-            $_SESSION['ERROR'] = 'Invalid E-mail or Password.';
+            $_SESSION['ERROR'] = '<span id="error" class="label label-warning">Invalid E-mail or Password.</span>';
             header("Location: ../login.php");
         }
     }
     else{
-        $_SESSION['ERROR'] = 'Please Enter the Required Fields.';
+        $_SESSION['ERROR'] = '<span id="error" class="label label-warning">Please Enter the Required Fields.</span>';
         header("Location: ../login.php");
     }
 ?>

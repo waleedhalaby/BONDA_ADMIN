@@ -20,6 +20,23 @@
     <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+    <script>
+        function ShowModal(title,button,link) {
+            $('#MyModal .modal-title').html(title);
+            $('#MyModal .modal-body').empty();
+            $('#MyModal .modal-footer').empty();
+            $('#MyModal .modal-body').load(link);
+
+            switch(button){
+                case 'Close':
+                    $('#MyModal .modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
+                    break;
+            }
+
+            $('#MyModal').modal();
+        }
+    </script>
+
     <link rel="shortcut icon" href="Images/favicon.ico">
 
     <style type="text/css">
@@ -27,6 +44,23 @@
     </style>
 </head>
 <body>
+<div class="modal fade" id="MyModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="navbar">
     <div class="navbar-inner">
         <div class="container-fluid">
@@ -50,18 +84,20 @@
 
                         <div class="input-prepend" title="Email">
                             <span class="add-on"><i class="halflings-icon user"></i></span>
-                            <input class="input-large span10" name="email" id="email" type="email" placeholder="type e-mail"/>
+                            <input required class="input-large span10" name="email" id="email" type="email" placeholder="type e-mail"/>
                         </div>
                         <div class="clearfix"></div>
 
                         <div class="input-prepend" title="Password">
                             <span class="add-on"><i class="halflings-icon lock"></i></span>
-                            <input class="input-large span10" name="password" id="password" type="password" placeholder="type password"/>
+                            <input required class="input-large span10" name="password" id="password" type="password" placeholder="type password"/>
                         </div>
                         <div class="clearfix"></div>
 
                         <label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
-
+                        <div class="container-fluid text-center">
+                                <?php if(isset($_SESSION['ERROR']) || !empty($_SESSION['ERROR'])){echo $_SESSION['ERROR'];}; ?>
+                            </div>
                         <div class="button-login">
                             <button type="submit" class="btn btn-primary">Login</button>
                         </div>
@@ -70,7 +106,7 @@
                 <hr>
                 <h3>Forgot Password?</h3>
                 <p>
-                    No problem, <a href="#">contact your administrator</a> to get a new password.
+                    No problem, <a style="cursor: pointer;color: #8cafed" onclick="ShowModal('Reset Password','Close','reset_password.php')">reset your password here</a>.
                 </p>
             </div><!--/span-->
         </div><!--/row-->
@@ -79,5 +115,7 @@
     </div><!--/.fluid-container-->
 
 </div><!--/fluid-row-->
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>

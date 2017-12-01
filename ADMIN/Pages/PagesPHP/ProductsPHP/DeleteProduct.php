@@ -10,7 +10,7 @@ $PRODUCT_ID = $_GET['id'];
 $sql = "SELECT ID FROM cart_details WHERE PRODUCT_ID='".$PRODUCT_ID."'";
 $result = mysqli_query($con,$sql);
 if(mysqli_num_rows($result) > 0){
-    echo 'You cannot delete this product as it is contained in an order.';
+    echo 'You cannot delete this product as it is contained in orders.';
 }
 else{
     $sql = "DELETE FROM product_feature_values WHERE PRODUCT_ID = ".$PRODUCT_ID;

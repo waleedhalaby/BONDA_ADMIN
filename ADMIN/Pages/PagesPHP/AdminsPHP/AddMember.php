@@ -44,7 +44,7 @@ else{
                     $sql = "INSERT INTO person_feature_values (PERSON_FEATURE_ID,PERSON_ID,VALUE) VALUES ('2','".$MEMBER_ID['ID']."','INACTIVE')";
                     $result = mysqli_query($con, $sql);
 
-                    $sql = "SELECT ID FROM PRIVILEGES";
+                    $sql = "SELECT ID FROM privileges";
                     $res2 = mysqli_query($con,$sql);
                     if(mysqli_num_rows($res2) > 0){
                         while($row = mysqli_fetch_assoc($res2)){

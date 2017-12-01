@@ -17,15 +17,15 @@ $(document).ready(function () {
                    var status,icon;
                    if(category['IS_ACTIVE'].indexOf('1') >= 0){
                        status = '<td class="center"><span class="label label-warning">ACTIVATED</span></td>';
-                       icon = '<a id="updateCategoryBtn" class="btn btn-info" ' +
+                       icon = '<a id="updateCategoryBtn" class="btn btn-success" ' +
                            'onclick="ShowModal(\'Category '+category['CATEGORY']+' Deactivate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=false\')">' +
-                           '<i class="icon-eye-close"></i></a>';
+                           '<i class="halflings-icon white eye-close"></i></a>';
                    }
                    else if(category['IS_ACTIVE'].indexOf('0') >= 0){
                        status = '<td class="center"><span class="label label-info">DEACTIVATED</span></td>';
                        icon = '<a id="updateCategoryBtn" class="btn btn-warning" ' +
                            'onclick="ShowModal(\'Category '+category['CATEGORY']+' Activate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=true\')">' +
-                           '<i class="icon-eye-open"></i></a>';
+                           '<i class="halflings-icon white eye-open"></i></a>';
                    }
                    $('#categoryTable').append('<tr>' +
                        '<td class="center">'+category['CATEGORY']+'</td>' +
@@ -33,21 +33,27 @@ $(document).ready(function () {
                        status +
                        '<td class="center">' +
                        icon +
+                       '<a id="editCategoryBtn" class="editCategory btn btn-info" ' +
+                       'onclick="ShowModal(\'Category [#'+category['ID']+'] Edit\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY']+'&id='+category['ID']+'\')">' +
+                       '<i class="halflings-icon white edit"></i></a>'+
+                       '<a id="deleteCategoryBtn" class="deleteCategory btn btn-danger" ' +
+                       'onclick="ShowModal(\'Category [#'+category['ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?id='+category['ID']+'\')">' +
+                       '<i class="halflings-icon white trash"></i></a>'+
                        '</td>' +
                        '</tr>');
                }
                else{
                    if(category['IS_ACTIVE'].indexOf('1') >= 0){
                        status = '<td class="center"><span class="label label-warning">ACTIVATED</span></td>';
-                       icon = '<a id="updateCategoryBtn" class="btn btn-info" ' +
+                       icon = '<a id="updateCategoryBtn" class="btn btn-success" ' +
                            'onclick="ShowModal(\'Category '+category['CATEGORY']+' Deactivate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=false\')">' +
-                           '<i class="icon-eye-close"></i></a>';
+                           '<i class="halflings-icon white eye-close"></i></a>';
                    }
                    else if(category['IS_ACTIVE'].indexOf('0') >= 0){
                        status = '<td class="center"><span class="label label-info">DEACTIVATED</span></td>';
                        icon = '<a id="updateCategoryBtn" class="btn btn-warning" ' +
                            'onclick="ShowModal(\'Category '+category['CATEGORY']+' Activate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=true\')">' +
-                           '<i class="icon-eye-open"></i></a>';
+                           '<i class="halflings-icon white eye-open"></i></a>';
                    }
                    $('#categoryTable').append('<tr>' +
                        '<td class="center">'+category['CATEGORY']+'</td>' +
@@ -55,13 +61,19 @@ $(document).ready(function () {
                        status +
                        '<td class="center">' +
                        icon +
+                       '<a id="editCategoryBtn" class="editCategory btn btn-info" ' +
+                       'onclick="ShowModal(\'Category [#'+category['ID']+'] Edit\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY']+'&id='+category['ID']+'\')">' +
+                       '<i class="halflings-icon white edit"></i></a>'+
+                       '<a id="deleteCategoryBtn" class="deleteCategory btn btn-danger" ' +
+                       'onclick="ShowModal(\'Category [#'+category['ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?id='+category['ID']+'\')">' +
+                       '<i class="halflings-icon white trash"></i></a>'+
                        '</td>' +
                        '</tr>');
                }
            });
        }
        else{
-           products = [];
+           categories = [];
        }
        $('.datatable').DataTable();
    });

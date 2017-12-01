@@ -9,7 +9,7 @@
         <li class="dropdown-menu-title">
             <span>Account Settings</span>
         </li>
-        <li style="cursor: pointer;" id="profileBtn"><a><i class="halflings-icon user"></i> Profile</a></li>
+        <li style="cursor: pointer;" onclick="ShowModal('Reset Password','Close','Shared/reset_password.php')"><a><i class="halflings-icon user"></i> Reset Password</a></li>
         <li><a href="Handlers/Logout.php"><i class="halflings-icon off"></i> Logout</a></li>
     </ul>
 </li>

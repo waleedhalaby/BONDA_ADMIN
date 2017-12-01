@@ -48,10 +48,12 @@
     <link id="bootstrap-style" href="css/bootstrap.min.css" rel="stylesheet">
     <link id="bootstrap-style" href="css/font-awesome.min.css" rel="stylesheet">
     <link id="bootstrap-style" href="css/main.css" rel="stylesheet">
-    <link id="bootstrap-style" href="css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <style type="text/css">
+        body { background: url(/ADMIN/img/bg-login.jpg) !important; }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-inverse bg-inverse">
@@ -76,6 +78,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <td><hr></td>
+                </tr>
+                <tr>
+                    <td><h3>Forgot Password?</h3></td>
+                </tr>
+                <tr>
+                    <td><p>
+                        No problem, <a style="cursor: pointer;color: #8cafed" href="reset_password.php">reset your password here</a>.
+                    </p></td>
+                </tr>
+                <tr>
                     <td></td>
                     <td class="submit-button-right">
                         <input class="btn btn-success" type="submit" value="Submit" alt="Submit" title="Submit" />
@@ -87,5 +100,7 @@
             </table>
         </form>
     </div>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>
