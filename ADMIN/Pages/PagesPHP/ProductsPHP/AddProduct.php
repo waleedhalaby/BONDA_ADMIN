@@ -62,6 +62,11 @@ if (mysqli_num_rows($result) > 0) {
         $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
                                 ('".$DATETIME."','".$MAKER_ID."','9','Product [".$ID."] is added')";
         $result4 = mysqli_query($con,$sql);
+        if($MAKER_ID != 111111){
+            $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+                                ('".$DATETIME."','icon-gift','pink','Pages/Products.php','New product is added','0')";
+            $result = mysqli_query($con,$sql);
+        }
         echo $ID;
     }
 }

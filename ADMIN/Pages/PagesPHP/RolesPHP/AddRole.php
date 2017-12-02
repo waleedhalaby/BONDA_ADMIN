@@ -23,6 +23,11 @@ else {
         $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
                                 ('".$DATETIME."','".$MAKER_ID."','18','Role is added')";
         $result = mysqli_query($con,$sql);
+        if($MAKER_ID != 111111){
+            $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+                                ('".$DATETIME."','icon-user-md','yellow','Pages/MemberRoles.php','New role is added','0')";
+            $result = mysqli_query($con,$sql);
+        }
         echo "Role is added successfully.";
     }
 }

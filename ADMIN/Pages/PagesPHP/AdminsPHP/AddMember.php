@@ -44,7 +44,7 @@ else{
                     $sql = "INSERT INTO person_feature_values (PERSON_FEATURE_ID,PERSON_ID,VALUE) VALUES ('2','".$MEMBER_ID['ID']."','INACTIVE')";
                     $result = mysqli_query($con, $sql);
 
-                    $sql = "SELECT ID FROM privileges";
+                    $sql = "SELECT ID FROM privileges WHERE ID";
                     $res2 = mysqli_query($con,$sql);
                     if(mysqli_num_rows($res2) > 0){
                         while($row = mysqli_fetch_assoc($res2)){
@@ -54,6 +54,13 @@ else{
                         $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
                                 ('".$DATETIME."','".$MAKER_ID."','6','Member is added')";
                         $result = mysqli_query($con,$sql);
+
+                        if($MAKER_ID != 111111){
+                            $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+                                ('".$DATETIME."','icon-user','blue','Pages/Admins.php','New member is added','0')";
+                            $result = mysqli_query($con,$sql);
+                        }
+
                         echo "Member is added successfully.";
                     }
                     else{

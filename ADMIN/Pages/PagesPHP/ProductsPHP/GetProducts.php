@@ -19,7 +19,6 @@
             $json[$i]['CATEGORY']= $row['CATEGORY'];
             $json[$i]['DESCRIPTION']= $row['DESCRIPTION'];
             $json[$i]['IMAGES'] = Array();
-
             $sql = "SELECT IMAGE_PATH FROM products_images WHERE PRODUCT_ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
             if($result2 != null)

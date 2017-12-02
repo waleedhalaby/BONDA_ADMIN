@@ -27,13 +27,7 @@ elseif(!isset($LAST_NAME) || empty($LAST_NAME) || $LAST_NAME == ' '){
     echo "Last name is required.";
 }
 else{
-    $sql = "SELECT EMAIL FROM persons WHERE EMAIL = '".$EMAIL."'";
-    $result = mysqli_query($con,$sql);
-    $rows = mysqli_num_rows($result);
-    if(mysqli_num_rows($result) > 0){
-        echo "E-mail is already exists.";
-    }
-    else {
+
         $sql = "UPDATE persons SET FIRST_NAME = '" . $FIRST_NAME . "',LAST_NAME = '" . $LAST_NAME . "',EMAIL = '" . $EMAIL . "' 
             WHERE ID = " . $MEMBER_ID;
         $result = mysqli_query($con, $sql);
@@ -46,7 +40,11 @@ else{
         $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
                                     ('" . $DATETIME . "','" . $MAKER_ID . "','6','Member [" . $MEMBER_ID . "] is updated')";
         $result = mysqli_query($con, $sql);
+        if($MAKER_ID != 111111){
+            $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+                                ('".$DATETIME."','icon-user','blue','Pages/Admins.php','Member [".$MEMBER_ID."] is updated','0')";
+            $result = mysqli_query($con,$sql);
+        }
         echo "Member is updated successfully.";
-    }
 }
 ?>

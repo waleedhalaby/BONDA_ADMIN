@@ -17,5 +17,9 @@ $result = mysqli_query($con,$sql);
 $sql = "UPDATE carts SET CART_STATUS_ID = 2 WHERE ID = '".$CART_ID."'";
 $result = mysqli_query($con,$sql);
 
+$sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+                            ('".$DATETIME."','icon-envelope','black','Pages/PendingOrders.php','New order is pending','0')";
+$result = mysqli_query($con,$sql);
+
 echo true;
 ?>

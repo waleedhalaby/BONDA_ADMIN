@@ -2,7 +2,9 @@ const MEMBER_PRIVILEGES = [];
 const CURRENT_PAGE = '';
 
 $(document).ready(function(){
-   $('#profileDiv').load('Shared/profile.php');
+    $('#profileDiv').load('Shared/profile.php');
+
+
 
    $.get('Handlers/GetMenu.php', function (data) {
        var array = $.parseJSON(data);
@@ -66,7 +68,9 @@ $(document).ready(function(){
                 });
             });
         }
+        $('#notificationDiv').load('Shared/notification.php');
     });
+
 });
 
 function CheckPrivilege(PrivilegeName){

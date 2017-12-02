@@ -114,7 +114,7 @@
                         <input class="btn btn-success" type="submit" value="Register" alt="Register" title="Register" />
 
                         <input class="btn btn-primary" type="reset" value="Reset" alt="Reset" title="Reset" />
-                        <a style="float: right;" class="btn btn-outline-primary" href="login.php">Login</a>
+                        <a style="float: right;" class="btn btn-outline-warning" href="login.php">Login</a>
                     </td>
                 </tr>
             </table>

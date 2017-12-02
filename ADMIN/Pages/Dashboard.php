@@ -161,7 +161,7 @@
         <p>Queued Orders</p>
         <span class="badge"><?php echo $QUEUE_ORDERS_COUNT ?></span>
     </a>
-    <a class="quick-button metro black span3">
+    <a onclick="$('#content').load('Pages/ShippedOrders.php')" class="quick-button metro black span3">
         <i class="icon-truck"></i>
         <p>Shipped Orders</p>
         <span class="badge"><?php echo $SHIP_ORDERS_COUNT ?></span>

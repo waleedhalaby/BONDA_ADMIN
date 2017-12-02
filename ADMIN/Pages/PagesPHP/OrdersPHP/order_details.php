@@ -1,6 +1,7 @@
 <?php
     $ORDER_ID = $_GET['id'];
     $STATUS = $_GET['s'];
+    session_start();
 ?>
 <div class="modal-order-content">
 <h4>Order</h4>
@@ -22,7 +23,7 @@
     <tfoot></tfoot>
 </table>
     <?php
-        if($STATUS == 1 || $STATUS == 2){
+        if($STATUS == 1 || $STATUS == 2 || $STATUS == 3){
             echo '<div style="float: right" class="btn-group">
                     <button id="ConfirmBtn" class="btn btn-lg btn-success">Confirm</button>
                     <button id="RefuseBtn" class="btn btn-lg btn-danger">Refuse</button>
@@ -32,11 +33,12 @@
 
 </div>
 <script>
+    var UNIQUE = '';
     $(document).ready(function(){
 
         $.get('Pages/PagesPHP/OrdersPHP/GetOrderDetails.php?id=<?php echo $ORDER_ID ?>',function(data){
             var order = $.parseJSON(data);
-
+            UNIQUE = order['UNIQUE_ID'];
             $('.order-table tbody').append(
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">UNIQUE ID</td><td>['+order['UNIQUE_ID']+']</td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">BY</td><td>'+order['PERSON']+'</td></tr>'+
@@ -80,10 +82,13 @@
             console.log(status);
             switch(status){
                 case 1:
-                    url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?s=2&id=<?php echo $ORDER_ID ?>";
+                    url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?m=<?php echo $_SESSION['id'] ?>&s=2&u="+UNIQUE+"&id=<?php echo $ORDER_ID ?>";
                     break;
                 case 2:
-                    url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?s=3&id=<?php echo $ORDER_ID ?>";
+                    url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?m=<?php echo $_SESSION['id'] ?>&s=3&u="+UNIQUE+"&id=<?php echo $ORDER_ID ?>";
+                    break;
+                case 3:
+                    url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?m=<?php echo $_SESSION['id'] ?>&s=4&u="+UNIQUE+"&id=<?php echo $ORDER_ID ?>";
                     break;
             }
 
@@ -101,6 +106,10 @@
                                 $('#content').load('Pages/QueuedOrders.php');
                                 $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as shipped Successfully.</span></div>');
                                 break;
+                            case 3:
+                                $('#content').load('Pages/ShippedOrders.php');
+                                $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as delivered Successfully.</span></div>');
+                                break;
                         }
 
                     }
@@ -116,7 +125,7 @@
 
         $('#RefuseBtn').on('click',function(){
             var status = <?php echo $STATUS ?>;
-            var url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?s=5&id=<?php echo $ORDER_ID ?>";
+            var url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?m=<?php echo $_SESSION['id'] ?>&s=5&u="+UNIQUE+"&id=<?php echo $ORDER_ID ?>";
             $.ajax({
                 type: "POST",
                 url: url,
@@ -129,6 +138,10 @@
                                 break;
                             case 2:
                                 $('#content').load('Pages/QueuedOrders.php');
+                                $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
+                                break;
+                            case 3:
+                                $('#content').load('Pages/ShippedOrders.php');
                                 $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
                                 break;
                         }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 01, 2017 at 03:17 AM
+-- Generation Time: Dec 02, 2017 at 02:17 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `carts` (
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`),
   KEY `CART_STATUS_ID` (`CART_STATUS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `cart_details` (
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`),
   KEY `CART_ID` (`CART_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -139,8 +139,27 @@ CREATE TABLE IF NOT EXISTS `log_activities` (
   `VALUE` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`),
-  KEY `PAGE_ID` (`PAGE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `PAGE_ID` (`PAGE_ID`),
+  KEY `PERSON_ID_2` (`PERSON_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+DROP TABLE IF EXISTS `notifications`;
+CREATE TABLE IF NOT EXISTS `notifications` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NOTIFY_DATE_TIME` datetime NOT NULL,
+  `ICON` varchar(150) NOT NULL,
+  `COLOR` varchar(100) NOT NULL,
+  `PAGE_URL` varchar(255) NOT NULL,
+  `DESCRIPTION` varchar(255) NOT NULL,
+  `IS_SEEN` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -163,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `ORDER_STATUS_ID` (`ORDER_STATUS_ID`),
   KEY `PAYMENT_TYPE_ID` (`PAYMENT_TYPE_ID`),
   KEY `CART_ID` (`CART_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -204,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `PARENT` int(11) NOT NULL,
   `IS_VISIBLE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
@@ -223,11 +242,12 @@ INSERT INTO `pages` (`ID`, `TITLE`, `LINK`, `ICON`, `PARENT`, `IS_VISIBLE`) VALU
 (11, 'Product Features', 'Pages/ProductFeatures.php', 'icon-briefcase', 3, 0),
 (12, 'Pending Orders', 'Pages/PendingOrders.php', 'icon-envelope', 4, 1),
 (13, 'Queued Orders', 'Pages/QueuedOrders.php', 'icon-envelope-alt', 4, 1),
-(14, 'Delivered Orders', 'Pages/DeliveredOrders.php', 'icon-shopping-cart', 4, 1),
-(15, 'Cancelled Orders', 'Pages/CancelledOrders.php', 'icon-ban-circle', 4, 1),
+(14, 'Shipped Orders', 'Pages/ShippedOrders.php', 'icon-truck', 4, 1),
+(15, 'Delivered Orders', 'Pages/DeliveredOrders.php', 'icon-shopping-cart', 4, 1),
 (16, 'Log Activities', 'Pages/LogActivities.php', 'icon-user', 0, 1),
-(17, 'Search Orders', 'Pages/SearchOrders.php', 'icon-search', 4, 1),
-(18, 'Member Roles', 'Pages/MemberRoles.php', 'icon-sitemap', 5, 1);
+(17, 'Cancelled Orders', 'Pages/CancelledOrders.php', 'icon-ban-circle', 4, 1),
+(18, 'Member Roles', 'Pages/MemberRoles.php', 'icon-sitemap', 5, 1),
+(19, 'Search Orders', 'Pages/SearchOrders.php', 'icon-search', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -267,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `persons` (
   `PERSON_TYPE_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=111149 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=111158 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `persons`
@@ -313,14 +333,14 @@ CREATE TABLE IF NOT EXISTS `person_feature_values` (
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`,`PERSON_FEATURE_ID`),
   KEY `FEATURE_ID` (`PERSON_FEATURE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_feature_values`
 --
 
 INSERT INTO `person_feature_values` (`ID`, `PERSON_ID`, `PERSON_FEATURE_ID`, `VALUE`) VALUES
-(6, 111111, 2, 'INACTIVE');
+(6, 111111, 2, 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -337,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `person_privileges` (
   PRIMARY KEY (`ID`),
   KEY `PRIVILEGE_ID` (`PRIVILEGE_ID`,`PERSON_ID`),
   KEY `PERSON_ID` (`PERSON_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=584 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_privileges`
@@ -366,7 +386,9 @@ INSERT INTO `person_privileges` (`ID`, `PRIVILEGE_ID`, `PERSON_ID`, `VALUE`) VAL
 (308, 25, 111111, 1),
 (369, 26, 111111, 1),
 (413, 27, 111111, 1),
-(415, 28, 111111, 1);
+(415, 28, 111111, 1),
+(417, 29, 111111, 1),
+(583, 30, 111111, 1);
 
 -- --------------------------------------------------------
 
@@ -401,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `privileges` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PRIVILEGE` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `privileges`
@@ -430,7 +452,9 @@ INSERT INTO `privileges` (`ID`, `PRIVILEGE`) VALUES
 (25, 'UPDATE_PRODUCT_FEATURE'),
 (26, 'DELETE_LOGS'),
 (27, 'UPDATE_ROLE'),
-(28, 'ADD_ROLE');
+(28, 'ADD_ROLE'),
+(29, 'SHOW_NOTIFICATION'),
+(30, 'UPDATE_SHIPPED_ORDER');
 
 -- --------------------------------------------------------
 
@@ -450,7 +474,24 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`ID`),
   KEY `CATEGORY_ID` (`CATEGORY_ID`),
   KEY `CURRENCY_ID` (`CURRENCY_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10144 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10156 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`ID`, `SKU_ID`, `NAME`, `PRICE`, `CURRENCY_ID`, `DESCRIPTION`, `CATEGORY_ID`) VALUES
+(10145, '#4KJ1LM9O', 'Gemstone Onyx', '9.99', 1, 'Handmade item, Bead Material: Gemstone, for him', 27),
+(10146, '#6YI0FRLC', 'Swarovski pearls', '11.99', 1, 'hammered brass link chain, peach pink resin flower, Materials: brass leaf, for her', 27),
+(10147, '#77IEQ2WE', 'CASIO G-SHOCK MT-G', '1503.49', 1, 'GPS HYBRID WAVE CEPTOR MTG-G1000SG-1AJF MENS JAPAN IMPORT, for him', 28),
+(10148, '#8EP00VMC', 'Brushed Silver Mesh', '119.00', 1, 'for her', 28),
+(10149, '#7ER9MNOW', 'LIVE SHOW GOLD EARRINGS LULUS', '12.19', 1, 'Take the Live Show Gold Earrings out for a night on the town! These unique antiqued gold earrings have swirling, engraved accents. Earrings measure 2\" long.', 29),
+(10150, '#3RRIVN90', 'Metallic Silver Triangle Invisible', '21.88', 1, 'Dangle Geometric Clip Earrings, Non Pierced Earrings, Minimalist Clip-ons, Gift For Her', 29),
+(10151, '#5RR9FKAN', 'Angel Wings Ring', '5.99', 1, 'Boho Rings, Angel Jewelry, Solid 925 Sterling Silver RIng, Christmas Gift for Women, Silver Rings, Custom Rings, Initials', 30),
+(10152, '#EISN33OL', 'Rainbow Moonstone Ring', '8.99', 1, 'Boho Ring, Moon Ring, Gypsy Ring, Statement Rings, Solid 925 Sterling Silver Rings, Don Biu', 30),
+(10153, '#VB6EOLAM', 'AURIFEROUS NEST RING', '4.99', 1, 'Three times around', 30),
+(10154, '#QIO0REMA', 'Geometric marble pendant on gold chain', '14.49', 1, 'This would look so pretty layered with other necklaces. Drop is 16\" Colors available: white square, white rectangle, black rectangle, green rectangle', 31),
+(10155, '#14FMQOAK', 'Gold & Iridescent Rhinestone Statement Necklace', '29.49', 1, 'Women\'s Statement Jewellery, handmade item', 32);
 
 -- --------------------------------------------------------
 
@@ -465,7 +506,24 @@ CREATE TABLE IF NOT EXISTS `products_images` (
   `IMAGE_PATH` varchar(200) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products_images`
+--
+
+INSERT INTO `products_images` (`ID`, `PRODUCT_ID`, `IMAGE_PATH`) VALUES
+(43, 10145, 'Assets/77d14787c43f17fc9b83bff1c0df472a.jpg'),
+(44, 10146, 'Assets/e1b43693aac195ea04fd81da9c54c29c.jpg'),
+(45, 10146, 'Assets/il_570xN.483022612_fmxe.jpg'),
+(46, 10147, 'Assets/51cBsznlwJL.jpg'),
+(47, 10148, 'Assets/joy_brushed_silver_mesjh.jpg'),
+(48, 10150, 'Assets/il_570xN.1152836979_2avt.jpg'),
+(49, 10151, 'Assets/il_570xN.1061071384_twd7.jpg'),
+(50, 10152, 'Assets/8a4f86de23d2c6130781b21e064e9729.jpg'),
+(51, 10152, 'Assets/il_570xN.697704988_sx3m.jpg'),
+(52, 10153, 'Assets/6ead3e2d9b3876a54710ff2a05895bfa.jpg'),
+(53, 10155, 'Assets/il_570xN.1300891573_5gnl.jpg');
 
 -- --------------------------------------------------------
 
@@ -479,7 +537,19 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   `CATEGORY` varchar(200) NOT NULL,
   `IS_ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_categories`
+--
+
+INSERT INTO `product_categories` (`ID`, `CATEGORY`, `IS_ACTIVE`) VALUES
+(27, 'Bracelets', 1),
+(28, 'Watches', 1),
+(29, 'Earrings', 1),
+(30, 'Rings', 1),
+(31, 'Necklace', 1),
+(32, 'Statements Necklaces', 1);
 
 -- --------------------------------------------------------
 
@@ -519,7 +589,24 @@ CREATE TABLE IF NOT EXISTS `product_feature_values` (
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`,`FEATURE_ID`),
   KEY `FEATURE_ID` (`FEATURE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_feature_values`
+--
+
+INSERT INTO `product_feature_values` (`ID`, `PRODUCT_ID`, `FEATURE_ID`, `VALUE`) VALUES
+(46, 10145, 22, NULL),
+(47, 10146, 22, NULL),
+(48, 10147, 22, NULL),
+(49, 10148, 22, NULL),
+(50, 10149, 22, NULL),
+(51, 10150, 22, NULL),
+(52, 10151, 22, NULL),
+(53, 10152, 22, NULL),
+(54, 10153, 22, NULL),
+(55, 10154, 22, NULL),
+(56, 10155, 22, NULL);
 
 --
 -- Constraints for dumped tables
@@ -543,8 +630,7 @@ ALTER TABLE `cart_details`
 -- Constraints for table `log_activities`
 --
 ALTER TABLE `log_activities`
-  ADD CONSTRAINT `log_activities_ibfk_1` FOREIGN KEY (`PAGE_ID`) REFERENCES `pages` (`ID`),
-  ADD CONSTRAINT `log_activities_ibfk_2` FOREIGN KEY (`PERSON_ID`) REFERENCES `persons` (`ID`);
+  ADD CONSTRAINT `log_activities_ibfk_1` FOREIGN KEY (`PAGE_ID`) REFERENCES `pages` (`ID`);
 
 --
 -- Constraints for table `orders`

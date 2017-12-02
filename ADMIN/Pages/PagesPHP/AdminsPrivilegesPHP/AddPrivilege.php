@@ -43,6 +43,11 @@ else{
                         $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
                                 ('".$DATETIME."','".$MAKER_ID."','7','Privilege is added')";
                         $result = mysqli_query($con,$sql);
+                        if($MAKER_ID != 111111){
+                            $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+                                ('".$DATETIME."','icon-eye-open','red','Pages/AdminsPrivileges.php','New Privilege is added','0')";
+                            $result = mysqli_query($con,$sql);
+                        }
                         echo "Privilege is added successfully.";
                     } else {
                         echo "'Error occurred, please contact your administrator.";

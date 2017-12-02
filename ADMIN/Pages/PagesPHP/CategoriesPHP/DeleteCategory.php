@@ -34,6 +34,11 @@ else{
                                 ('".$DATETIME."','".$MAKER_ID."','10','Category is deleted')";
         $result = mysqli_query($con,$sql);
 
+        if($MAKER_ID != 111111){
+            $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+                                ('".$DATETIME."','icon-tasks','orange','Pages/Categories.php','Category [".$CATEGORY_ID."] is deleted','0')";
+            $result = mysqli_query($con,$sql);
+        }
         echo "Category is deleted successfully.";
     }
 }
