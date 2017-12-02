@@ -19,7 +19,7 @@
         <div class="box-header">
             <h2><i class="halflings-icon white cart"></i><span class="break"></span>Products</h2>
             <div class="box-icon">
-                <a id="addProductBtn" onclick="ShowModal('Add Product','Close','Pages/PagesPHP/ProductsPHP/product_add.php')"
+                <a id="addProductBtn" onclick="ShowModal('Add Product','Close','Pages/PagesPHP/ProductsPHP/product_add.php',true)"
                    class="btn-setting"><i class="halflings-icon white plus-sign"></i></a>
             </div>
         </div>

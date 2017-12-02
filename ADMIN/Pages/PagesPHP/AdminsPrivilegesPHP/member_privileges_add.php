@@ -29,6 +29,7 @@ $PERSON_ID = $_SESSION['id'];
                     if(data.indexOf("successfully") >= 0){
                         $('#content').load('Pages/AdminsPrivileges.php');
                         $('.modal-privilege-add-content').html('<div class="container-fluid text-center"><span class="label label-warning">'+data+'</span></div>');
+                        $( "#MyModal").unbind( "hide" );
                     }
                     else{
                         $('.modal-privilege-add-content #message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');

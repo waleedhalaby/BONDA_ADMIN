@@ -70,7 +70,6 @@ $(document).ready(function(){
         }
         $('#notificationDiv').load('Shared/notification.php');
     });
-
 });
 
 function CheckPrivilege(PrivilegeName){
@@ -135,7 +134,13 @@ function InputEditDataType(id,datatype,feature,value){
     }
 }
 
-function ShowModal(title,button,link) {
+function ShowModal(title,button,link,isBind) {
+    if(isBind){
+        $('#MyModal').bind('hide',function(){
+            ShowActionModal();
+        });
+    }
+
     $('#MyModal .modal-title').html(title);
     $('#MyModal .modal-body').empty();
     $('#MyModal .modal-footer').empty();
@@ -148,4 +153,16 @@ function ShowModal(title,button,link) {
     }
 
     $('#MyModal').modal();
+}
+
+function ShowActionModal() {
+    $('#MyActionModal .modal-title').html('Warning');
+    $('#MyActionModal .modal-body').empty();
+    $('#MyActionModal .modal-footer').empty();
+    $('#MyActionModal .modal-body').html('Are you sure you want to close without saving or adding?');
+
+    $('#MyActionModal .modal-footer').append('<button type="button" class="btn btn-primary" onclick="$(\'#MyActionModal\').modal(\'hide\');">Yes</button>');
+    $('#MyActionModal .modal-footer').append('<button type="button" class="btn btn-default" onclick="$(\'#MyActionModal\').modal(\'hide\');$(\'#MyModal\').modal(\'show\');">No</button>');
+
+    $('#MyActionModal').modal();
 }

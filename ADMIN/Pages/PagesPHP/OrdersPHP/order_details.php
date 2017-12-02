@@ -101,14 +101,17 @@
                             case 1:
                                 $('#content').load('Pages/PendingOrders.php');
                                 $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as queued Successfully.</span></div>');
+                                $( "#MyModal").unbind( "hide" );
                                 break;
                             case 2:
                                 $('#content').load('Pages/QueuedOrders.php');
                                 $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as shipped Successfully.</span></div>');
+                                $( "#MyModal").unbind( "hide" );
                                 break;
                             case 3:
                                 $('#content').load('Pages/ShippedOrders.php');
                                 $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as delivered Successfully.</span></div>');
+                                $( "#MyModal").unbind( "hide" );
                                 break;
                         }
 
@@ -135,14 +138,17 @@
                             case 1:
                                 $('#content').load('Pages/PendingOrders.php');
                                 $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
+                                $( "#MyModal").unbind( "hide" );
                                 break;
                             case 2:
                                 $('#content').load('Pages/QueuedOrders.php');
                                 $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
+                                $( "#MyModal").unbind( "hide" );
                                 break;
                             case 3:
                                 $('#content').load('Pages/ShippedOrders.php');
                                 $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
+                                $( "#MyModal").unbind( "hide" );
                                 break;
                         }
                     }

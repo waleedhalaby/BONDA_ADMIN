@@ -160,6 +160,7 @@ $PERSON_ID = $_SESSION['id'];
                             $('#content').load('Pages/Products.php');
                             $('#message').html('');
                             $('#message').html('<div class="container-fluid text-center"><span class="label label-warning">Product is updated successfully.</span></div>');
+                            $( "#MyModal").unbind( "hide" );
                         }
                         else{
                             $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');

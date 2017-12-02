@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
    $.get('Pages/PagesPHP/AdminsPHP/GetAdmins.php',function (data) {
        if(data !== ''){
            var array = $.parseJSON(data);
@@ -20,13 +19,13 @@ $(document).ready(function () {
                     status +
                    '<td class="center">' +
                    '<a id="detailMemberBtn" class="btn btn-success" ' +
-                   'onclick="ShowModal(\'Member [#'+val[0]+'] Details\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_details.php?id='+val[0]+'\')">' +
+                   'onclick="ShowModal(\'Member [#'+val[0]+'] Details\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_details.php?id='+val[0]+'\',false)">' +
                    '<i class="halflings-icon white zoom-in"></i></a>'+
                    '<a id="editMemberBtn" class="editMember btn btn-info" ' +
-                   'onclick="ShowModal(\'Member [#'+val[0]+'] Edit\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_edit.php?id='+val[0]+'\')">' +
+                   'onclick="ShowModal(\'Member [#'+val[0]+'] Edit\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_edit.php?id='+val[0]+'\',true)">' +
                    '<i class="halflings-icon white edit"></i></a>'+
                    '<a id="deleteMemberBtn" class="deleteMember btn btn-danger" ' +
-                   'onclick="ShowModal(\'Member [#'+val[0]+'] Delete\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_delete.php?id='+val[0]+'\')">' +
+                   'onclick="ShowModal(\'Member [#'+val[0]+'] Delete\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_delete.php?id='+val[0]+'\',false)">' +
                    '<i class="halflings-icon white trash"></i></a>'+
                    '</td>' +
                    '</tr>');

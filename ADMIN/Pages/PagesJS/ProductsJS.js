@@ -24,13 +24,13 @@ $(document).ready(function () {
                     '<td><label class="label label-warning">' + product['CATEGORY'] + '</label></td>'+
                     '<td class="center">' +
                     '<a id="detailProductBtn" class="btn btn-success" ' +
-                    'onclick="ShowModal(\'Product [#'+product['ID']+'] Details\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_details.php?id='+product['ID']+'\')">' +
+                    'onclick="ShowModal(\'Product [#'+product['ID']+'] Details\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_details.php?id='+product['ID']+'\',false)">' +
                     '<i class="halflings-icon white zoom-in"></i></a>'+
                     '<a id="editProductBtn" class="editProduct btn btn-info" ' +
-                    'onclick="ShowModal(\'Product [#'+product['ID']+'] Edit\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_edit.php?id='+product['ID']+'\')">' +
+                    'onclick="ShowModal(\'Product [#'+product['ID']+'] Edit\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_edit.php?id='+product['ID']+'\',true)">' +
                     '<i class="halflings-icon white edit"></i></a>'+
                     '<a id="deleteProductBtn" class="deleteProduct btn btn-danger" ' +
-                    'onclick="ShowModal(\'Product [#'+product['ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_delete.php?id='+product['ID']+'\')">' +
+                    'onclick="ShowModal(\'Product [#'+product['ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_delete.php?id='+product['ID']+'\',false)">' +
                     '<i class="halflings-icon white trash"></i></a>'+
                     '</td></tr>'
                 );

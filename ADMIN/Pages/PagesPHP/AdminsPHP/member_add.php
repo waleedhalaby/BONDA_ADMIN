@@ -42,6 +42,7 @@
                         $('#error').html('');
                         $('#content').load('Pages/Admins.php');
                         $('.modal-member-add-content').html('<div class="container-fluid text-center"><span class="label label-warning">'+data+'</span></div>');
+                        $( "#MyModal").unbind( "hide" );
                     }
                     else{
                         $('#error').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');

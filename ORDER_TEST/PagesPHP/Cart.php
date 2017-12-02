@@ -1,3 +1,4 @@
+<div id="message" class="container-fluid"></div>
 <div id="main_container">
     <h2>My Cart</h2>
     <div class="row">

@@ -29,6 +29,7 @@
                 data: $('#ResetForm').serialize(),
                 success: function (data) {
                     if(data.indexOf("successfully") >= 0) {
+                        $( "#MyModal").unbind( "hide" );
                         window.location.href = "Handlers/Logout.php";
                     }
                     else{

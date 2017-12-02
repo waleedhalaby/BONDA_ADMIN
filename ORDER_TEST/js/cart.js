@@ -46,15 +46,24 @@ $(document).ready(function(){
             success: function (data) {
                 console.log(data);
                 if(data === "1") {
-                    alert('Your cart is ordered successfully');
                     document.location.href="index.php";
+                    $('#message').html(
+                        '<div class="alert alert-success">' +
+                        '  <strong>Success!</strong> Your cart is ordered successfully' +
+                        '</div>');
                 }
                 else{
-                    alert('Error occurred, please contact your administrator.');
+                    $('#message').html(
+                        '<div class="alert alert-danger">' +
+                        '  <strong>Error!</strong> Error occurred, please contact your administrator.'+
+                        '</div>');
                 }
             },
             error: function(data){
-                alert('Error occurred, please contact your administrator.');
+                $('#message').html(
+                    '<div class="alert alert-danger">' +
+                    '  <strong>Error!</strong> Error occurred, please contact your administrator.'+
+                    '</div>');
             }
         });
     });

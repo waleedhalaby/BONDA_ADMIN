@@ -15,7 +15,7 @@ $(document).ready(function () {
                     '<td>' + order['TOTAL']+ ' ' + order['CURRENCY']+'</td>' +
                     '<td class="center">' +
                     '<a id="detailOrderBtn" class="btn btn-success" ' +
-                    'onclick="ShowModal(\'Order [#'+order['UNIQUE_ID']+'] Details\',\'Close\',\'Pages/PagesPHP/OrdersPHP/order_details.php?s=3&id='+order['ID']+'\')">' +
+                    'onclick="ShowModal(\'Order [#'+order['UNIQUE_ID']+'] Details\',\'Close\',\'Pages/PagesPHP/OrdersPHP/order_details.php?s=3&id='+order['ID']+'\',true)">' +
                     '<i class="halflings-icon white zoom-in"></i></a>'+
                     '</td></tr>'
                 );

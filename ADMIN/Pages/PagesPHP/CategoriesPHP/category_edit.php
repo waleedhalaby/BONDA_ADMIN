@@ -23,7 +23,7 @@ $PERSON_ID = $_SESSION['id'];
         $('#editCategoryForm').submit(function(e){
             e.preventDefault();
 
-            var url = "Pages/PagesPHP/CategoriesPHP/EditCategory.php?maker=<?php echo $PERSON_ID ?>&id=<?php echo $CATEGORY_ID ?>;
+            var url = "Pages/PagesPHP/CategoriesPHP/EditCategory.php?maker=<?php echo $PERSON_ID ?>&id=<?php echo $CATEGORY_ID ?>";
 
 
             $.ajax({
@@ -35,6 +35,7 @@ $PERSON_ID = $_SESSION['id'];
                         $('#content').load('Pages/Categories.php');
                         $('#message').html('');
                         $('#message').html('<div class="container-fluid text-center"><span class="label label-warning">'+data+'</span></div>');
+                        $( "#MyModal").unbind( "hide" );
                     }
                     else{
                         $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');

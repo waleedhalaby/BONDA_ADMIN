@@ -40,6 +40,7 @@ $PERSON_ID = $_SESSION['id'];
                     if(data.indexOf("successfully") >= 0){
                         $('#content').load('Pages/MemberRoles.php');
                         $('.modal-role-edit-content').html('<div class="container-fluid text-center"><span class="label label-warning">'+data+'</span></div>');
+                        $( "#MyModal").unbind( "hide" );
                     }
                     else{
                         $('.modal-role-edit-content #error').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');

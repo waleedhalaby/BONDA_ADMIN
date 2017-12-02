@@ -26,6 +26,7 @@
                     if(data.indexOf("successfully") >=0){
                         $('#content').load('Pages/Categories.php');
                         $('.modal-category-delete-content').html('<div class="container-fluid text-center"><span class="label label-warning">'+data+'</span></div>');
+
                     }
                     else{
                         $('.modal-category-delete-content').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');

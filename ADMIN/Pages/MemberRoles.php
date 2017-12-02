@@ -19,7 +19,7 @@
         <div class="box-header">
             <h2><i class="halflings-icon white cart"></i><span class="break"></span>Members Roles</h2>
             <div class="box-icon">
-                <a id="addRoleBtn" onclick="ShowModal('Add Category','Close','Pages/PagesPHP/RolesPHP/role_add.php')"
+                <a id="addRoleBtn" onclick="ShowModal('Add Category','Close','Pages/PagesPHP/RolesPHP/role_add.php',true)"
                    class="btn-setting"><i class="halflings-icon white plus-sign"></i></a>
             </div>
         </div>

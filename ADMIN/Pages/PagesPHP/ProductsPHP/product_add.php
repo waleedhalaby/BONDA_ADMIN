@@ -264,7 +264,7 @@ $PERSON_ID = $_SESSION['id'];
                         $('#file').prop('disabled', false);
                         $('#uploadImageBtn').prop('disabled', false);
                         ProductID = data;
-                        console.log(ProductID);
+                        $( "#MyModal").unbind( "hide" );
                     }
                     else{
                         $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');

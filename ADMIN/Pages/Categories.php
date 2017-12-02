@@ -19,7 +19,7 @@
         <div class="box-header">
             <h2><i class="halflings-icon white cart"></i><span class="break"></span>Categories</h2>
             <div class="box-icon">
-                <a id="addCategoryBtn" onclick="ShowModal('Add Category','Close','Pages/PagesPHP/CategoriesPHP/category_add.php')"
+                <a id="addCategoryBtn" onclick="ShowModal('Add Category','Close','Pages/PagesPHP/CategoriesPHP/category_add.php',true)"
                    class="btn-setting"><i class="halflings-icon white plus-sign"></i></a>
             </div>
         </div>

@@ -19,7 +19,7 @@
         <div class="box-header">
             <h2><i class="halflings-icon white user"></i><span class="break"></span>Members Privileges</h2>
             <div class="box-icon">
-                <a id="addPrivilegeBtn" onclick="ShowModal('Add New Privilege','Close','Pages/PagesPHP/AdminsPrivilegesPHP/member_privileges_add.php')"
+                <a id="addPrivilegeBtn" onclick="ShowModal('Add New Privilege','Close','Pages/PagesPHP/AdminsPrivilegesPHP/member_privileges_add.php',true)"
                    class="btn-setting"><i class="halflings-icon white plus-sign"></i></a>
             </div>
         </div>

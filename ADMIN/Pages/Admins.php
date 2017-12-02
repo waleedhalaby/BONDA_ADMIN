@@ -19,7 +19,7 @@
         <div class="box-header">
             <h2><i class="halflings-icon white user"></i><span class="break"></span>Members</h2>
             <div class="box-icon">
-                <a id="addMemberBtn" onclick="ShowModal('Add Member','Close','Pages/PagesPHP/AdminsPHP/member_add.php')"
+                <a id="addMemberBtn" onclick="ShowModal('Add Member','Close','Pages/PagesPHP/AdminsPHP/member_add.php',true)"
                    class="btn-setting"><i class="halflings-icon white plus-sign"></i></a>
             </div>
         </div>

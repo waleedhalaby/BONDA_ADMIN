@@ -25,7 +25,7 @@ $(document).ready(function(){
                 '<div style="min-height: 200px;padding: 10px;" class="card-block">'+
                 '<h4 class="card-title">'+product['NAME']+'</h4><label style="font-size: small;font-weight: 600;color: #f0f0f0;border-radius: 5px;padding: 3px 10px;" class="label bg-danger">'+product['CATEGORY']+'</label>'+
                 '<p class="card-text">'+product['DESCRIPTION'].substring(0,50)+'...'+'</p>'+
-                '<a onclick="AddToCart('+product['ID']+')" style="position: absolute;bottom: 0;left: 0;"  class="btn btn-success">Add to cart</a>'+
+                '<a onclick="AddToCart('+product['ID']+')" style="color:white;position: absolute;bottom: 0;left: 0;"  class="btn btn-success">Add to cart</a>'+
                 '<label style="position: absolute;bottom: 0;right: 0;" class="label label-info">'+product['PRICE']+' '+product['CURRENCY']+'</label>'+
                 '</div>'+
                 '</div>'+
@@ -52,17 +52,25 @@ function AddToCart(id){
         url: url,
         data: null,
         success: function (data) {
-            console.log(data);
             if(data === "1") {
-                alert('Product ' + id + ' is added to cart.');
                 location.reload(true);
+                $('#message').html(
+                    '<div class="alert alert-success">' +
+                    '  <strong>Success!</strong> Product ' + id + ' is added to cart successfully.' +
+                    '</div>');
             }
             else{
-                alert('Error occurred, please contact your administrator.');
+                $('#message').html(
+                    '<div class="alert alert-danger">' +
+                    '  <strong>Error!</strong> Error occurred, please contact your administrator.'+
+                    '</div>');
             }
         },
         error: function(data){
-            $('.modal-product-add-content').html('Error occurred, please contact your administrator.');
+            $('#message').html(
+                '<div class="alert alert-danger">' +
+                '  <strong>Error!</strong> Error occurred, please contact your administrator.'+
+                '</div>');
         }
     });
 }
