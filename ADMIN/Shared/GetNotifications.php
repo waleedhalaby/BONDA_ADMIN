@@ -3,7 +3,7 @@
     require ('../Handlers/Handler.php');
     $PERSON_ID = $_GET['id'];
 
-    $sql = "SELECT * FROM notifications WHERE IS_SEEN = '0' AND NOTIFY_DATE_TIME > DATE_SUB(NOW(), INTERVAL  5 DAY) LIMIT 5";
+    $sql = "SELECT * FROM notifications WHERE IS_SEEN = '0' ORDER BY NOTIFY_DATE_TIME DESC LIMIT 5";
     $result = mysqli_query($con,$sql);
     $json = Array();
     if(mysqli_num_rows($result) > 0){

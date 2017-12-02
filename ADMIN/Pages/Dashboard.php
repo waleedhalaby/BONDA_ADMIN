@@ -80,54 +80,61 @@
         $TOTAL_INCOME = "0.00";
     }
 
-    $DEL_ORDERS_W1_COUNT = 0;
-    $sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND ORDER_DATE_TIME > DATE_SUB(NOW(), INTERVAL 8 WEEK)";
-    $result = mysqli_query($con,$sql);
-    while ($row = mysqli_fetch_array($result)){
-        $DEL_ORDERS_W1_COUNT = $row['Count'];
-    }
-    $DEL_ORDERS_W2_COUNT = 0;
-    $sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND ORDER_DATE_TIME > DATE_SUB(NOW(), INTERVAL 7 WEEK)";
-    $result = mysqli_query($con,$sql);
-    while ($row = mysqli_fetch_array($result)){
-        $DEL_ORDERS_W2_COUNT = $row['Count'];
-    }
-    $DEL_ORDERS_W3_COUNT = 0;
-    $sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND ORDER_DATE_TIME > DATE_SUB(NOW(), INTERVAL 6 WEEK)";
-    $result = mysqli_query($con,$sql);
-    while ($row = mysqli_fetch_array($result)){
-        $DEL_ORDERS_W3_COUNT = $row['Count'];
-    }
-    $DEL_ORDERS_W4_COUNT = 0;
-    $sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND ORDER_DATE_TIME > DATE_SUB(NOW(), INTERVAL 5 WEEK)";
-    $result = mysqli_query($con,$sql);
-    while ($row = mysqli_fetch_array($result)){
-        $DEL_ORDERS_W4_COUNT = $row['Count'];
-    }
-    $DEL_ORDERS_W5_COUNT = 0;
-    $sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND ORDER_DATE_TIME > DATE_SUB(NOW(), INTERVAL 4 WEEK)";
-    $result = mysqli_query($con,$sql);
-    while ($row = mysqli_fetch_array($result)){
-        $DEL_ORDERS_W5_COUNT = $row['Count'];
-    }
-    $DEL_ORDERS_W6_COUNT = 0;
-    $sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND ORDER_DATE_TIME > DATE_SUB(NOW(), INTERVAL 3 WEEK)";
-    $result = mysqli_query($con,$sql);
-    while ($row = mysqli_fetch_array($result)){
-        $DEL_ORDERS_W6_COUNT = $row['Count'];
-    }
-    $DEL_ORDERS_W7_COUNT = 0;
-    $sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND ORDER_DATE_TIME > DATE_SUB(NOW(), INTERVAL 2 WEEK)";
-    $result = mysqli_query($con,$sql);
-    while ($row = mysqli_fetch_array($result)){
-        $DEL_ORDERS_W7_COUNT = $row['Count'];
-    }
-    $DEL_ORDERS_W8_COUNT = 0;
-    $sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND ORDER_DATE_TIME > DATE_SUB(NOW(), INTERVAL 1 WEEK)";
-    $result = mysqli_query($con,$sql);
-    while ($row = mysqli_fetch_array($result)){
-        $DEL_ORDERS_W8_COUNT = $row['Count'];
-    }
+$DEL_ORDERS_W1_COUNT = 0;
+$sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND 
+            ORDER_DATE_TIME between DATE_SUB(NOW(),INTERVAL 8 WEEK) and DATE_SUB(NOW(),INTERVAL 7 WEEK)";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $DEL_ORDERS_W1_COUNT = $row['Count'];
+}
+$DEL_ORDERS_W2_COUNT = 0;
+$sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND 
+            ORDER_DATE_TIME between DATE_SUB(NOW(),INTERVAL 7 WEEK) and DATE_SUB(NOW(),INTERVAL 6 WEEK)";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $DEL_ORDERS_W2_COUNT = $row['Count'];
+}
+$DEL_ORDERS_W3_COUNT = 0;
+$sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND 
+            ORDER_DATE_TIME between DATE_SUB(NOW(),INTERVAL 6 WEEK) and DATE_SUB(NOW(),INTERVAL 5 WEEK)";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $DEL_ORDERS_W3_COUNT = $row['Count'];
+}
+$DEL_ORDERS_W4_COUNT = 0;
+$sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND 
+            ORDER_DATE_TIME between DATE_SUB(NOW(),INTERVAL 5 WEEK) and DATE_SUB(NOW(),INTERVAL 4 WEEK)";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $DEL_ORDERS_W4_COUNT = $row['Count'];
+}
+$DEL_ORDERS_W5_COUNT = 0;
+$sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND 
+            ORDER_DATE_TIME between DATE_SUB(NOW(),INTERVAL 4 WEEK) and DATE_SUB(NOW(),INTERVAL 3 WEEK)";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $DEL_ORDERS_W5_COUNT = $row['Count'];
+}
+$DEL_ORDERS_W6_COUNT = 0;
+$sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND 
+            ORDER_DATE_TIME between DATE_SUB(NOW(),INTERVAL 3 WEEK) and DATE_SUB(NOW(),INTERVAL 2 WEEK)";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $DEL_ORDERS_W6_COUNT = $row['Count'];
+}
+$DEL_ORDERS_W7_COUNT = 0;
+$sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND 
+            ORDER_DATE_TIME between DATE_SUB(NOW(),INTERVAL 2 WEEK) and DATE_SUB(NOW(),INTERVAL 7 DAY)";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $DEL_ORDERS_W7_COUNT = $row['Count'];
+}
+$DEL_ORDERS_W8_COUNT = 0;
+$sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND ORDER_DATE_TIME > DATE_SUB(NOW(), INTERVAL 7 DAY)";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $DEL_ORDERS_W8_COUNT = $row['Count'];
+}
 ?>
 
 <div class="row-fluid">
