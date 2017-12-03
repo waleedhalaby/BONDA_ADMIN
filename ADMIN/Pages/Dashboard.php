@@ -61,26 +61,34 @@
                             '' +
                             '    <div class="clearfix"></div>'
                         );
-                        var total = '';
-                        if(array['TOTAL_INCOME']  === "0.00"){
-                            total = array['TOTAL_INCOME']+' <i class=\'icon-minus\'></i>';
+                        var month_total = '';
+                        if(array['LAST_MONTHLY_INCOME'] && array['LAST_2_MONTHLY_INCOME']  === "0.00"){
+                            month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i>';
                         }
-                        else {
-                            total = array['TOTAL_INCOME'] + ' <i class=\'icon-arrow-up\'></i>';
+                        else if(array['LAST_MONTHLY_INCOME'] >= array['LAST_2_MONTHLY_INCOME']){
+                            month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-arrow-up\'></i>';
+                        }
+                        else if(array['LAST_MONTHLY_INCOME'] < array['LAST_2_MONTHLY_INCOME']){
+                            month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-arrow-down\'></i>';
                         }
                         $('#row3').html(
-                            '<div class="span3 statbox purple" ontablet="span6" ondesktop="span3">' +
-                            '        <div class="number">'+total+'</div>' +
+                            '<div class="span4 statbox green" ontablet="span8" ondesktop="span4">' +
+                            '        <div class="number">'+numberWithCommas(array['TOTAL_INCOME'])+' <i class=\'icon-minus\'></i></div>' +
                             '        <div class="title">Total Income</div>' +
-                            '        <div style="cursor: pointer" class="footer" onclick="$(\'#content\').load(\'Pages/DeliveredOrders.php\')">' +
-                            '            <a style="color: #0c5460"> extract full report</a>' +
-                            '        </div>' +
+                            '    </div>'+
+                            '<div class="span4 statbox blueDark" ontablet="span8" ondesktop="span4">' +
+                            '        <div class="number">'+month_total+'</div>' +
+                            '        <div class="title">['+array['LAST_MONTH']+'] Income</div>' +
+                            '    </div>'+
+                            '<div class="span4 statbox greenDark" ontablet="span8" ondesktop="span4">' +
+                            '        <div class="number">'+numberWithCommas(array['CURRENT_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i></div>' +
+                            '        <div class="title">Current Month Income</div>' +
                             '    </div>'
                         );
 
                         $('#row4').html(
                             '<div class="widget blue span6" ontablet="span6" ondesktop="span6">' +
-                            '        <h2><span class="glyphicons charts"><i></i></span>2 Months Orders Stats</h2>' +
+                            '        <h2><span class="glyphicons charts"><i></i></span>2 Months Delivered Orders Stats</h2>' +
                             '        <hr>' +
                             '        <div class="content">' +
                             '            <div class="verticalChart">' +
@@ -206,26 +214,34 @@
                             '' +
                             '    <div class="clearfix"></div>'
                         );
-                        var total = '';
-                        if(array['TOTAL_INCOME']  === "0.00"){
-                            total = array['TOTAL_INCOME']+' <i class=\'icon-minus\'></i>';
+                        var month_total = '';
+                        if(array['LAST_MONTHLY_INCOME'] && array['LAST_2_MONTHLY_INCOME']  === "0.00"){
+                            month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i>';
                         }
-                        else {
-                            total = array['TOTAL_INCOME'] + ' <i class=\'icon-arrow-up\'></i>';
+                        else if(array['LAST_MONTHLY_INCOME'] >= array['LAST_2_MONTHLY_INCOME']){
+                            month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-arrow-up\'></i>';
+                        }
+                        else if(array['LAST_MONTHLY_INCOME'] < array['LAST_2_MONTHLY_INCOME']){
+                            month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-arrow-down\'></i>';
                         }
                         $('#row3').html(
-                            '<div class="span3 statbox purple" ontablet="span6" ondesktop="span3">' +
-                            '        <div class="number">'+total+'</div>' +
+                            '<div class="span4 statbox green" ontablet="span8" ondesktop="span4">' +
+                            '        <div class="number">'+numberWithCommas(array['TOTAL_INCOME'])+' <i class=\'icon-minus\'></i></div>' +
                             '        <div class="title">Total Income</div>' +
-                            '        <div style="cursor: pointer" class="footer" onclick="$(\'#content\').load(\'Pages/DeliveredOrders.php\')">' +
-                            '            <a style="color: #0c5460"> extract full report</a>' +
-                            '        </div>' +
+                            '    </div>'+
+                            '<div class="span4 statbox blueDark" ontablet="span8" ondesktop="span4">' +
+                            '        <div class="number">'+month_total+'</div>' +
+                            '        <div class="title">['+array['LAST_MONTH']+'] Income</div>' +
+                            '    </div>'+
+                            '<div class="span4 statbox greenDark" ontablet="span8" ondesktop="span4">' +
+                            '        <div class="number">'+numberWithCommas(array['CURRENT_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i></div>' +
+                            '        <div class="title">Current Month Income</div>' +
                             '    </div>'
                         );
 
                         $('#row4').html(
                             '<div class="widget blue span6" ontablet="span6" ondesktop="span6">' +
-                            '        <h2><span class="glyphicons charts"><i></i></span>2 Months Orders Stats</h2>' +
+                            '        <h2><span class="glyphicons charts"><i></i></span>2 Months Delivered Orders Stats</h2>' +
                             '        <hr>' +
                             '        <div class="content">' +
                             '            <div class="verticalChart">' +

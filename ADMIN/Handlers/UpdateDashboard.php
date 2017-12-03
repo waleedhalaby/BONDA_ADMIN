@@ -64,6 +64,60 @@ if(mysqli_num_rows($result) > 0){
         }
     }
 }
+
+$sql = "SELECT SUM(C.TOTAL) AS TOTAL FROM carts C
+        INNER JOIN orders O ON C.ID = O.CART_ID
+        WHERE O.ORDER_STATUS_ID = 4 
+        AND O.ORDER_DATE_TIME >= DATE_FORMAT(CURRENT_DATE - INTERVAL 2 MONTH , '%Y/%m/01')
+        AND O.ORDER_DATE_TIME < DATE_FORMAT(CURRENT_DATE, '%Y/%m/01')";
+$result = mysqli_query($con,$sql);
+if(mysqli_num_rows($result) > 0){
+    while ($row = mysqli_fetch_array($result)){
+        if(is_null($row['TOTAL'])){
+            $json['LAST_2_MONTHLY_INCOME'] = "0.00";
+        }
+        else{
+            $json['LAST_2_MONTHLY_INCOME'] = $row['TOTAL'];
+        }
+    }
+}
+
+$sql = "SELECT SUM(C.TOTAL) AS TOTAL FROM carts C
+        INNER JOIN orders O ON C.ID = O.CART_ID
+        WHERE O.ORDER_STATUS_ID = 4 
+        AND O.ORDER_DATE_TIME >= DATE_FORMAT(CURRENT_DATE - INTERVAL 1 MONTH , '%Y/%m/01')
+        AND O.ORDER_DATE_TIME < DATE_FORMAT(CURRENT_DATE, '%Y/%m/01')";
+$result = mysqli_query($con,$sql);
+if(mysqli_num_rows($result) > 0){
+    while ($row = mysqli_fetch_array($result)){
+        if(is_null($row['TOTAL'])){
+            $json['LAST_MONTHLY_INCOME'] = "0.00";
+        }
+        else{
+            $json['LAST_MONTHLY_INCOME'] = $row['TOTAL'];
+        }
+    }
+}
+
+$sql = "SELECT SUM(C.TOTAL) AS TOTAL FROM carts C
+        INNER JOIN orders O ON C.ID = O.CART_ID
+        WHERE O.ORDER_STATUS_ID = 4 
+        AND O.ORDER_DATE_TIME >= DATE_FORMAT(CURRENT_DATE, '%Y/%m/01')
+        AND O.ORDER_DATE_TIME < NOW()";
+$result = mysqli_query($con,$sql);
+if(mysqli_num_rows($result) > 0){
+    while ($row = mysqli_fetch_array($result)){
+        if(is_null($row['TOTAL'])){
+            $json['CURRENT_MONTHLY_INCOME'] = "0.00";
+        }
+        else{
+            $json['CURRENT_MONTHLY_INCOME'] = $row['TOTAL'];
+        }
+    }
+}
+
+$json['LAST_MONTH'] = strtoupper(date("M y", strtotime(date('F') . " last month")));
+
 $sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 4 AND 
         ORDER_DATE_TIME between DATE_SUB(NOW(),INTERVAL 8 WEEK) and DATE_SUB(NOW(),INTERVAL 7 WEEK)";
 $result = mysqli_query($con,$sql);
