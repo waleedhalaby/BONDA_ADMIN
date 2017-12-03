@@ -69,6 +69,7 @@ $(document).ready(function(){
             });
         }
         $('#notificationDiv').load('Shared/notification.php');
+        $('#messageDiv').load('Shared/message.php');
     });
 });
 
