@@ -1,13 +1,16 @@
 <?php
     $PRODUCT_ID = $_GET['id'];
 ?>
+<div class="ajax-loader2">
+    <img src="Images/Preloader_1.gif" class="img-responsive"/>
+</div>
  <table class="table table-striped table-bordered product-details-table">
         <tbody></tbody>
  </table>
 
 <script>
     $(document).ready(function(){
-
+        $('.ajax-loader2').css('visibility','visible');
         $.get('Pages/PagesPHP/ProductsPHP/GetDetails.php?id=<?php echo $PRODUCT_ID ?>',function(data){
             var product = $.parseJSON(data);
             var image;
@@ -46,6 +49,8 @@
                     );
                 });
             }
+        }).success(function () {
+            $('.ajax-loader2').css('visibility','hidden');
         });
     });
 </script>

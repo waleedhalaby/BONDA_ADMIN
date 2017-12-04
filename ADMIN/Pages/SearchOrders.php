@@ -14,6 +14,9 @@
         <em>Search Orders</em>
     </li>
 </ul>
+<div class="ajax-loader">
+    <img src="Images/Preloader_1.gif" class="img-responsive"/>
+</div>
 <div class="row-fluid">
     <div class="box span12">
         <div class="box-header">

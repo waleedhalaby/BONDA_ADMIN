@@ -9,3 +9,6 @@
         <em>Pages Portal</em>
     </li>
 </ul>
+<div class="ajax-loader">
+    <img src="Images/Preloader_1.gif" class="img-responsive"/>
+</div>

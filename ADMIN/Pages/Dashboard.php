@@ -10,12 +10,17 @@
         <em>Dashboard</em>
     </li>
 </ul>
+<div class="ajax-loader">
+    <img src="Images/Preloader_1.gif" class="img-responsive"/>
+</div>
 <script>
     $(document).ready(function(){
+        $('.ajax-loader').css('visibility','visible');
         $.ajax({
                 type:'GET',
                 url: 'Handlers/UpdateDashboard.php',
                 success: function(data){
+                    $('.ajax-loader').css('visibility','hidden');
                     var array = $.parseJSON(data);
                     if(array !== ''){
                         $('#row1').html(

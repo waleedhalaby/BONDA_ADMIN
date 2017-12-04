@@ -1,5 +1,6 @@
 $(document).ready(function () {
-   $.get('Pages/PagesPHP/AdminsPHP/GetAdmins.php',function (data) {
+    $('.ajax-loader').css('visibility','visible');
+    $.get('Pages/PagesPHP/AdminsPHP/GetAdmins.php',function (data) {
        if(data !== ''){
            var array = $.parseJSON(data);
            $(array).each(function (id,val) {
@@ -46,5 +47,7 @@ $(document).ready(function () {
        }
 
        $('.datatable').DataTable();
+   }).success(function () {
+       $('.ajax-loader').css('visibility','hidden');
    });
 });

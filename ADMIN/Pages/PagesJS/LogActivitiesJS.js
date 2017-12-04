@@ -18,7 +18,7 @@ $(document).ready(function () {
             }
         });
     });
-
+    $('.ajax-loader').css('visibility','visible');
     $.get('Pages/PagesPHP/LogsPHP/GetLogs.php',function (data) {
         if(data !== ''){
             var logs = $.parseJSON(data);
@@ -34,5 +34,7 @@ $(document).ready(function () {
 
         }
         $('.datatable').DataTable();
+    }).success(function () {
+        $('.ajax-loader').css('visibility','hidden');
     });
 });

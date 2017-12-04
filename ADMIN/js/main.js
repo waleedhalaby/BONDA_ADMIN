@@ -141,6 +141,9 @@ function ShowModal(title,button,link,isBind) {
             ShowActionModal();
         });
     }
+    else{
+        $('#MyModal').unbind('hide');
+    }
 
     $('#MyModal .modal-title').html(title);
     $('#MyModal .modal-body').empty();

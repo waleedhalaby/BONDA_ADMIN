@@ -2,6 +2,7 @@ $(document).ready(function () {
     $('#productTable').html('');
 
     var products = [];
+    $('.ajax-loader').css('visibility','visible');
     $.get('Pages/PagesPHP/ProductsPHP/GetProducts.php',function (data) {
         if(data !== '') {
             products = $.parseJSON(data);
@@ -56,5 +57,7 @@ $(document).ready(function () {
             products = [];
         }
         $('.datatable').DataTable();
+    }).success(function () {
+        $('.ajax-loader').css('visibility','hidden');
     });
 });

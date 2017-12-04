@@ -1,14 +1,16 @@
 <?php
     $MEMBER_ID = $_GET['id'];
 ?>
-
+<div class="ajax-loader2">
+    <img src="Images/Preloader_1.gif" class="img-responsive"/>
+</div>
  <table class="table table-striped table-bordered member-details-table">
         <tbody></tbody>
  </table>
 
 <script>
     $(document).ready(function(){
-
+        $('.ajax-loader2').css('visibility','visible');
         $.get('Pages/PagesPHP/AdminsPHP/GetDetails.php?id=<?php echo $MEMBER_ID ?>',function(data) {
             var person = $.parseJSON(data);
 
@@ -24,6 +26,8 @@
                     '<tr><td style="background-color: #0c5460;color:#F4F4F4;">'+feature['FEATURE']+'</td><td>'+feature['VALUE']+'</td></tr>'
                 );
             });
+        }).success(function () {
+            $('.ajax-loader2').css('visibility','hidden');
         });
     });
 </script>

@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $('#searchBtn').on('click',function(){
         if($('#orderID').val() !== ''){
+            $('.ajax-loader').css('visibility','visible');
             $.get('Pages/PagesPHP/OrdersPHP/GetOrders.php?id='+$('#orderID').val(),function(data){
                 var orders = $.parseJSON(data);
                 if(orders.length > 0){
@@ -42,6 +43,8 @@ $(document).ready(function(){
                 else{
                     $('.orders').html('No orders found.');
                 }
+            }).success(function () {
+                $('.ajax-loader').css('visibility','hidden');
             });
         }
     })

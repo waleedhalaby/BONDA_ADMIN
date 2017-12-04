@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#orderTable').html('');
-
+    $('.ajax-loader').css('visibility','visible');
     var orders = [];
     $.get('Pages/PagesPHP/OrdersPHP/GetDeliveredOrders.php',function (data) {
         if(data !== '') {
@@ -29,5 +29,7 @@ $(document).ready(function () {
             orders = [];
         }
         $('.datatable').DataTable();
+    }).success(function () {
+        $('.ajax-loader').css('visibility','hidden');
     });
 });

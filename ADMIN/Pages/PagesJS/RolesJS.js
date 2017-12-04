@@ -9,7 +9,8 @@ $(document).ready(function () {
 
     $('#roleTable').html('');
     var roles = [];
-   $.get('Pages/PagesPHP/RolesPHP/GetRoles.php',function (data) {
+    $('.ajax-loader').css('visibility','visible');
+    $.get('Pages/PagesPHP/RolesPHP/GetRoles.php',function (data) {
        if(data !== ''){
            roles = $.parseJSON(data);
            $(roles).each(function (id,role) {
@@ -64,5 +65,7 @@ $(document).ready(function () {
            roles = [];
        }
        $('.datatable').DataTable();
-   });
+   }).success(function () {
+        $('.ajax-loader').css('visibility','hidden');
+    });
 });

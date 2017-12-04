@@ -9,6 +9,9 @@
         <em>Log Activities</em>
     </li>
 </ul>
+<div class="ajax-loader">
+    <img src="Images/Preloader_1.gif" class="img-responsive"/>
+</div>
 <button id="deleteBtn" style="float: right" class="btn btn-danger">Delete All Logs</button>
 <div class="row-fluid">
     <div class="box span12">

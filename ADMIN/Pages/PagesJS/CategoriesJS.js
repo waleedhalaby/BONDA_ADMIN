@@ -9,7 +9,9 @@ $(document).ready(function () {
 
     $('#categoryTable').html('');
     var categories = [];
-   $.get('Pages/PagesPHP/CategoriesPHP/GetCategories.php',function (data) {
+    $('.ajax-loader').css('visibility','visible');
+
+    $.get('Pages/PagesPHP/CategoriesPHP/GetCategories.php',function (data) {
        if(data !== ''){
            categories = $.parseJSON(data);
            $(categories).each(function (id,category) {
@@ -76,5 +78,7 @@ $(document).ready(function () {
            categories = [];
        }
        $('.datatable').DataTable();
-   });
+   }).success(function () {
+        $('.ajax-loader').css('visibility','hidden');
+    });
 });

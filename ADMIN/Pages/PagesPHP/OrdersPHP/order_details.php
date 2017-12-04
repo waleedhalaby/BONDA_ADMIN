@@ -3,6 +3,9 @@
     $STATUS = $_GET['s'];
     session_start();
 ?>
+<div class="ajax-loader2">
+    <img src="Images/Preloader_1.gif" class="img-responsive"/>
+</div>
 <div class="modal-order-content">
 <h4>Order</h4>
 <table class="table table-striped table-bordered order-table">
@@ -35,7 +38,7 @@
 <script>
     var UNIQUE = '';
     $(document).ready(function(){
-
+        $('.ajax-loader2').css('visibility','visible');
         $.get('Pages/PagesPHP/OrdersPHP/GetOrderDetails.php?id=<?php echo $ORDER_ID ?>',function(data){
             var order = $.parseJSON(data);
             UNIQUE = order['UNIQUE_ID'];
@@ -74,6 +77,8 @@
                     '<tr style="background-color: #a5a5a5; color: #f0f0f0"><td colspan="4">TOTAL</td><td class="text-right">'+order['TOTAL']+ ' ' +order['CURRENCY']+'</td></tr>'
                 );
             }
+        }).success(function () {
+            $('.ajax-loader2').css('visibility','hidden');
         });
 
         $('#ConfirmBtn').on('click',function(){

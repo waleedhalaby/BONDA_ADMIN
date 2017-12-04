@@ -2,6 +2,7 @@ $(document).ready(function () {
     $('#orderTable').html('');
 
     var orders = [];
+    $('.ajax-loader').css('visibility','visible');
     $.get('Pages/PagesPHP/OrdersPHP/GetShippedOrders.php',function (data) {
         if(data !== '') {
             orders = $.parseJSON(data);
@@ -29,5 +30,7 @@ $(document).ready(function () {
             orders = [];
         }
         $('.datatable').DataTable();
+    }).success(function () {
+        $('.ajax-loader').css('visibility','hidden');
     });
 });
