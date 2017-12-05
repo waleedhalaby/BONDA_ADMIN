@@ -51,7 +51,7 @@ function GetMessages(){
             $(messages).each(function(id,message){
                 $('.messages').append(
                     '<li id="'+message['ID']+'">'+
-                        '<a onclick="ShowPage(\''+message.length+'\',\''+message['ID']+'\')">'+
+                        '<a onclick="ShowMessagePage(\''+message.length+'\',\''+message['ID']+'\')">'+
                             '<span class="avatar"><img src="Images/user.jpg" alt="Avatar"></span>'+
                             '<span class="header">'+
                                 '<span class="from">'+
@@ -82,7 +82,7 @@ function GetMessages(){
     });
 }
 
-function ShowPage(length,id){
+function ShowMessagePage(length,id){
     $.ajax({
         type:'POST',
         url:'Shared/UpdateMessageStatus.php?id='+id,

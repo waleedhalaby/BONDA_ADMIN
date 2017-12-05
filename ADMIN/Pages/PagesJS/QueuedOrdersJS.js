@@ -20,7 +20,7 @@ $(document).ready(function () {
                         '<td>' + order['TOTAL'] + ' ' + order['CURRENCY'] + '</td>' +
                         '<td class="center">' +
                         '<a id="detailOrderBtn" class="btn btn-success" ' +
-                        'onclick="ShowModal(\'Order [#' + order['UNIQUE_ID'] + '] Details\',\'Close\',\'Pages/PagesPHP/OrdersPHP/order_details.php?s=2&id=' + order['ID'] + '\',true)">' +
+                        'onclick="$(\'#content\').load(\'Pages/PagesPHP/OrdersPHP/order_details.php?s=2&id='+order['ID']+'\')">' +
                         '<i class="halflings-icon white zoom-in"></i></a>' +
                         '</td></tr>'
                     );

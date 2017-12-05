@@ -12,6 +12,7 @@
             $json[$i]['TITLE'] = $row['TITLE'];
             $json[$i]['LINK'] = $row['LINK'];
             $json[$i]['ICON'] = $row['ICON'];
+            $json[$i]['LAST_VISITED'] = $row['LAST_VISITED'];
             if(mysqli_num_rows($result) > 0){
                 $j = 0;
                 while($row2 = mysqli_fetch_array($result)){
@@ -20,6 +21,7 @@
                     $json[$i]['SUBITEMS'][$j]['LINK'] = $row2['LINK'];
                     $json[$i]['SUBITEMS'][$j]['ICON'] = $row2['ICON'];
                     $json[$i]['SUBITEMS'][$j]['IS_VISIBLE'] = $row2['IS_VISIBLE'];
+                    $json[$i]['SUBITEMS'][$j]['LAST_VISITED'] = $row2['LAST_VISITED'];
                     $j++;
                 }
             }

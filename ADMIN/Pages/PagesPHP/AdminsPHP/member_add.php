@@ -1,4 +1,25 @@
 <?php session_start(); $PERSON_ID = $_SESSION['id']; ?>
+<ul class="breadcrumb">
+    <li>
+        <i class="icon-home"></i>
+        <em>Home</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-lock"></i>
+        <em>Administration</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-user"></i>
+        <em>Members</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-plus-sign"></i>
+        <em>Add Member</em>
+    </li>
+</ul>
 <div class="modal-member-add-content">
     <form id="addMemberForm">
         <table class="table table-striped table-bordered member-details-table">

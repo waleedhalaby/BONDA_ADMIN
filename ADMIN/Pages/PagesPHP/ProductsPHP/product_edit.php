@@ -3,7 +3,27 @@ $PRODUCT_ID = $_GET['id'];
 session_start();
 $PERSON_ID = $_SESSION['id'];
 ?>
-
+<ul class="breadcrumb">
+    <li>
+        <i class="icon-home"></i>
+        <em>Home</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-star"></i>
+        <em>Products Portal</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-gift"></i>
+        <em>Products</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-edit"></i>
+        <em>Edit Product</em>
+    </li>
+</ul>
 <div class="modal-product-edit-content">
     <label>Product Details</label>
     <form id="editProductForm">

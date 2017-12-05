@@ -4,8 +4,7 @@
     require_once('UpdateStatus.php');
 
     Update('INACTIVE');
-
-    if(session_destroy()){
-        header("Location: ../login.php");
-    }
+    ResetPages();
+    session_destroy();
+    header("Location: ../login.php");
 ?>

@@ -4,7 +4,26 @@ $VALUE = $_GET['value'];
 session_start();
 $PERSON_ID = $_SESSION['id'];
 ?>
-
+<ul class="breadcrumb">
+    <li>
+        <i class="icon-home"></i>
+        <em>Home</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-star"></i>
+        <em>Products Portal</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-tasks"></i>
+        <em>Categories</em>
+    </li>
+    <li>
+        <i class="icon-plus-sign"></i>
+        <em>Edit Category</em>
+    </li>
+</ul>
 <div class="modal-category-edit-content">
     <form id="editCategoryForm">
         <table class="table table-striped table-bordered category-details-table">

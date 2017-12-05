@@ -1,12 +1,12 @@
 $(document).ready(function () {
     if(!CheckPrivilege('SHOW_LOG_ACTIVITIES')){
         $('#content .box-content').html('Sorry, you don\'t have the privilege to show log activities.');
-        $('#deleteBtn').css('visibility','hidden');
+        $('#deleteBtn').css('display','none');
     }
     else{
         $('.ajax-loader').css('visibility','visible');
         if(!CheckPrivilege('DELETE_LOG_ACTIVITIES')){
-            $('#deleteBtn').css('visibility','hidden');
+            $('#deleteBtn').css('display','none');
         }
 
         $('#deleteBtn').on('click',function(){

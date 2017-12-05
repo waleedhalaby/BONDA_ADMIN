@@ -6,6 +6,22 @@
 <div class="ajax-loader2">
     <img src="Images/Preloader_1.gif" class="img-responsive"/>
 </div>
+<ul class="breadcrumb">
+    <li>
+        <i class="icon-home"></i>
+        <em>Home</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-book"></i>
+        <em>Orders Portal</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-desktop"></i>
+        <em>Orders Details</em>
+    </li>
+</ul>
 <div class="modal-order-content">
 <h4>Order</h4>
 <table class="table table-striped table-bordered order-table">

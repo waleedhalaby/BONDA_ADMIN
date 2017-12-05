@@ -5,6 +5,10 @@ $(document).ready(function(){
         $('#main_content').load('PagesPHP/Cart.php');
     });
 
+    $('#contactBtn').on('click',function(){
+        $('#main_content').load('PagesPHP/Contact.php');
+    });
+
     $.get('PagesPHP/GetProducts.php',function(data){
         var products = $.parseJSON(data);
         var counter = 1;

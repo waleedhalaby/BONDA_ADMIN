@@ -35,7 +35,8 @@ $COUNT  = $rows;
     <a class="navbar-brand" href="index.php"><span class="fa fa-address-book"></span> ORDER</a>
     <h4>Hello, <?php echo $_SESSION['PERSON_NAME'] ?></h4>
     <div class="btn-group">
+        <a id="contactBtn" class="btn btn-info"><span class="fa fa-phone"></span> CONTACT</a>
         <a id="cartBtn" class="btn btn-success"><span class="fa fa-shopping-cart"></span> CART(<?php echo $COUNT ?>)</a>
-        <a href="logout.php" class="btn btn-danger"><span class="fa fa-sign-out"></span> Logout</a>
+        <a href="logout.php" class="btn btn-danger"><span class="fa fa-sign-out"></span> LOGOUT</a>
     </div>
 </nav>

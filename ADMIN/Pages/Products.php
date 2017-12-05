@@ -22,7 +22,7 @@
         <div class="box-header">
             <h2><i class="halflings-icon white cart"></i><span class="break"></span>Products</h2>
             <div class="box-icon">
-                <a id="addProductBtn" onclick="ShowModal('Add Product','Close','Pages/PagesPHP/ProductsPHP/product_add.php',true)"
+                <a id="addProductBtn" onclick="$('#content').load('Pages/PagesPHP/ProductsPHP/product_add.php')"
                    class="btn-setting"><i class="halflings-icon white plus-sign"></i></a>
             </div>
         </div>
@@ -32,7 +32,6 @@
                     <tr style="background-color: #0c5460;color:#F4F4F4;">
                         <th>IMAGE</th>
                         <th>ID</th>
-                        <th>SKU ID</th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Category</th>

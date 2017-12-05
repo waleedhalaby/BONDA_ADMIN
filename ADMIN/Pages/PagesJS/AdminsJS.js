@@ -24,8 +24,7 @@ $(document).ready(function () {
                     $('.datatable #adminTable').append('<tr>' +
                         '<td class="center">'+val[0]+'</td>' +
                         '<td class="center">'+val[1]+'</td>' +
-                        '<td class="center">'+val[2]+'</td>' +
-                        '<td class="center">'+val[3]+'</td>' +
+                        '<td class="center">'+val[2]+' '+val[3]+'</td>' +
                         '<td class="center"><span class="label label-success">'+val[4]+'</span></td>' +
                         status +
                         '<td class="center">' +
@@ -33,7 +32,7 @@ $(document).ready(function () {
                         'onclick="ShowModal(\'Member [#'+val[0]+'] Details\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_details.php?id='+val[0]+'\',false)">' +
                         '<i class="halflings-icon white zoom-in"></i></a>'+
                         '<a id="editMemberBtn" class="editMember btn btn-info" ' +
-                        'onclick="ShowModal(\'Member [#'+val[0]+'] Edit\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_edit.php?id='+val[0]+'\',true)">' +
+                        'onclick="$(\'#content\').load(\'Pages/PagesPHP/AdminsPHP/member_edit.php?id='+val[0]+'\')">' +
                         '<i class="halflings-icon white edit"></i></a>'+
                         '<a id="deleteMemberBtn" class="deleteMember btn btn-danger" ' +
                         'onclick="ShowModal(\'Member [#'+val[0]+'] Delete\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_delete.php?id='+val[0]+'\',false)">' +

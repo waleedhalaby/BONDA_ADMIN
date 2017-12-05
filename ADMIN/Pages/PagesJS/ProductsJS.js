@@ -25,7 +25,6 @@ $(document).ready(function () {
                     $('#productTable').append('<tr>' +
                         '<td>' + image + '</td>' +
                         '<td>' + product['ID'] + '</td>' +
-                        '<td>' + product['SKU_ID'] + '</td>' +
                         '<td>' + product['NAME'] + '</td>' +
                         '<td>' + product['PRICE'] + ' ' + product['CURRENCY'] +'</td>' +
                         '<td><label class="label label-warning">' + product['CATEGORY'] + '</label></td>'+
@@ -34,7 +33,7 @@ $(document).ready(function () {
                         'onclick="ShowModal(\'Product [#'+product['ID']+'] Details\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_details.php?id='+product['ID']+'\',false)">' +
                         '<i class="halflings-icon white zoom-in"></i></a>'+
                         '<a id="editProductBtn" class="editProduct btn btn-info" ' +
-                        'onclick="ShowModal(\'Product [#'+product['ID']+'] Edit\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_edit.php?id='+product['ID']+'\',true)">' +
+                        'onclick="$(\'#content\').load(\'Pages/PagesPHP/ProductsPHP/product_edit.php?id='+product['ID']+'\')">' +
                         '<i class="halflings-icon white edit"></i></a>'+
                         '<a id="deleteProductBtn" class="deleteProduct btn btn-danger" ' +
                         'onclick="ShowModal(\'Product [#'+product['ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_delete.php?id='+product['ID']+'\',false)">' +

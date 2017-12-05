@@ -2,6 +2,27 @@
 session_start();
 $PERSON_ID = $_SESSION['id'];
 ?>
+<ul class="breadcrumb">
+    <li>
+        <i class="icon-home"></i>
+        <em>Home</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-lock"></i>
+        <em>Administration</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-sitemap"></i>
+        <em>Members Roles</em>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <i class="icon-plus-sign"></i>
+        <em>Add Role</em>
+    </li>
+</ul>
 <div class="modal-role-add-content">
     <form id="addRoleForm">
         <table class="table table-striped table-bordered role-details-table">

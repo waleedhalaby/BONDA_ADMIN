@@ -25,16 +25,43 @@ $(document).ready(function(){
 
    $.get('Handlers/GetMenu.php', function (data) {
        var items = $.parseJSON(data);
-       var firstLink = items[0]['LINK'];
+       var selectedId = items[0]['ID'];
+       var selectedLink = items[0]['LINK'];
+
+       $(items).each(function (id,item) {
+           if (item['SUBITEMS'].length === 0){
+               if(item['LAST_VISITED'] === "1"){
+                   selectedId = item['ID'];
+                   selectedLink = item['LINK'];
+               }
+           }
+           else if (item['SUBITEMS'].length > 0){
+               $(item['SUBITEMS']).each(function(id,subitem){
+                   if(subitem['IS_VISIBLE'].indexOf("1") >= 0)
+                   {
+                       if(subitem['LAST_VISITED'] === "1"){
+                           selectedId = subitem['ID'];
+                           selectedLink = subitem['LINK'];
+                       }
+                   }
+               });
+           }
+       });
+
+       console.log(selectedId+' '+selectedLink);
+
        $(items).each(function (id,item) {
            if(item['SUBITEMS'].length === 0){
                $('#menuDiv').append('<li style="cursor: pointer;" id="'+item['ID']+'"><a><i class="'+item['ICON']+'"></i>' +
                    '<span class="hidden-tablet"> '+item['TITLE']+'</span></a></li>');
 
                $('#menuDiv li#'+item['ID']).on('click',function(){
-                   $('#content').load(item['LINK']);
-                   $('#menuDiv li').removeClass('active');
-                   $(this).addClass('active');
+                   var id = $(this).attr('id');
+                   $.post('Handlers/UpdateVisited.php',{id:id},function(data){
+                       $('#menuDiv li').removeClass('active');
+                       $('#menuDiv li#'+item['ID']).addClass('active');
+                       $('#content').load(item['LINK']);
+                   });
                });
            }
            else if(item['SUBITEMS'].length > 0){
@@ -51,9 +78,12 @@ $(document).ready(function(){
                        );
 
                        $('#menuDiv #'+item['ID']+' ul li#'+subitem['ID']).on('click',function(){
-                           $('#content').load(subitem['LINK']);
-                           $('#menuDiv li').removeClass('active');
-                           $(this).addClass('active');
+                           var id = $(this).attr('id');
+                           $.post('Handlers/UpdateVisited.php',{id:id},function(data){
+                               $('#menuDiv li').removeClass('active');
+                               $('#menuDiv #'+item['ID']+' ul li#'+subitem['ID']).addClass('active');
+                               $('#content').load(subitem['LINK']);
+                           });
                        });
                    }
                });
@@ -69,8 +99,8 @@ $(document).ready(function(){
 
        });
 
-       $('#menuDiv li:first').addClass('active');
-       $('#content').load(firstLink);
+       $('#menuDiv #'+selectedId).addClass('active');
+       $('#content').load(selectedLink);
    });
 });
 

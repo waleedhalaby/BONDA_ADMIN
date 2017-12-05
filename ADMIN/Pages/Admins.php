@@ -22,7 +22,7 @@
         <div class="box-header">
             <h2><i class="halflings-icon white user"></i><span class="break"></span>Members</h2>
             <div class="box-icon">
-                <a id="addMemberBtn" onclick="ShowModal('Add Member','Close','Pages/PagesPHP/AdminsPHP/member_add.php',true)"
+                <a id="addMemberBtn" onclick="$('#content').load('Pages/PagesPHP/AdminsPHP/member_add.php')"
                    class="btn-setting"><i class="halflings-icon white plus-sign"></i></a>
             </div>
         </div>
@@ -32,8 +32,7 @@
                 <tr style="background-color: #0c5460;color:#F4F4F4;">
                     <th>ID</th>
                     <th>E-Mail</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Name</th>
                     <th>Role</th>
                     <th>Status</th>
                     <th>Actions</th>

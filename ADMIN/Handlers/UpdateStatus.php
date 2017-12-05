@@ -4,4 +4,9 @@
         $sql = "UPDATE person_feature_values SET VALUE = '".$status."' WHERE PERSON_ID = ".$_SESSION['id']." AND PERSON_FEATURE_ID = 2";
         $result = mysqli_query($con,$sql);
     }
+
+    function ResetPages(){
+        require('DBCONNECT.php');
+        mysqli_query($con,"UPDATE pages set LAST_VISITED = '0'");
+    }
 ?>
