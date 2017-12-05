@@ -4,34 +4,54 @@ const CURRENT_PAGE = '';
 $(document).ready(function(){
     $('#profileDiv').load('Shared/profile.php');
 
+    var ID = $('#hiddenMemberID').val() || 0;
 
+    $.get('Handlers/GetAllPrivileges.php',{'id':ID},function(data){
+        if(data !== ''){
+            var array = $.parseJSON(data);
+            $(array).each(function(id,val){
+                var privilege = val['PRIVILEGE'];
+                var checked = val['VALUE'] === "0" ? false : true;
+
+                MEMBER_PRIVILEGES.push({
+                    'PRIVILEGE':privilege,
+                    'CHECKED':checked
+                });
+            });
+        }
+        $('#notificationDiv').load('Shared/notification.php');
+        $('#messageDiv').load('Shared/message.php');
+    });
 
    $.get('Handlers/GetMenu.php', function (data) {
-       var array = $.parseJSON(data);
-       var firstLink = array[0][2];
-       $(array).each(function (id,val) {
-           if(val[4] === "0" && !(val[2].indexOf('#') >= 0)){
-               $('#menuDiv').append('<li style="cursor: pointer;" id="'+val[0]+'"><a><i class="'+val[3]+'"></i><span class="hidden-tablet"> '+val[1]+'</span></a></li>');
+       var items = $.parseJSON(data);
+       var firstLink = items[0]['LINK'];
+       $(items).each(function (id,item) {
+           if(item['SUBITEMS'].length === 0){
+               $('#menuDiv').append('<li style="cursor: pointer;" id="'+item['ID']+'"><a><i class="'+item['ICON']+'"></i>' +
+                   '<span class="hidden-tablet"> '+item['TITLE']+'</span></a></li>');
 
-               $('#menuDiv li#'+val[0]).on('click',function(){
-                   $('#content').load(val[2]);
+               $('#menuDiv li#'+item['ID']).on('click',function(){
+                   $('#content').load(item['LINK']);
                    $('#menuDiv li').removeClass('active');
                    $(this).addClass('active');
                });
            }
-           else if(!(val[4].indexOf("0")) && val[2].indexOf('#') >= 0){
-               $('#menuDiv').append('<li style="cursor: pointer;" id="'+val[0]+'"><a class="dropmenu"><i class="'+val[3]+'"></i><span class="hidden-tablet"> '+
-                   val[1]+'</span><span class="icon-angle-down"></span></a>' +
+           else if(item['SUBITEMS'].length > 0){
+               $('#menuDiv').append('<li style="cursor: pointer;" id="'+item['ID']+'"><a class="dropmenu"><i class="'+item['ICON']+'">' +
+                   '</i><span class="hidden-tablet"> '+
+                   item['TITLE']+'</span><span class="icon-angle-down"></span></a>' +
                    '<ul>');
-               $(array).each(function(id,val2){
-                   if(val2[4].indexOf(val[0]) >= 0)
+               $(item['SUBITEMS']).each(function(id,subitem){
+                   if(subitem['IS_VISIBLE'].indexOf("1") >= 0)
                    {
-                       $('#menuDiv #'+val[0]+' ul').append(
-                           '<li style="cursor: pointer;" id="'+val2[0]+'"><a class="submenu"><i class="'+val2[3]+'"></i><span class="hidden-tablet">'+val2[1]+'</span></a></li>'
+                       $('#menuDiv #'+item['ID']+' ul').append(
+                           '<li style="cursor: pointer;" id="'+subitem['ID']+'"><a class="submenu">' +
+                           '<i class="'+subitem['ICON']+'"></i><span class="hidden-tablet">'+subitem['TITLE']+'</span></a></li>'
                        );
 
-                       $('#menuDiv #'+val[0]+' ul li#'+val2[0]).on('click',function(){
-                           $('#content').load(val2[2]);
+                       $('#menuDiv #'+item['ID']+' ul li#'+subitem['ID']).on('click',function(){
+                           $('#content').load(subitem['LINK']);
                            $('#menuDiv li').removeClass('active');
                            $(this).addClass('active');
                        });
@@ -52,31 +72,17 @@ $(document).ready(function(){
        $('#menuDiv li:first').addClass('active');
        $('#content').load(firstLink);
    });
-
-    var ID = $('#hiddenMemberID').val() || 0;
-
-    $.get('Pages/PagesPHP/AdminsPrivilegesPHP/GetPrivileges.php',{'id':ID},function(data){
-        if(data !== ''){
-            var array = $.parseJSON(data);
-            $(array).each(function(id,val){
-                var privilege = val[1];
-                var checked = val[2] === "0" ? false : true;
-
-                MEMBER_PRIVILEGES.push({
-                    'PRIVILEGE':privilege,
-                    'CHECKED':checked
-                });
-            });
-        }
-        $('#notificationDiv').load('Shared/notification.php');
-        $('#messageDiv').load('Shared/message.php');
-    });
 });
 
 function CheckPrivilege(PrivilegeName){
     var privilege = MEMBER_PRIVILEGES.filter(function (PRIVILEGE) {
         return PRIVILEGE.PRIVILEGE === PrivilegeName;
     });
+    if(privilege.length  === 0){
+        return false;
+    }
+
+
     return privilege[0]['CHECKED'];
 }
 

@@ -6,7 +6,8 @@
             INNER JOIN person_feature_values VL ON PR.ID = VL.PERSON_ID 
             INNER JOIN person_features VF ON VL.PERSON_FEATURE_ID = VF.ID
 			INNER JOIN person_types PT ON PR.PERSON_TYPE_ID = PT.ID
-            WHERE PR.PERSON_TYPE_ID <> 2 AND PR.ID <> ".$_SESSION['id']." AND PR.ID <> 111111 AND (VF.FEATURE LIKE '%STATUS%')";
+            WHERE PR.PERSON_TYPE_ID <> 2 AND (VF.FEATURE LIKE '%STATUS%') AND
+            PR.ID <> ".$_SESSION['id']." AND PR.ID <> 111111";
     $result = mysqli_query($con,$sql);
     $json = Array();
     if(mysqli_num_rows($result) > 0){

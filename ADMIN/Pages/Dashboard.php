@@ -29,12 +29,12 @@
                             '        <p>Users</p>' +
                             '        <span class="badge">'+array['USERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span4">' +
+                            '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span4">' +
                             '        <i class="icon-tasks"></i>' +
                             '        <p>Active Categories</p>' +
                             '        <span class="badge">'+array['CATEGORIES_COUNT'] + ' / ' + array['ALL_CATEGORIES_COUNT']+'</span>'+
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/Products.php\')" class="quick-button metro green span4">' +
+                            '    <a id="ProductsDash" onclick="$(\'#content\').load(\'Pages/Products.php\')" class="quick-button metro green span4">' +
                             '        <i class="icon-gift"></i>' +
                             '        <p>Products</p>' +
                             '        <span class="badge">'+array['PRODUCTS_COUNT']+'</span>' +
@@ -42,23 +42,30 @@
                             '    <div class="clearfix"></div>'
                         );
 
+                        if(!CheckPrivilege('SHOW_PRODUCTS')){
+                            $('#ProductsDash').unbind('click');
+                        }
+                        if(!CheckPrivilege('SHOW_CATEGORIES')){
+                            $('#CategoriesDash').unbind('click');
+                        }
+
                         $('#row2').html(
-                            '<a onclick="$(\'#content\').load(\'Pages/PendingOrders.php\')" class="quick-button metro blue span3">' +
+                            '<a id="PendingDash" onclick="$(\'#content\').load(\'Pages/PendingOrders.php\')" class="quick-button metro blue span3">' +
                             '        <i class="icon-envelope"></i>' +
                             '        <p>Pending Orders</p>' +
                             '        <span class="badge">'+array['PEND_ORDERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/QueuedOrders.php\')" class="quick-button metro orange span3">' +
+                            '    <a id="QueuedDash" onclick="$(\'#content\').load(\'Pages/QueuedOrders.php\')" class="quick-button metro orange span3">' +
                             '        <i class="icon-envelope-alt"></i>' +
                             '        <p>Queued Orders</p>' +
                             '        <span class="badge">'+array['QUEUE_ORDERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/ShippedOrders.php\')" class="quick-button metro black span3">' +
+                            '    <a id="ShippedDash" onclick="$(\'#content\').load(\'Pages/ShippedOrders.php\')" class="quick-button metro black span3">' +
                             '        <i class="icon-truck"></i>' +
                             '        <p>Shipped Orders</p>' +
                             '        <span class="badge">'+array['SHIP_ORDERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/DeliveredOrders.php\')" class="quick-button metro purple span3">' +
+                            '    <a id="DeliveredDash" onclick="$(\'#content\').load(\'Pages/DeliveredOrders.php\')" class="quick-button metro purple span3">' +
                             '        <i class="icon-shopping-cart"></i>' +
                             '        <p>Delivered Orders</p>' +
                             '        <span class="badge">'+array['DEL_ORDERS_COUNT']+'</span>' +
@@ -66,6 +73,20 @@
                             '' +
                             '    <div class="clearfix"></div>'
                         );
+
+                        if(!CheckPrivilege('SHOW_PENDING_ORDERS')){
+                            $('#PendingDash').unbind('click');
+                        }
+                        if(!CheckPrivilege('SHOW_QUEUED_ORDERS')){
+                            $('#QueuedDash').unbind('click');
+                        }
+                        if(!CheckPrivilege('SHOW_SHIPPED_ORDERS')){
+                            $('#ShippedDash').unbind('click');
+                        }
+                        if(!CheckPrivilege('SHOW_DELIVERED_ORDERS')){
+                            $('#DeliveredDash').unbind('click');
+                        }
+
                         var month_total = '';
                         if(array['LAST_MONTHLY_INCOME'] && array['LAST_2_MONTHLY_INCOME']  === "0.00"){
                             month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i>';
@@ -180,38 +201,45 @@
                             '<a class="quick-button metro yellow span4">' +
                             '        <i class="icon-group"></i>' +
                             '        <p>Users</p>' +
-                            '        <span class="badge">' + array['USERS_COUNT'] + '</span>' +
+                            '        <span class="badge">'+array['USERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span4">' +
+                            '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span4">' +
                             '        <i class="icon-tasks"></i>' +
                             '        <p>Active Categories</p>' +
-                            '        <span class="badge">' + array['CATEGORIES_COUNT'] + ' / ' + array['ALL_CATEGORIES_COUNT'] + '</span>' +
+                            '        <span class="badge">'+array['CATEGORIES_COUNT'] + ' / ' + array['ALL_CATEGORIES_COUNT']+'</span>'+
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/Products.php\')" class="quick-button metro green span4">' +
+                            '    <a id="ProductsDash" onclick="$(\'#content\').load(\'Pages/Products.php\')" class="quick-button metro green span4">' +
                             '        <i class="icon-gift"></i>' +
                             '        <p>Products</p>' +
-                            '        <span class="badge">' + array['PRODUCTS_COUNT'] + '</span>' +
+                            '        <span class="badge">'+array['PRODUCTS_COUNT']+'</span>' +
                             '    </a>' +
                             '    <div class="clearfix"></div>'
                         );
 
+                        if(!CheckPrivilege('SHOW_PRODUCTS')){
+                            $('#ProductsDash').unbind('click');
+                        }
+                        if(!CheckPrivilege('SHOW_CATEGORIES')){
+                            $('#CategoriesDash').unbind('click');
+                        }
+
                         $('#row2').html(
-                            '<a onclick="$(\'#content\').load(\'Pages/PendingOrders.php\')" class="quick-button metro blue span3">' +
+                            '<a id="PendingDash" onclick="$(\'#content\').load(\'Pages/PendingOrders.php\')" class="quick-button metro blue span3">' +
                             '        <i class="icon-envelope"></i>' +
                             '        <p>Pending Orders</p>' +
                             '        <span class="badge">'+array['PEND_ORDERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/QueuedOrders.php\')" class="quick-button metro orange span3">' +
+                            '    <a id="QueuedDash" onclick="$(\'#content\').load(\'Pages/QueuedOrders.php\')" class="quick-button metro orange span3">' +
                             '        <i class="icon-envelope-alt"></i>' +
                             '        <p>Queued Orders</p>' +
                             '        <span class="badge">'+array['QUEUE_ORDERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/ShippedOrders.php\')" class="quick-button metro black span3">' +
+                            '    <a id="ShippedDash" onclick="$(\'#content\').load(\'Pages/ShippedOrders.php\')" class="quick-button metro black span3">' +
                             '        <i class="icon-truck"></i>' +
                             '        <p>Shipped Orders</p>' +
                             '        <span class="badge">'+array['SHIP_ORDERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a onclick="$(\'#content\').load(\'Pages/DeliveredOrders.php\')" class="quick-button metro purple span3">' +
+                            '    <a id="DeliveredDash" onclick="$(\'#content\').load(\'Pages/DeliveredOrders.php\')" class="quick-button metro purple span3">' +
                             '        <i class="icon-shopping-cart"></i>' +
                             '        <p>Delivered Orders</p>' +
                             '        <span class="badge">'+array['DEL_ORDERS_COUNT']+'</span>' +
@@ -219,6 +247,20 @@
                             '' +
                             '    <div class="clearfix"></div>'
                         );
+
+                        if(!CheckPrivilege('SHOW_PENDING_ORDERS')){
+                            $('#PendingDash').unbind('click');
+                        }
+                        if(!CheckPrivilege('SHOW_QUEUED_ORDERS')){
+                            $('#QueuedDash').unbind('click');
+                        }
+                        if(!CheckPrivilege('SHOW_SHIPPED_ORDERS')){
+                            $('#ShippedDash').unbind('click');
+                        }
+                        if(!CheckPrivilege('SHOW_DELIVERED_ORDERS')){
+                            $('#DeliveredDash').unbind('click');
+                        }
+
                         var month_total = '';
                         if(array['LAST_MONTHLY_INCOME'] && array['LAST_2_MONTHLY_INCOME']  === "0.00"){
                             month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i>';

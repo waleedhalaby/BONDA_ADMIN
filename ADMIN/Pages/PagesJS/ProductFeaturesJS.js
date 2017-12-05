@@ -1,28 +1,35 @@
 $(document).ready(function () {
-    if(!CheckPrivilege('ADD_PRODUCT_FEATURE')){
+    if(!CheckPrivilege('SHOW_PRODUCTS_FEATURES')){
+        $('#content #features').html('Sorry, you don\'t have the privilege to view product features.');
         $('#addProductFeatureBtn').css('visibility','hidden');
     }
+    else{
+        if(!CheckPrivilege('ADD_PRODUCT_FEATURE')){
+            $('#addProductFeatureBtn').css('visibility','hidden');
+        }
 
-    if(!CheckPrivilege('UPDATE_PRODUCT_FEATURE')){
-        $('#content #features').html('Sorry, you don\'t have the privilege to update product features.');
+
+        $.get('Pages/PagesPHP/ProductFeaturesPHP/GetFeatures.php',function (data) {
+            if(data !== ''){
+                var features = $.parseJSON(data);
+                $(features).each(function (id,feature) {
+                    if(feature['IS_ACTIVE'] === "1"){
+                        $('#features').append('<label onclick="ToggleActive('+feature['ID']+','+feature['IS_ACTIVE']+')" style="float: left; padding: 5px 20px; border-radius: 5px; margin-right: 20px;" class="label label-success">'+feature['FEATURE']+' ('+feature['DATA_TYPE']+') <span class="icon-check"></span></label>');
+                    }
+                    else{
+                        $('#features').append('<label onclick="ToggleActive('+feature['ID']+','+feature['IS_ACTIVE']+')" style="float: left; padding: 5px 20px; border-radius: 5px; margin-right: 20px;" class="label label-info">'+feature['FEATURE']+' ('+feature['DATA_TYPE']+') <span class="icon-check-empty"></span></label>');
+                    }
+                    if(!CheckPrivilege('UPDATE_PRODUCT_FEATURES')){
+                        $('#features label').unbind('click');
+                    }
+                });
+
+            }
+            else{
+                $('#features').append('<p>No features are available</p>');
+            }
+        });
     }
-
-   $.get('Pages/PagesPHP/ProductFeaturesPHP/GetFeatures.php',function (data) {
-       if(data !== ''){
-           var features = $.parseJSON(data);
-           $(features).each(function (id,feature) {
-               if(feature['IS_ACTIVE'] === "1"){
-                   $('#features').append('<label onclick="ToggleActive('+feature['ID']+','+feature['IS_ACTIVE']+')" style="float: left; padding: 5px 20px; border-radius: 5px; margin-right: 20px;" class="label label-success">'+feature['FEATURE']+' ('+feature['DATA_TYPE']+') <span class="icon-check"></span></label>');
-               }
-               else{
-                   $('#features').append('<label onclick="ToggleActive('+feature['ID']+','+feature['IS_ACTIVE']+')" style="float: left; padding: 5px 20px; border-radius: 5px; margin-right: 20px;" class="label label-info">'+feature['FEATURE']+' ('+feature['DATA_TYPE']+') <span class="icon-check-empty"></span></label>');
-               }
-           });
-       }
-       else{
-           $('#features').append('<p>No features are available</p>');
-       }
-   });
 });
 
 function ToggleActive(id,oldStatus){

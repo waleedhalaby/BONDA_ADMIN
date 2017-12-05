@@ -17,7 +17,6 @@ foreach ($changes as $value){
     $PERSON_PRIVILEGE_ID = $val[0];
     $VALUE = $val[1];
 
-    echo $PRIVILEGE." ".$PERSON_PRIVILEGE_ID." ".$VALUE;
     $sql = "UPDATE person_privileges SET VALUE = '".$VALUE."' WHERE ID = ".$PERSON_PRIVILEGE_ID;
     $result = mysqli_query($con,$sql);
 }

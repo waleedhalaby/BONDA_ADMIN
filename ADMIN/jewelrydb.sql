@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 02, 2017 at 02:17 AM
+-- Generation Time: Dec 05, 2017 at 12:12 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `carts` (
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`),
   KEY `CART_STATUS_ID` (`CART_STATUS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `cart_details` (
   PRIMARY KEY (`ID`),
   KEY `PRODUCT_ID` (`PRODUCT_ID`),
   KEY `CART_ID` (`CART_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `log_activities` (
   KEY `PERSON_ID` (`PERSON_ID`),
   KEY `PAGE_ID` (`PAGE_ID`),
   KEY `PERSON_ID_2` (`PERSON_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `DESCRIPTION` varchar(255) NOT NULL,
   `IS_SEEN` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `ORDER_STATUS_ID` (`ORDER_STATUS_ID`),
   KEY `PAYMENT_TYPE_ID` (`PAYMENT_TYPE_ID`),
   KEY `CART_ID` (`CART_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
 
 INSERT INTO `pages` (`ID`, `TITLE`, `LINK`, `ICON`, `PARENT`, `IS_VISIBLE`) VALUES
 (1, 'Dashboard', 'Pages/Dashboard.php', 'icon-dashboard', 0, 1),
-(2, 'Pages Portal', 'Pages/Pages.php', 'icon-file', 0, 1),
+(2, 'Pages Portal', 'Pages/Pages.php', 'icon-file', 0, 0),
 (3, 'Products Portal', '#', 'icon-star', 0, 1),
 (4, 'Orders Portal', '#', 'icon-book', 0, 1),
 (5, 'Administration', '#', 'icon-lock', 0, 1),
@@ -287,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `persons` (
   `PERSON_TYPE_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=111158 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=111159 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `persons`
@@ -333,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `person_feature_values` (
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`,`PERSON_FEATURE_ID`),
   KEY `FEATURE_ID` (`PERSON_FEATURE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_feature_values`
@@ -341,6 +341,26 @@ CREATE TABLE IF NOT EXISTS `person_feature_values` (
 
 INSERT INTO `person_feature_values` (`ID`, `PERSON_ID`, `PERSON_FEATURE_ID`, `VALUE`) VALUES
 (6, 111111, 2, 'ACTIVE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `person_messages`
+--
+
+DROP TABLE IF EXISTS `person_messages`;
+CREATE TABLE IF NOT EXISTS `person_messages` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FROM_PERSON_ID` int(11) NOT NULL,
+  `TO_PERSON_ID` int(11) NOT NULL,
+  `TITLE` varchar(255) NOT NULL,
+  `DESCRIPTION` varchar(1000) NOT NULL,
+  `IS_SEEN` tinyint(1) NOT NULL,
+  `MESSAGE_DATE_TIME` datetime NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FROM_PERSON_ID` (`FROM_PERSON_ID`),
+  KEY `TO_PERSON_ID` (`TO_PERSON_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -357,38 +377,48 @@ CREATE TABLE IF NOT EXISTS `person_privileges` (
   PRIMARY KEY (`ID`),
   KEY `PRIVILEGE_ID` (`PRIVILEGE_ID`,`PERSON_ID`),
   KEY `PERSON_ID` (`PERSON_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=584 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_privileges`
 --
 
 INSERT INTO `person_privileges` (`ID`, `PRIVILEGE_ID`, `PERSON_ID`, `VALUE`) VALUES
-(21, 1, 111111, 1),
-(22, 2, 111111, 1),
-(23, 3, 111111, 1),
-(24, 4, 111111, 1),
-(25, 5, 111111, 1),
-(26, 6, 111111, 1),
-(27, 7, 111111, 1),
-(28, 8, 111111, 1),
-(29, 9, 111111, 1),
-(30, 10, 111111, 1),
-(41, 11, 111111, 1),
-(61, 14, 111111, 1),
-(64, 15, 111111, 1),
-(145, 16, 111111, 1),
-(189, 17, 111111, 1),
-(206, 18, 111111, 1),
-(208, 19, 111111, 1),
-(210, 20, 111111, 1),
-(212, 21, 111111, 1),
-(308, 25, 111111, 1),
-(369, 26, 111111, 1),
-(413, 27, 111111, 1),
-(415, 28, 111111, 1),
-(417, 29, 111111, 1),
-(583, 30, 111111, 1);
+(1, 34, 111111, 1),
+(2, 35, 111111, 1),
+(3, 36, 111111, 1),
+(4, 37, 111111, 1),
+(5, 40, 111111, 1),
+(6, 41, 111111, 1),
+(7, 42, 111111, 1),
+(8, 43, 111111, 1),
+(9, 44, 111111, 1),
+(10, 46, 111111, 1),
+(11, 47, 111111, 1),
+(12, 48, 111111, 1),
+(13, 49, 111111, 1),
+(14, 50, 111111, 1),
+(15, 51, 111111, 1),
+(16, 52, 111111, 1),
+(17, 53, 111111, 1),
+(18, 54, 111111, 1),
+(19, 55, 111111, 0),
+(20, 56, 111111, 0),
+(21, 57, 111111, 0),
+(22, 58, 111111, 1),
+(23, 59, 111111, 1),
+(24, 60, 111111, 1),
+(25, 61, 111111, 1),
+(26, 62, 111111, 1),
+(27, 63, 111111, 1),
+(28, 64, 111111, 1),
+(29, 32, 111111, 0),
+(30, 33, 111111, 0),
+(31, 38, 111111, 1),
+(32, 39, 111111, 1),
+(33, 45, 111111, 1),
+(34, 65, 111111, 0),
+(35, 66, 111111, 1);
 
 -- --------------------------------------------------------
 
@@ -422,39 +452,50 @@ DROP TABLE IF EXISTS `privileges`;
 CREATE TABLE IF NOT EXISTS `privileges` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PRIVILEGE` varchar(255) NOT NULL,
+  `CATEGORY_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `privileges`
 --
 
-INSERT INTO `privileges` (`ID`, `PRIVILEGE`) VALUES
-(1, 'ADD_PRODUCT'),
-(2, 'EDIT_PRODUCT'),
-(3, 'DELETE_PRODUCT'),
-(4, 'ADD_MEMBER'),
-(5, 'EDIT_MEMBER'),
-(6, 'DELETE_MEMBER'),
-(7, 'ADD_PAGE'),
-(8, 'EDIT_PAGE'),
-(9, 'DELETE_PAGE'),
-(10, 'UPDATE_PRIVILEGES'),
-(11, 'ADD_PRIVILEGES'),
-(14, 'ADD_CATEGORY'),
-(15, 'UPDATE_CATEGORY'),
-(16, 'ADD_PRODUCT_FEATURE'),
-(17, 'UPDATE_PENDING_ORDER'),
-(18, 'UPDATE_QUEUED_ORDER'),
-(19, 'SHOW_DELIVERED_ORDER'),
-(20, 'SHOW_CANCELLED_ORDER'),
-(21, 'VIEW_LOGS'),
-(25, 'UPDATE_PRODUCT_FEATURE'),
-(26, 'DELETE_LOGS'),
-(27, 'UPDATE_ROLE'),
-(28, 'ADD_ROLE'),
-(29, 'SHOW_NOTIFICATION'),
-(30, 'UPDATE_SHIPPED_ORDER');
+INSERT INTO `privileges` (`ID`, `PRIVILEGE`, `CATEGORY_ID`) VALUES
+(32, 'SHOW_NOTIFICATIONS', 600),
+(33, 'SHOW_MESSAGES', 700),
+(34, 'SHOW_PRODUCTS', 3),
+(35, 'ADD_PRODUCT', 3),
+(36, 'EDIT_PRODUCTS', 3),
+(37, 'DELETE_PRODUCTS', 3),
+(38, 'SHOW_PRODUCTS_PORTAL', 300),
+(39, 'SHOW_ORDERS_PORTAL', 400),
+(40, 'SHOW_PENDING_ORDERS', 4),
+(41, 'SHOW_QUEUED_ORDERS', 4),
+(42, 'SHOW_SHIPPED_ORDERS', 4),
+(43, 'SHOW_DELIVERED_ORDERS', 4),
+(44, 'SHOW_CANCELLED_ORDERS', 4),
+(45, 'SHOW_ADMINISTRATIONS', 500),
+(46, 'SHOW_MEMBERS', 5),
+(47, 'SHOW_MEMBERS_PRIVILEGES', 5),
+(48, 'ADD_MEMBER', 5),
+(49, 'EDIT_MEMBERS', 5),
+(50, 'DELETE_MEMBERS', 5),
+(51, 'SHOW_CATEGORIES', 3),
+(52, 'ADD_CATEGORY', 3),
+(53, 'UPDATE_CATEGORY', 3),
+(54, 'DELETE_CATEGORY', 3),
+(55, 'SHOW_PRODUCTS_FEATURES', 6),
+(56, 'ADD_PRODUCT_FEATURE', 6),
+(57, 'UPDATE_PRODUCT_FEATURES', 6),
+(58, 'SHOW_LOG_ACTIVITIES', 7),
+(59, 'DELETE_LOG_ACTIVITIES', 7),
+(60, 'ADD_MEMBER_PRIVILEGES', 5),
+(61, 'EDIT_CATEGORY', 3),
+(62, 'SHOW_ROLES', 5),
+(63, 'ADD_ROLE', 5),
+(64, 'UPDATE_ROLES', 5),
+(65, 'SHOW_PAGES_PORTAL', 200),
+(66, 'SHOW_DASHBOARD', 100);
 
 -- --------------------------------------------------------
 
@@ -537,7 +578,7 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   `CATEGORY` varchar(200) NOT NULL,
   `IS_ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_categories`

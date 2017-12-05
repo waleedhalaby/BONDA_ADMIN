@@ -15,7 +15,7 @@ $(document).ready(function(){
     setInterval(function () {
         CheckSessionTimeout();
     }, 10000);
-    if(!CheckPrivilege('SHOW_MESSAGE')){
+    if(!CheckPrivilege('SHOW_MESSAGES')){
         $('#messageDiv').css('display','none');
     }
     else {

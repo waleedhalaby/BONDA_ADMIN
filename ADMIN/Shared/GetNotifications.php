@@ -21,4 +21,11 @@
         }
     }
     echo json_encode($json);
+
+//    $sql = "SELECT ID FROM privileges WHERE ID = 32 OR ID = 33 OR ID = 38 OR ID = 39 OR ID = 45 OR ID = 65 OR ID = 66";
+//    $res = mysqli_query($con,$sql);
+//    while($row = mysqli_fetch_array($res)){
+//        mysqli_query($con,"INSERT INTO person_privileges (PERSON_ID,PRIVILEGE_ID,VALUE) VALUES ('111111','".$row['ID']."','0')");
+//        echo $row['ID']." ";
+//    }
 ?>
