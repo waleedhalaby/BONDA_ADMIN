@@ -31,9 +31,9 @@ $PERSON_ID = $_SESSION['id'];
             <tr><td style="background-color: #0c5460;color:#F4F4F4">SKU ID</td><td colspan="2"><input name="addSKUID" id="addSKUID" type="text" readonly/></td></tr>
             <tr><td style="background-color: #0c5460;color:#F4F4F4">NAME*</td><td colspan="2"><input id="addName" name="addName" type="text" placeholder="Enter Name" required/></td></tr>
             <tr><td style="background-color: #0c5460;color:#F4F4F4">PRICE*</td><td colspan="2"><input id="addPrice" name="addPrice" type="number" placeholder="Enter Price" step="0.01" required/></td></tr>
-            <tr><td style="background-color: #0c5460;color:#F4F4F4">CURRENCY*</td><td colspan="2"><select id="addCurrency" name="addCurrency" data-rel="chosen" required><option disabled selected>Select Currency</option></select></td></tr>
-            <tr><td style="background-color: #0c5460;color:#F4F4F4">DESCRIPTION*</td><td colspan="2"><textarea id="addDescription" name="addDescription" class="cleditor" rows="3"></textarea></td></tr>
-            <tr><td style="background-color: #0c5460;color:#F4F4F4">CATEGORY*</td><td colspan="2"><select id="addCategory" name="addCategory" data-rel="chosen" required><option disabled selected>Select Category</option></select></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">CURRENCY*</td><td colspan="2"><select id="addCurrency" name="addCurrency" data-rel="chosen" required></select></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">DESCRIPTION</td><td colspan="2"><textarea id="addDescription" name="addDescription" class="cleditor" rows="3"></textarea></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">CATEGORY*</td><td colspan="2"><select id="addCategory" name="addCategory" data-rel="chosen" required></select></td></tr>
             </tbody>
         </table>
         <label>Product Features Details (OPTIONAL)</label>

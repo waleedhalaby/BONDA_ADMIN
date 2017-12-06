@@ -1,6 +1,7 @@
 <?php
 $CATEGORY_ID = $_GET['id'];
 $VALUE = $_GET['value'];
+$VALUE = str_replace('_',' ',$VALUE);
 session_start();
 $PERSON_ID = $_SESSION['id'];
 ?>

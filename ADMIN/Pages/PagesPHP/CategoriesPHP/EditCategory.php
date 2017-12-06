@@ -18,7 +18,7 @@ else {
         echo "Category is already exists.";
     }
     else{
-        $sql = "UPDATE product_categories SET CATEGORY = '".$CATEGORY."'";
+        $sql = "UPDATE product_categories SET CATEGORY = '".$CATEGORY."' WHERE ID = '".$CATEGORY_ID."'";
         $result = mysqli_query($con,$sql);
         $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
                                 ('".$DATETIME."','".$MAKER_ID."','10','Category is added')";

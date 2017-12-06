@@ -38,7 +38,7 @@ $(document).ready(function () {
                             '<td class="center">' +
                             icon +
                             '<a id="editCategoryBtn" class="editCategory btn btn-info" ' +
-                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY']+'&id='+category['ID']+'\')">' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\')">' +
                             '<i class="halflings-icon white edit"></i></a>'+
                             '<a id="deleteCategoryBtn" class="deleteCategory btn btn-danger" ' +
                             'onclick="ShowModal(\'Category [#'+category['ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?id='+category['ID']+'\',false)">' +
@@ -66,7 +66,7 @@ $(document).ready(function () {
                             '<td class="center">' +
                             icon +
                             '<a id="editCategoryBtn" class="editCategory btn btn-info" ' +
-                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY']+'&id='+category['ID']+'\')">' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\')">' +
                             '<i class="halflings-icon white edit"></i></a>'+
                             '<a id="deleteCategoryBtn" class="deleteCategory btn btn-danger" ' +
                             'onclick="ShowModal(\'Category [#'+category['ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?id='+category['ID']+'\',false)">' +

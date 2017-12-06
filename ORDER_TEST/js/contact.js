@@ -9,18 +9,30 @@ $(document).ready(function(){
         '</form>'
     );
 
-    $('#contactFrm').submit(function(){
-        $.post('PagesPHP/AddContact.php',{titleTxt:$('#titleTxt').val(),descTxt:$('#descTxt').val()},function(data){
-            if(data.indexOf("successfully") >= 0){
-                $('#message').html(
-                    '<div class="alert alert-success">' +
-                    '  <strong>Success!</strong>'+ data +
-                    '</div>');
-            }
-            else{
-                $('#message').html(
+    $('#submitBtn').on('click',function(){
+        var url = 'PagesPHP/AddContact.php';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $('#contactFrm').serialize(),
+            success: function (response) {
+                if(response.indexOf("successfully") >= 0) {
+                    $('#main-container-fluid #message').html(
+                        '<div class="alert alert-success">' +
+                        '  <strong>Success!</strong>' + response +
+                        '</div>');
+                }
+                else{
+                    $('#main-container-fluid #message').html(
+                        '<div class="alert alert-danger">' +
+                        '  <strong>Error!</strong>' + response +
+                        '</div>');
+                }
+            },
+            error: function(data){
+                $('#main-container-fluid #message').html(
                     '<div class="alert alert-danger">' +
-                    '  <strong>Error!</strong> '+ data +
+                    '  <strong>Error!</strong> Error occurred, please contact your administrator.'+
                     '</div>');
             }
         });
