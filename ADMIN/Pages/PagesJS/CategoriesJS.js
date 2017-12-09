@@ -1,6 +1,6 @@
 $(document).ready(function () {
     if(!CheckPrivilege('SHOW_CATEGORIES')){
-        $('#content .box-content').html('Sorry, you don\'t have the privilege to view categories.');
+        $('#content .box-content').html('Sorry, you don\'t have the privilege to view collections.');
         $('#addCategoryBtn').css('visibility','hidden');
     }
     else{
@@ -22,13 +22,13 @@ $(document).ready(function () {
                         if(category['IS_ACTIVE'].indexOf('1') >= 0){
                             status = '<td class="center"><span class="label label-warning">ACTIVATED</span></td>';
                             icon = '<a id="updateCategoryBtn" class="btn btn-success" ' +
-                                'onclick="ShowModal(\'Category '+category['CATEGORY']+' Deactivate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=false\',true)">' +
+                                'onclick="ShowModal(\'Collection '+category['CATEGORY']+' Deactivate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=false\',false)">' +
                                 '<i class="halflings-icon white eye-close"></i></a>';
                         }
                         else if(category['IS_ACTIVE'].indexOf('0') >= 0){
                             status = '<td class="center"><span class="label label-info">DEACTIVATED</span></td>';
                             icon = '<a id="updateCategoryBtn" class="btn btn-warning" ' +
-                                'onclick="ShowModal(\'Category '+category['CATEGORY']+' Activate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=true\',true)">' +
+                                'onclick="ShowModal(\'Collection '+category['CATEGORY']+' Activate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=true\',false)">' +
                                 '<i class="halflings-icon white eye-open"></i></a>';
                         }
                         $('#categoryTable').append('<tr>' +
@@ -41,7 +41,7 @@ $(document).ready(function () {
                             'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\')">' +
                             '<i class="halflings-icon white edit"></i></a>'+
                             '<a id="deleteCategoryBtn" class="deleteCategory btn btn-danger" ' +
-                            'onclick="ShowModal(\'Category [#'+category['ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?id='+category['ID']+'\',false)">' +
+                            'onclick="ShowModal(\'Collection ['+category['CATEGORY']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?val='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\',false)">' +
                             '<i class="halflings-icon white trash"></i></a>'+
                             '</td>' +
                             '</tr>');
@@ -50,13 +50,13 @@ $(document).ready(function () {
                         if(category['IS_ACTIVE'].indexOf('1') >= 0){
                             status = '<td class="center"><span class="label label-warning">ACTIVATED</span></td>';
                             icon = '<a id="updateCategoryBtn" class="btn btn-success" ' +
-                                'onclick="ShowModal(\'Category '+category['CATEGORY']+' Deactivate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=false\',true)">' +
+                                'onclick="ShowModal(\'Collection '+category['CATEGORY']+' Deactivate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=false\',false)">' +
                                 '<i class="halflings-icon white eye-close"></i></a>';
                         }
                         else if(category['IS_ACTIVE'].indexOf('0') >= 0){
                             status = '<td class="center"><span class="label label-info">DEACTIVATED</span></td>';
                             icon = '<a id="updateCategoryBtn" class="updateCategory btn btn-warning" ' +
-                                'onclick="ShowModal(\'Category '+category['CATEGORY']+' Activate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=true\',true)">' +
+                                'onclick="ShowModal(\'Collection '+category['CATEGORY']+' Activate\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_update.php?id='+category['ID']+'&status=true\',false)">' +
                                 '<i class="halflings-icon white eye-open"></i></a>';
                         }
                         $('#categoryTable').append('<tr>' +
@@ -69,7 +69,7 @@ $(document).ready(function () {
                             'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\')">' +
                             '<i class="halflings-icon white edit"></i></a>'+
                             '<a id="deleteCategoryBtn" class="deleteCategory btn btn-danger" ' +
-                            'onclick="ShowModal(\'Category [#'+category['ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?id='+category['ID']+'\',false)">' +
+                            'onclick="ShowModal(\'Collection ['+category['CATEGORY']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?val='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\',false)">' +
                             '<i class="halflings-icon white trash"></i></a>'+
                             '</td>' +
                             '</tr>');

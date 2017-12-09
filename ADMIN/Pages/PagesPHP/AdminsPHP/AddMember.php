@@ -22,6 +22,12 @@ if(!isset($FIRST_NAME) || empty($FIRST_NAME) || $FIRST_NAME == ' '){
 elseif(!isset($LAST_NAME) || empty($LAST_NAME) || $LAST_NAME == ' '){
     echo "Last name is required.";
 }
+elseif(!isset($EMAIL) || empty($EMAIL) || $EMAIL == ' '){
+    echo "E-mail is required.";
+}
+elseif(!isset($PASSWORD) || empty($PASSWORD) || $PASSWORD == ' '){
+    echo "Password is required.";
+}
 elseif($PASSWORD != $PASSWORD2){
     echo "Passwords are not identical.";
 }

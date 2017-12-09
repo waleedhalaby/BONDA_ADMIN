@@ -50,14 +50,14 @@ else{
                         }
                         echo "Privilege is added successfully.";
                     } else {
-                        echo "'Error occurred, please contact your administrator.";
+                        echo "'Error occurred1, please contact your administrator.";
                     }
                 }
             } else {
-                echo "'Error occurred, please contact your administrator.";
+                echo "'Error occurred2, please contact your administrator.";
             }
         } else {
-            echo "'Error occurred, please contact your administrator.";
+            echo "'Error occurred3, please contact your administrator.";
         }
     }
 }

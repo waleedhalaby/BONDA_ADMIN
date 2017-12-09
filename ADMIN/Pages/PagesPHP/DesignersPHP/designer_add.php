@@ -14,46 +14,50 @@ $PERSON_ID = $_SESSION['id'];
         <i class="icon-angle-right"></i>
     </li>
     <li>
-        <i class="icon-tasks"></i>
-        <em>Collections</em>
+        <i class="icon-magic"></i>
+        <em>Designers</em>
+        <i class="icon-angle-right"></i>
     </li>
     <li>
         <i class="icon-plus-sign"></i>
-        <em>Add Collection</em>
+        <em>Add Designer</em>
     </li>
 </ul>
-<div class="modal-category-add-content">
-    <form id="addCategoryForm">
-        <table class="table table-striped table-bordered category-details-table">
+<div class="modal-designer-add-content">
+    <form id="addDesignerForm">
+        <table class="table table-striped table-bordered designer-details-table">
             <tbody>
-                    <tr><td style="background-color: #0c5460;color:#F4F4F4;">COLLECTION</td><td><input name="addCategory" id="addCategory" type="text" placeholder="Enter Collection" required/></td></tr>
+                    <tr><td style="background-color: #0c5460;color:#F4F4F4;">DESIGNER*</td><td><input name="addDesigner" id="addDesigner" type="text" placeholder="Enter Designer"
+                                                                                                     required/></td></tr>
+                    <tr><td style="background-color: #0c5460;color:#F4F4F4;">DESCRIPTION</td><td><textarea name="addDescription" id="addDescription"></textarea></td></tr>
             </tbody>
         </table>
         <div id="message" class="container-fluid text-center"></div>
-        <input type="reset" style="float: right;" class="btn btn-danger" onclick="$('#content').load('Pages/Categories.php')" value="Back"/>
-        <input type="submit" style="float: right" class="btn btn-warning" id="addCategoryBtn" value="Add"/>
+        <input type="reset" style="float: right;" class="btn btn-danger" onclick="$('#content').load('Pages/Designers.php')" value="Back"/>
+        <input type="submit" style="float: right" class="btn btn-warning" id="addDesignerBtn" value="Add"/>
     </form>
 </div>
 
 <script>
     $(document).ready(function(){
-        $('#addCategoryForm').submit(function(e){
+        $('#addDesignerForm').submit(function(e){
             e.preventDefault();
 
-            $('#addCategoryBtn').attr('disabled','true');
-            $('#addCategoryBtn').attr('value','Sending, please wait...');
+            $('#addDesignerBtn').attr('disabled','true');
+            $('#addDesignerBtn').attr('value','Sending, please wait...');
 
-            var url = "Pages/PagesPHP/CategoriesPHP/AddCategory.php?maker=<?php echo $PERSON_ID ?>";
+            var url = "Pages/PagesPHP/DesignersPHP/AddDesigner.php?maker=<?php echo $PERSON_ID ?>";
 
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: $('#addCategoryForm').serialize(),
+                data: $('#addDesignerForm').serialize(),
                 success: function (data) {
                     if(data.indexOf("successfully") >=0){
-                        $('#content').load('Pages/Categories.php');
+                        $('#content').load('Pages/Designers.php');
                         $('#message').html('');
                         ShowMessageModal('Message','<div class="container-fluid text-center"><span class="label label-warning">'+data+'</span></div>');
+                        $( "#MyModal").unbind( "hide" );
                     }
                     else{
                         $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');

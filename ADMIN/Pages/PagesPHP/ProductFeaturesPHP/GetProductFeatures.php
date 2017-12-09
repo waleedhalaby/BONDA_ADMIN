@@ -3,7 +3,7 @@
     session_start();
 
     $sql = "SELECT PC.ID, PC.FEATURE, DT.TYPE, PC.IS_ACTIVE FROM product_features PC
-            INNER JOIN data_types DT ON PC.DATA_TYPE_ID = DT.ID WHERE PC.IS_ACTIVE = 1";
+            INNER JOIN data_types DT ON PC.DATA_TYPE_ID = DT.ID WHERE PC.IS_ACTIVE = 1 AND PC.IS_VISIBLE = 1";
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
     $json = Array();

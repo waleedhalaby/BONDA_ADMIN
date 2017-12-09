@@ -25,42 +25,47 @@ $PERSON_ID = $_SESSION['id'];
     </li>
 </ul>
 <div class="modal-product-edit-content">
-    <label>Product Details</label>
     <form id="editProductForm">
+        <label>Product Details (MANDATORY)</label>
         <table class="table table-striped table-bordered product-details-table">
             <tbody></tbody>
         </table>
+        <label>Product Features Details (OPTIONAL)</label>
+        <table class="table table-striped table-bordered product-features-details-table">
+            <tbody>
+
+            </tbody>
+        </table>
+        <label>Product Images (OPTIONAL)</label>
+        <div class="modal-product-det-content">
+            <div id="imagesDiv" style="padding-top:10px; padding-bottom:10px; background-color: #f9f9f9" class="container-fluid text-center">
+                <div id="Images" class="row-fluid">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+                <div id="RemoveButtons" style="text-align: left;" class="removeButtons row-fluid">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="message" class="container-fluid text-center"></div>
+        <input type="reset" style="float: right;" class="btn btn-danger" onclick="$('#content').load('Pages/Products.php')" value="Back"/>
         <input type="submit" style="float: right" class="btn btn-warning" id="editProductBtn" value="Save Changes"/>
     </form>
 </div>
-<div class="modal-product-det-content">
-    <label>Product Images</label>
-    <div id="imagesDiv" style="padding-top:10px; padding-bottom:10px; background-color: #f9f9f9" class="container-fluid text-center">
-        <div id="Images" class="row-fluid">
-            <div class="col-md-12">
-            </div>
-        </div>
-        <div id="UploadButtons" class="uploadButtons row-fluid">
-            <div class="col-md-12">
-            </div>
-        </div>
-        <div id="RemoveButtons" class="removeButtons row-fluid">
-            <div class="col-md-12">
-            </div>
-        </div>
-    </div>
-    <p id="imageMessage"></p>
-</div>
+
 
 <script>
     var ProductID = <?php echo $PRODUCT_ID ?>;
     var imageName = '';
     var oldImage = '';
     var counter = 0;
+    var isChanged = false;
 
 
     $(document).ready(function(){
+
         var changes;
         var length = 0;
         $.get('Pages/PagesPHP/ProductsPHP/GetEditDetails.php?id=<?php echo $PRODUCT_ID ?>',function(data) {
@@ -69,14 +74,38 @@ $PERSON_ID = $_SESSION['id'];
             $('.product-details-table tbody').html(
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">ID</td><td>['+product[0]['ID']+']</td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">SKU ID</td><td><input id="editSKUID" style="text-align: center" name="editSKUID" type="text" readonly value="'+product[0]['SKU_ID']+'"/></td></tr>'+
-                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">NAME</td><td><input id="editName" name="editName" type="text" value="'+product[0]['NAME']+'"/></td></tr>'+
-                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">PRICE</td><td><input id="editPrice" name="editPrice" type="number" step="0.01" value="'+product[0]['PRICE']+'"/></td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">NAME*</td><td><input id="editName" name="editName" type="text" value="'+product[0]['NAME']+'"/></td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">PRICE*</td><td><input id="editPrice" name="editPrice" type="number" step="0.01" value="'+product[0]['PRICE']+'"/></td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">DESCRIPTION</td><td><textarea id="editDescription" name="editDescription" class="cleditor">'+product[0]['DESCRIPTION']+'</textarea></td></tr>'+
-                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">CATEGORY</td><td><span class="label label-warning">'+product[0]['CATEGORY']+'</span></td></tr>'
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">COLLECTION*</td><td><span class="label label-warning">'+product[0]['CATEGORY']+'</span></td></tr>'
             );
+
+            if(product[0]['DESIGNER'] !== null){
+                $('product-features-details-table tbody').append(
+                    '<tr><td style="background-color: #0c5460;color:#F4F4F4">DESIGNER</td><td colspan="2">'+
+                    '<select id="editDesigner" name="editDesigner" data-rel="chosen"></select></td></tr>'
+                );
+                $.get('Pages/PagesPHP/DesignersPHP/GetDesigners.php',function (data) {
+                    if(data !== ''){
+                        var array = $.parseJSON(data);
+                        $(array).each(function (id,val) {
+                            var ID = val['ID'];
+                            var DESIGNER = val['NAME'];
+
+                            $('#editDesigner').append(
+                                '<option id="'+ID+'" value="'+ID+'">'+DESIGNER+'</option>'
+                            );
+                        });
+                    }
+                });
+
+                var optionVal = product[0]['DESIGNER_ID'];
+                $("#editDesigner option#"+optionVal).attr('selected', true);
+            }
+
             $(product[0]['FEATURES']).each(function(id,feature){
-                $('.product-details-table tbody').append(
-                    '<tr><td style="background-color: #0c5460;color:#F4F4F4;">'+feature['FEATURE']+'</td><td>'+InputEditDataType(feature['ID'],feature['DATA_TYPE'],feature['FEATURE'],feature['VALUE'])+'</td></tr>'
+                $('.product-features-details-table tbody').append(
+                    '<tr><td style="background-color: #0c5460;color:#F4F4F4;">'+feature['FEATURE'].toUpperCase()+'</td><td>'+InputEditDataType(feature['ID'],feature['DATA_TYPE'],feature['FEATURE'],feature['VALUE'])+'</td></tr>'
                 );
                 counter++;
             });
@@ -90,17 +119,14 @@ $PERSON_ID = $_SESSION['id'];
                     '        <p style="visibility: hidden" id="text'+counter2+'"><span class="icon-plus"></span><br/>Click here to upload</p>'+
                     '     </div>' +
                     '</a>');
-                $('#UploadButtons .col-md-12').append(
-                    '<button id="uploadImage'+counter2+'" class="btn btn-small btn-info" disabled>Change Image</button>'
-                );
                 $('#RemoveButtons .col-md-12').append(
-                    '<button id="removeImage'+counter2+'" class="btn btn-small btn-danger">Remove Image</button>'
+                    '<input type="button" style="margin-right:2px;" id="removeImage'+counter2+'" class="btn btn-small btn-danger"value="Remove Image"/>'
                 );
                 counter2++;
             });
 
             if(product[0]['IMAGES'].length !== 4){
-                var count = 4 - product[0]['IMAGES'].length;
+                var count = 5 - product[0]['IMAGES'].length;
                 for(var i = 0 ; i < count ; i++){
                     $('#Images .col-md-12').append(
                         '<a id="imageBtn'+counter2+'" onclick="document.getElementById(\'fileupload'+counter2+'\').click()">' +
@@ -111,16 +137,14 @@ $PERSON_ID = $_SESSION['id'];
                         '        <p id="text'+counter2+'"><span class="icon-plus"></span><br/>Click here to upload</p>'+
                         '    </div>' +
                         '</a>');
-                    $('#UploadButtons .col-md-12').append(
-                        '<button id="uploadImage'+counter2+'" class="btn btn-small btn-info" disabled>Upload Image</button>'
-                    );
 
                     $('#RemoveButtons .col-md-12').append(
-                        '<button id="removeImage'+counter2+'" style="visibility: hidden" class="btn btn-small btn-danger">Remove Image</button>'
+                        '<input type="button" id="removeImage'+counter2+'" style="margin:2px 2px;visibility: hidden" class="btn btn-small btn-danger"value="Remove Image"/>'
                     );
 
                     $('#imageBtn'+counter2).on('click',function(){
                         $('#fileupload'+counter2).click();
+                        $('#imageBtn'+counter2).unbind('click')
                     });
                     counter2++;
                 }
@@ -128,25 +152,19 @@ $PERSON_ID = $_SESSION['id'];
             length = counter2;
         }).success(function(){
 
-            $('.uploadButtons button').on('click',function(){
+            $('.removeButtons input[type=button]').on('click',function(){
                 var id = $(this).attr('id');
                 id = id.substr(id.length - 1);
-                SaveImageBtn('fileupload'+id,'oldImage'+id,'uploadImage'+id,'removeImage'+id);
-            });
-
-            $('.removeButtons button').on('click',function(){
-                var id = $(this).attr('id');
-                id = id.substr(id.length - 1);
-                RemoveImageBtn('fileupload'+id,'oldImage'+id,'uploadImage'+id,'removeImage'+id,'image'+id,'text'+id);
+                RemoveImageBtn('fileupload'+id,'removeImage'+id,'image'+id,'text'+id);
             });
 
             $('.image-portrait input').on('change',function(){
                 var id = $(this).attr('id');
                 id = id.substr(id.length - 1);
-                HandleFileChange('fileupload'+id,'image'+id,'text'+id,'uploadImage'+id);
+                HandleFileChange('fileupload'+id,'image'+id,'text'+id,'removeImage'+id);
             });
 
-            $('.product-details-table tbody input[type="checkbox"]').on('change',function(){
+            $('.product-features-details-table tbody input[type="checkbox"]').on('change',function(){
                 console.log('changed from '+$(this).prop('checked'));
                 if($(this).prop('checked') === true)
                     $(this).val('true');
@@ -157,6 +175,9 @@ $PERSON_ID = $_SESSION['id'];
 
             $('#editProductForm').submit(function(e){
                 e.preventDefault();
+
+                $('#editProductBtn').attr('disabled','true');
+                $('#editProductBtn').attr('value','Sending, please wait...');
 
 
 
@@ -176,116 +197,103 @@ $PERSON_ID = $_SESSION['id'];
                     url: url,
                     data: $('#editProductForm').serialize(),
                     success: function (data) {
-                        if(data === '') {
-                            $('#content').load('Pages/Products.php');
-                            $('#message').html('');
-                            $('#message').html('<div class="container-fluid text-center"><span class="label label-warning">Product is updated successfully.</span></div>');
-                            $( "#MyModal").unbind( "hide" );
+                        if(!(data.indexOf('Error')>= 0)){
+                            var url = "Pages/PagesPHP/ProductsPHP/UpdateImages.php?id="+data;
+                            var form_data = new FormData();
+                            var file_data1 = document.getElementById('fileupload0').files[0];
+                            form_data.append("fileupload0",file_data1);
+                            var file_data2 = document.getElementById('fileupload1').files[0];
+                            form_data.append("fileupload1",file_data2);
+                            var file_data3 = document.getElementById('fileupload2').files[0];
+                            form_data.append("fileupload2",file_data3);
+                            var file_data4 = document.getElementById('fileupload3').files[0];
+                            form_data.append("fileupload3",file_data4);
+                            var file_data5 = document.getElementById('fileupload4').files[0];
+                            form_data.append("fileupload4",file_data5);
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: form_data,
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function (data) {
+                                    if(data.indexOf("successfully") >=0 || data === '' || isChanged){
+                                        $('#content').load('Pages/Products.php');
+                                        $('#message').html('');
+                                        ShowMessageModal('Message','<div class="container-fluid text-center"><span class="label label-warning">Product is updated successfully</span></div>');
+                                        $( "#MyModal").unbind( "hide" );
+                                    }
+                                    else{
+                                        $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');
+                                    }
+                                },
+                                error: function(data){
+                                    $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');
+                                }
+                            });
                         }
                         else{
-                            $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');
+                            $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');
                         }
                     },
                     error: function(data){
-                        $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</div>');
+                        $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');
                     }
                 });
             });
         });
     });
-    var url = '';
 
-    function SaveImageBtn(file,image,uploadButton,removeButton){
+    function RemoveImageBtn(file,removeButton,image,text){
         var fileInput = document.getElementById(file);
-        oldImage = document.getElementById(image);
-        var file_data = fileInput.files[0];
-        var form_data = new FormData();
-        form_data.append("file",file_data);
-
-        var url = '';
-
-        if(oldImage.value !== "0"){
-            url = "Pages/PagesPHP/ProductsPHP/UploadImages.php?id="+ProductID+"&image="+imageName+"&oldimage="+oldImage.value;
-        }
-        else{
-            url = "Pages/PagesPHP/ProductsPHP/UploadImages.php?id="+ProductID+"&image="+imageName+"&oldimage=";
-        }
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: form_data,
-            success: function (data) {
-                $('#content').load('Pages/Products.php');
-                $('#imageMessage').html(data);
-                $('#'+uploadButton).html('Change Image');
-                $('#'+uploadButton).attr('disabled',true);
-                $('#'+uploadButton).removeClass('btn-warning');
-                $('#'+uploadButton).addClass('btn-info');
-                $('#'+removeButton).css('visibility','visible');
-                oldImage.value = 'Assets/'+imageName;
-            },
-            error: function (data) {
-                $('#imageMessage').html(data);
-            }
-        });
-    }
-
-    function RemoveImageBtn(file,oldimage,uploadButton,removeButton,image,text){
-        var fileInput = document.getElementById(file);
-        oldImage = document.getElementById(oldimage);
         var imageInput = document.getElementById(image);
         var textInput = document.getElementById(text);
-        var file_data = fileInput.files[0];
-        var form_data = new FormData();
-        form_data.append("file",file_data);
-
-        var url = "Pages/PagesPHP/ProductsPHP/RemoveImages.php?id="+ProductID+"&image="+oldImage.value;
+        var image_name = imageInput.src.substring(imageInput.src.indexOf('Assets'));
 
         $.ajax({
-            type: "POST",
-            url: url,
-            success: function (data) {
-                $('#content').load('Pages/Products.php');
-                $('#imageMessage').html('<div class="container-fluid text-center"><span class="label label-warning">Image is removed successfully.</span></div>');
-                $('#'+uploadButton).html('Upload Image');
-                $('#'+uploadButton).attr('disabled',true);
-                $('#'+uploadButton).removeClass('btn-warning');
-                $('#'+uploadButton).addClass('btn-info');
+            url:'Pages/PagesPHP/ProductsPHP/RemoveImages.php?id=<?php echo $PRODUCT_ID ?>&imagepath='+image_name,
+            type:"POST",
+            success:function(){
                 $('#'+removeButton).css('visibility','hidden');
                 imageInput.style.display = "none";
                 imageInput.src = '';
+                fileInput.value = '';
                 textInput.style.visibility = "visible";
-                oldImage.value = "0";
+                isChanged = true;
             },
-            error: function (data) {
-                $('#imageMessage').html(data);
+            error:function(){
+                $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');
             }
         });
     }
 
-    function HandleFileChange(id,image,text,saveBtn) {
+    function HandleFileChange(id,image,text,remove) {
 
         var fileInput = document.getElementById(id);
         var imageInput = document.getElementById(image);
         var textInput = document.getElementById(text);
-        var button = document.getElementById(saveBtn);
+        var removeBtn = document.getElementById(remove);
 
-        $('#imageMessage').html('');
         var reader = new FileReader();
         reader.onload = function(){
             imageInput.src = reader.result;
             imageInput.style.display = "block";
-            button.disabled = false;
-            button.classList.remove('btn-info');
-            button.classList.add('btn-warning');
         };
         reader.readAsDataURL(fileInput.files[0]);
-        imageName = fileInput.files[0]['name'];
-        textInput.style.visibility = "hidden";
+        var image_name = imageInput.src.substring(imageInput.src.indexOf('Assets'));
+
+        $.ajax({
+            url:'Pages/PagesPHP/ProductsPHP/RemoveImages.php?id=<?php echo $PRODUCT_ID ?>&imagepath='+image_name,
+            type:"POST",
+            success:function(){
+                textInput.style.visibility = "hidden";
+                removeBtn.style.visibility = "visible";
+            },
+            error:function(){
+                $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');
+            }
+        });
     }
 
 </script>

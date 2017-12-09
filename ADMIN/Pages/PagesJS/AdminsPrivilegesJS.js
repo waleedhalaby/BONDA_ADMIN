@@ -5,9 +5,9 @@ $(document).ready(function () {
         $('#addPrivilegeBtn').css('visibility','hidden');
     }
     else{
-        if(!CheckPrivilege('ADD_MEMBER_PRIVILEGE')){
-            $('#addPrivilegeBtn').css('visibility','hidden');
-        }
+        // if(!CheckPrivilege('ADD_MEMBER_PRIVILEGE')){
+        //     $('#addPrivilegeBtn').css('visibility','hidden');
+        // }
 
         var PERSON_ID = $('#hiddenMemberID').val();
         $.get('Pages/PagesPHP/AdminsPHP/GetAdmins.php',function (data) {

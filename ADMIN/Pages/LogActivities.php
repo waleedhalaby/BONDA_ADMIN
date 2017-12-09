@@ -19,7 +19,7 @@
             <h2><i class="halflings-icon white cart"></i><span class="break"></span>Log Activities</h2>
         </div>
         <div class="box-content">
-            <table class="table table-striped table-bordered bootstrap-datatable datatable">
+            <table id="logsTable" class="table table-striped table-bordered bootstrap-datatable datatable">
                 <thead>
                 <tr style="background-color: #0c5460;color:#F4F4F4;">
                     <th>DATE TIME</th>

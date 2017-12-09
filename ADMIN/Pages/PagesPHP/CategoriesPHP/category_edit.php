@@ -18,11 +18,11 @@ $PERSON_ID = $_SESSION['id'];
     </li>
     <li>
         <i class="icon-tasks"></i>
-        <em>Categories</em>
+        <em>Collections</em>
     </li>
     <li>
         <i class="icon-plus-sign"></i>
-        <em>Edit Category</em>
+        <em>Edit Collection</em>
     </li>
 </ul>
 <div class="modal-category-edit-content">
@@ -31,17 +31,21 @@ $PERSON_ID = $_SESSION['id'];
             <tbody></tbody>
         </table>
         <div id="message" class="container-fluid text-center"></div>
+        <input type="reset" class="btn btn-danger" onclick="$('#content').load('Pages/Categories.php')" value="Back"/>
         <input type="submit" style="float: right" class="btn btn-warning" id="editCategoryBtn" value="Save"/>
     </form>
 </div>
 <script>
     $(document).ready(function(){
         $('.category-details-table tbody').html(
-            '<tr><td style="background-color: #0c5460;color:#F4F4F4;">CATEGORY</td><td><input id="editCategory" name="editCategory" type="text" value="<?php echo $VALUE ?>"/></td></tr>'
+            '<tr><td style="background-color: #0c5460;color:#F4F4F4;">COLLECTION</td><td><input id="editCategory" name="editCategory" placeholder="Enter Collection" type="text" value="<?php echo $VALUE ?>"/></td></tr>'
         );
 
         $('#editCategoryForm').submit(function(e){
             e.preventDefault();
+
+            $('#editCategoryBtn').attr('disabled','true');
+            $('#editCategoryBtn').attr('value','Sending, please wait...');
 
             var url = "Pages/PagesPHP/CategoriesPHP/EditCategory.php?maker=<?php echo $PERSON_ID ?>&id=<?php echo $CATEGORY_ID ?>";
 

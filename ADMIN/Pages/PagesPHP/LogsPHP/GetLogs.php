@@ -4,7 +4,7 @@ session_start();
 
 $sql = "SELECT L.DATE_TIME, P.FIRST_NAME, P.LAST_NAME, PG.TITLE, L.VALUE FROM log_activities L
         INNER JOIN persons P ON L.PERSON_ID = P.ID
-        INNER JOIN pages PG ON L.PAGE_ID = PG.ID";
+        INNER JOIN pages PG ON L.PAGE_ID = PG.ID ORDER BY L.DATE_TIME DESC";
 $result = mysqli_query($con,$sql);
 $rows = mysqli_num_rows($result);
 $json = Array();

@@ -29,7 +29,7 @@ $(document).ready(function () {
                         status +
                         '<td class="center">' +
                         '<a id="detailMemberBtn" class="btn btn-success" ' +
-                        'onclick="ShowModal(\'Member [#'+val[0]+'] Details\',\'Close\',\'Pages/PagesPHP/AdminsPHP/member_details.php?id='+val[0]+'\',false)">' +
+                        'onclick="$(\'#content\').load(\'Pages/PagesPHP/AdminsPHP/member_details.php?id='+val[0]+'\')">' +
                         '<i class="halflings-icon white zoom-in"></i></a>'+
                         '<a id="editMemberBtn" class="editMember btn btn-info" ' +
                         'onclick="$(\'#content\').load(\'Pages/PagesPHP/AdminsPHP/member_edit.php?id='+val[0]+'\')">' +

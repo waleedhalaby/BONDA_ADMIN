@@ -3,6 +3,10 @@ require ('../../../Handlers/DBCONNECT.php');
 
 $ID = $_GET['id'];
 
+if(isset($_FILES['fileupload0']) && $_FILES['fileupload0']['size'] != 0){
+    echo UploadImage($ID,'fileupload0');
+}
+
 if(isset($_FILES['fileupload1']) && $_FILES['fileupload1']['size'] != 0){
     echo UploadImage($ID,'fileupload1');
 }
@@ -17,10 +21,6 @@ if(isset($_FILES['fileupload3']) && $_FILES['fileupload3']['size'] != 0){
 
 if(isset($_FILES['fileupload4']) && $_FILES['fileupload4']['size'] != 0){
     echo UploadImage($ID,'fileupload4');
-}
-
-if(isset($_FILES['fileupload5']) && $_FILES['fileupload5']['size'] != 0){
-    echo UploadImage($ID,'fileupload5');
 }
 
 function UploadImage($product_id,$id){
@@ -53,22 +53,14 @@ function UploadImage($product_id,$id){
                 }
 
                 if(($ID != null || $ID != '') && ($IMAGE != null || $IMAGE != '')){
-                    $sql = "SELECT ID,IMAGE_PATH FROM products_images WHERE PRODUCT_ID = '".$ID."' AND IMAGE_PATH ='Assets/".$_FILES[$id]["name"]."'";
-                    $result3 = mysqli_query($con,$sql);
-                    $rows = mysqli_num_rows($result3);
-                    if($rows > 0){
-                        return "<div class='container-fluid text-center'><span class='label label-danger'>Image already exists.<span></div>";
+                    $sql = "INSERT INTO products_images (PRODUCT_ID,IMAGE_PATH) VALUES ('".$ID."','Assets/".$_FILES[$id]["name"]."')";
+                    $result2 = mysqli_query($con,$sql);
+                    if (!file_exists("../../../Assets/" . $_FILES[$id]["name"])) {
+                        $sourcePath = $_FILES[$id]['tmp_name']; // Storing source path of the file in a variable
+                        $targetPath = "../../../Assets/".$_FILES[$id]['name']; // Target path where file is to be stored
+                        move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
                     }
-                    else{
-                        $sql = "INSERT INTO products_images (PRODUCT_ID,IMAGE_PATH) VALUES ('".$ID."','Assets/".$_FILES[$id]["name"]."')";
-                        $result2 = mysqli_query($con,$sql);
-                        if (!file_exists("../../../Assets/" . $_FILES[$id]["name"])) {
-                            $sourcePath = $_FILES[$id]['tmp_name']; // Storing source path of the file in a variable
-                            $targetPath = "../../../Assets/".$_FILES[$id]['name']; // Target path where file is to be stored
-                            move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
-                        }
-                        return "<div class='container-fluid text-center'><span class='label label-warning'>Image is uploaded successfully.<span></div>";
-                    }
+                    return "<div class='container-fluid text-center'><span class='label label-warning'>Image is uploaded successfully.<span></div>";
                 }
                 else{
                     return "<div class='container-fluid text-center'><span class='label label-danger'>Something wrong occurred, please contact your administrator.<span></div>";

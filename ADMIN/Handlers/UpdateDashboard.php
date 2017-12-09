@@ -20,6 +20,18 @@ while ($row = mysqli_fetch_array($result)){
     $json['ALL_CATEGORIES_COUNT'] = $row['Count'];
 }
 
+$sql = "SELECT COUNT(ID) AS Count FROM designers WHERE IS_ACTIVE = 1";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $json['DESIGNERS_COUNT'] = $row['Count'];
+}
+
+$sql = "SELECT COUNT(ID) AS Count FROM designers";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $json['ALL_DESIGNERS_COUNT'] = $row['Count'];
+}
+
 $sql = "SELECT COUNT(ID) AS Count FROM products";
 $result = mysqli_query($con,$sql);
 while ($row = mysqli_fetch_array($result)){
@@ -50,6 +62,12 @@ while ($row = mysqli_fetch_array($result)){
     $json['DEL_ORDERS_COUNT'] = $row['Count'];
 }
 
+$sql = "SELECT COUNT(ID) AS Count FROM orders WHERE ORDER_STATUS_ID = 5";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)){
+    $json['CANC_ORDERS_COUNT'] = $row['Count'];
+}
+
 $sql = "SELECT SUM(C.TOTAL) AS TOTAL FROM carts C
         INNER JOIN orders O ON C.ID = O.CART_ID
         WHERE O.ORDER_STATUS_ID = 4";
@@ -57,7 +75,7 @@ $result = mysqli_query($con,$sql);
 if(mysqli_num_rows($result) > 0){
     while ($row = mysqli_fetch_array($result)){
         if(is_null($row['TOTAL'])){
-           $json['TOTAL_INCOME'] = "0.00";
+            $json['TOTAL_INCOME'] = "0.00";
         }
         else{
             $json['TOTAL_INCOME'] = $row['TOTAL'];

@@ -8,27 +8,33 @@ $DATETIME = date_create()->format('Y-m-d H:i:s');
 $MAKER_ID = $_GET['maker'];
 
 if(!isset($CATEGORY) || empty($CATEGORY) || $CATEGORY == ' '){
-    echo "Category is required.";
+    echo "Collection is required.";
 }
 else {
     $sql = "SELECT CATEGORY FROM product_categories WHERE CATEGORY = '" . $CATEGORY . "'";
     $result = mysqli_query($con, $sql);
     if(mysqli_num_rows($result) > 0){
-        echo "Category is already exists.";
+        echo "Collection is already exists.";
     }
     else{
         $sql = "INSERT INTO product_categories (CATEGORY,IS_ACTIVE) VALUES
         ('".$CATEGORY."','1')";
         $result = mysqli_query($con,$sql);
-        $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
-                                ('".$DATETIME."','".$MAKER_ID."','10','Category is added')";
-        $result = mysqli_query($con,$sql);
-        if($MAKER_ID != 111111){
-            $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
-                                ('".$DATETIME."','icon-tasks','orange','Pages/Categories.php','New category is added','0')";
+        if($result){
+            $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
+                                ('".$DATETIME."','".$MAKER_ID."','10','Collection is added')";
             $result = mysqli_query($con,$sql);
+            if($MAKER_ID != 111111){
+                $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+                                ('".$DATETIME."','icon-tasks','orange','Pages/Categories.php','New collection is added','0')";
+                $result = mysqli_query($con,$sql);
+            }
+            echo "Collection is added successfully.";
         }
-        echo "Category is added successfully.";
+        else{
+            echo 'Error occurred, please contact your administrator.';
+        }
+
     }
 }
 ?>

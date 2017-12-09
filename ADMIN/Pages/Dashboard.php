@@ -17,179 +17,184 @@
     $(document).ready(function(){
         $('.ajax-loader').css('visibility','visible');
         $.ajax({
-                type:'GET',
-                url: 'Handlers/UpdateDashboard.php',
-                success: function(data){
-                    $('.ajax-loader').css('visibility','hidden');
-                    var array = $.parseJSON(data);
-                    if(array !== ''){
-                        $('#row1').html(
-                            '<a class="quick-button metro yellow span4">' +
-                            '        <i class="icon-group"></i>' +
-                            '        <p>Users</p>' +
-                            '        <span class="badge">'+array['USERS_COUNT']+'</span>' +
-                            '    </a>' +
-                            '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span4">' +
-                            '        <i class="icon-tasks"></i>' +
-                            '        <p>Active Categories</p>' +
-                            '        <span class="badge">'+array['CATEGORIES_COUNT'] + ' / ' + array['ALL_CATEGORIES_COUNT']+'</span>'+
-                            '    </a>' +
-                            '    <a id="ProductsDash" onclick="$(\'#content\').load(\'Pages/Products.php\')" class="quick-button metro green span4">' +
-                            '        <i class="icon-gift"></i>' +
-                            '        <p>Products</p>' +
-                            '        <span class="badge">'+array['PRODUCTS_COUNT']+'</span>' +
-                            '    </a>' +
-                            '    <div class="clearfix"></div>'
-                        );
+            type:'GET',
+            url: 'Handlers/UpdateDashboard.php',
+            success: function(data){
+                $('.ajax-loader').css('visibility','hidden');
+                var array = $.parseJSON(data);
+                if(array !== ''){
+                    $('#row1').html(
+                        '<a class="quick-button metro yellow span3">' +
+                        '        <i class="icon-group"></i>' +
+                        '        <p>Users</p>' +
+                        '        <span class="badge">'+array['USERS_COUNT']+'</span>' +
+                        '    </a>' +
+                        '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span3">' +
+                        '        <i class="icon-tasks"></i>' +
+                        '        <p>Active Categories</p>' +
+                        '        <span class="badge">'+array['CATEGORIES_COUNT'] + ' / ' + array['ALL_CATEGORIES_COUNT']+'</span>'+
+                        '    </a>' +
+                        '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Designers.php\')" class="quick-button metro blue span3">' +
+                        '        <i class="icon-magic"></i>' +
+                        '        <p>Active Designers</p>' +
+                        '        <span class="badge">'+array['DESIGNERS_COUNT'] + ' / ' + array['ALL_DESIGNERS_COUNT']+'</span>'+
+                        '    </a>' +
+                        '    <a id="ProductsDash" onclick="$(\'#content\').load(\'Pages/Products.php\')" class="quick-button metro green span3">' +
+                        '        <i class="icon-gift"></i>' +
+                        '        <p>Products</p>' +
+                        '        <span class="badge">'+array['PRODUCTS_COUNT']+'</span>' +
+                        '    </a>' +
+                        '    <div class="clearfix"></div>'
+                    );
 
-                        if(!CheckPrivilege('SHOW_PRODUCTS')){
-                            $('#ProductsDash').unbind('click');
-                        }
-                        if(!CheckPrivilege('SHOW_CATEGORIES')){
-                            $('#CategoriesDash').unbind('click');
-                        }
-
-                        $('#row2').html(
-                            '<a id="PendingDash" onclick="$(\'#content\').load(\'Pages/PendingOrders.php\')" class="quick-button metro blue span3">' +
-                            '        <i class="icon-envelope"></i>' +
-                            '        <p>Pending Orders</p>' +
-                            '        <span class="badge">'+array['PEND_ORDERS_COUNT']+'</span>' +
-                            '    </a>' +
-                            '    <a id="QueuedDash" onclick="$(\'#content\').load(\'Pages/QueuedOrders.php\')" class="quick-button metro orange span3">' +
-                            '        <i class="icon-envelope-alt"></i>' +
-                            '        <p>Queued Orders</p>' +
-                            '        <span class="badge">'+array['QUEUE_ORDERS_COUNT']+'</span>' +
-                            '    </a>' +
-                            '    <a id="ShippedDash" onclick="$(\'#content\').load(\'Pages/ShippedOrders.php\')" class="quick-button metro black span3">' +
-                            '        <i class="icon-truck"></i>' +
-                            '        <p>Shipped Orders</p>' +
-                            '        <span class="badge">'+array['SHIP_ORDERS_COUNT']+'</span>' +
-                            '    </a>' +
-                            '    <a id="DeliveredDash" onclick="$(\'#content\').load(\'Pages/DeliveredOrders.php\')" class="quick-button metro purple span3">' +
-                            '        <i class="icon-shopping-cart"></i>' +
-                            '        <p>Delivered Orders</p>' +
-                            '        <span class="badge">'+array['DEL_ORDERS_COUNT']+'</span>' +
-                            '    </a>' +
-                            '' +
-                            '    <div class="clearfix"></div>'
-                        );
-
-                        if(!CheckPrivilege('SHOW_PENDING_ORDERS')){
-                            $('#PendingDash').unbind('click');
-                        }
-                        if(!CheckPrivilege('SHOW_QUEUED_ORDERS')){
-                            $('#QueuedDash').unbind('click');
-                        }
-                        if(!CheckPrivilege('SHOW_SHIPPED_ORDERS')){
-                            $('#ShippedDash').unbind('click');
-                        }
-                        if(!CheckPrivilege('SHOW_DELIVERED_ORDERS')){
-                            $('#DeliveredDash').unbind('click');
-                        }
-
-                        var month_total = '';
-                        if(array['LAST_MONTHLY_INCOME'] && array['LAST_2_MONTHLY_INCOME']  === "0.00"){
-                            month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i>';
-                        }
-                        else if(array['LAST_MONTHLY_INCOME'] >= array['LAST_2_MONTHLY_INCOME']){
-                            month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-arrow-up\'></i>';
-                        }
-                        else if(array['LAST_MONTHLY_INCOME'] < array['LAST_2_MONTHLY_INCOME']){
-                            month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-arrow-down\'></i>';
-                        }
-                        $('#row3').html(
-                            '<div class="span4 statbox green" ontablet="span8" ondesktop="span4">' +
-                            '        <div class="number">'+numberWithCommas(array['TOTAL_INCOME'])+' <i class=\'icon-minus\'></i></div>' +
-                            '        <div class="title">Total Income</div>' +
-                            '    </div>'+
-                            '<div class="span4 statbox blueDark" ontablet="span8" ondesktop="span4">' +
-                            '        <div class="number">'+month_total+'</div>' +
-                            '        <div class="title">['+array['LAST_MONTH']+'] Income</div>' +
-                            '    </div>'+
-                            '<div class="span4 statbox greenDark" ontablet="span8" ondesktop="span4">' +
-                            '        <div class="number">'+numberWithCommas(array['CURRENT_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i></div>' +
-                            '        <div class="title">Current Month Income</div>' +
-                            '    </div>'
-                        );
-
-                        $('#row4').html(
-                            '<div class="widget blue span6" ontablet="span6" ondesktop="span6">' +
-                            '        <h2><span class="glyphicons charts"><i></i></span>2 Months Delivered Orders Stats</h2>' +
-                            '        <hr>' +
-                            '        <div class="content">' +
-                            '            <div class="verticalChart">' +
-                            '                <div class="singleBar">' +
-                            '                    <div class="bar">' +
-                            '                        <div class="value" style="height: '+array['DEL_ORDERS_W1_COUNT']+'%;">' +
-                            '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W1_COUNT']+'</span>' +
-                            '                        </div>' +
-                            '                    </div>' +
-                            '                    <div class="title">W1</div>' +
-                            '                </div>' +
-                            '                <div class="singleBar">' +
-                            '                    <div class="bar">' +
-                            '                        <div class="value" style="height: '+array['DEL_ORDERS_W2_COUNT']+'%;">' +
-                            '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W2_COUNT']+'</span>' +
-                            '                        </div>' +
-                            '                    </div>' +
-                            '                    <div class="title">W2</div>' +
-                            '                </div>' +
-                            '                <div class="singleBar">' +
-                            '                    <div class="bar">' +
-                            '                        <div class="value" style="height: '+array['DEL_ORDERS_W3_COUNT']+'%;">' +
-                            '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W3_COUNT']+'</span>' +
-                            '                        </div>' +
-                            '                    </div>' +
-                            '                    <div class="title">W3</div>' +
-                            '                </div>' +
-                            '                <div class="singleBar">' +
-                            '                    <div class="bar">' +
-                            '                        <div class="value" style="height: '+array['DEL_ORDERS_W4_COUNT']+'%;">' +
-                            '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W4_COUNT']+'</span>' +
-                            '                        </div>' +
-                            '                    </div>' +
-                            '                    <div class="title">W4</div>' +
-                            '                </div>' +
-                            '                <div class="singleBar">' +
-                            '                    <div class="bar">' +
-                            '                        <div class="value" style="height: '+array['DEL_ORDERS_W5_COUNT']+'%;">' +
-                            '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W5_COUNT']+'</span>' +
-                            '                        </div>' +
-                            '                    </div>' +
-                            '                    <div class="title">W5</div>' +
-                            '                </div>' +
-                            '                <div class="singleBar">' +
-                            '                    <div class="bar">' +
-                            '                        <div class="value" style="height: '+array['DEL_ORDERS_W6_COUNT']+'%;">' +
-                            '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W6_COUNT']+'</span>' +
-                            '                        </div>' +
-                            '                    </div>' +
-                            '                    <div class="title">W6</div>' +
-                            '                </div>' +
-                            '                <div class="singleBar">' +
-                            '                    <div class="bar">' +
-                            '                        <div class="value" style="height: '+array['DEL_ORDERS_W7_COUNT']+'%;">' +
-                            '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W7_COUNT']+'</span>' +
-                            '                        </div>' +
-                            '                    </div>' +
-                            '                    <div class="title">W7</div>' +
-                            '                </div>' +
-                            '                <div class="singleBar">' +
-                            '                    <div class="bar">' +
-                            '                        <div class="value" style="height: '+array['DEL_ORDERS_W8_COUNT']+'%;">' +
-                            '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W8_COUNT']+'</span>' +
-                            '                        </div>' +
-                            '                    </div>' +
-                            '                    <div class="title">W8</div>' +
-                            '                </div>' +
-                            '                <div class="clearfix"></div>' +
-                            '            </div>' +
-                            '        </div>' +
-                            '    </div>'
-                        );
+                    if(!CheckPrivilege('SHOW_PRODUCTS')){
+                        $('#ProductsDash').unbind('click');
                     }
+                    if(!CheckPrivilege('SHOW_CATEGORIES')){
+                        $('#CategoriesDash').unbind('click');
+                    }
+
+                    $('#row2').html(
+                        '<a id="PendingDash" onclick="$(\'#content\').load(\'Pages/PendingOrders.php\')" class="quick-button metro blue span3">' +
+                        '        <i class="icon-envelope"></i>' +
+                        '        <p>Pending Orders</p>' +
+                        '        <span class="badge">'+array['PEND_ORDERS_COUNT']+'</span>' +
+                        '    </a>' +
+                        '    <a id="QueuedDash" onclick="$(\'#content\').load(\'Pages/QueuedOrders.php\')" class="quick-button metro green span3">' +
+                        '        <i class="icon-envelope-alt"></i>' +
+                        '        <p>Queued Orders</p>' +
+                        '        <span class="badge">'+array['QUEUE_ORDERS_COUNT']+'</span>' +
+                        '    </a>' +
+                        '    <a id="DeliveredDash" onclick="$(\'#content\').load(\'Pages/DeliveredOrders.php\')" class="quick-button metro purple span3">' +
+                        '        <i class="icon-shopping-cart"></i>' +
+                        '        <p>Delivered Orders</p>' +
+                        '        <span class="badge">'+array['DEL_ORDERS_COUNT']+'</span>' +
+                        '    </a>' +
+                        '    <a id="CancelledDash" onclick="$(\'#content\').load(\'Pages/CancelledOrders.php\')" class="quick-button metro orange span3">' +
+                        '        <i class="icon-ban-circle"></i>' +
+                        '        <p>Cancelled Orders</p>' +
+                        '        <span class="badge">'+array['CANC_ORDERS_COUNT']+'</span>' +
+                        '    </a>' +
+                        '' +
+                        '    <div class="clearfix"></div>'
+                    );
+
+                    if(!CheckPrivilege('SHOW_PENDING_ORDERS')){
+                        $('#PendingDash').unbind('click');
+                    }
+                    if(!CheckPrivilege('SHOW_QUEUED_ORDERS')){
+                        $('#QueuedDash').unbind('click');
+                    }
+                    if(!CheckPrivilege('SHOW_DELIVERED_ORDERS')){
+                        $('#DeliveredDash').unbind('click');
+                    }
+                    if(!CheckPrivilege('SHOW_CANCELLED_ORDERS')){
+                        $('#CancelledDash').unbind('click');
+                    }
+
+                    var month_total = '';
+                    if(array['LAST_MONTHLY_INCOME'] && array['LAST_2_MONTHLY_INCOME']  === "0.00"){
+                        month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i>';
+                    }
+                    else if(array['LAST_MONTHLY_INCOME'] >= array['LAST_2_MONTHLY_INCOME']){
+                        month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-arrow-up\'></i>';
+                    }
+                    else if(array['LAST_MONTHLY_INCOME'] < array['LAST_2_MONTHLY_INCOME']){
+                        month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-arrow-down\'></i>';
+                    }
+                    $('#row3').html(
+                        '<div class="span4 statbox green" ontablet="span8" ondesktop="span4">' +
+                        '        <div class="number">'+numberWithCommas(array['TOTAL_INCOME'])+' <i class=\'icon-minus\'></i></div>' +
+                        '        <div class="title">Total Income</div>' +
+                        '    </div>'+
+                        '<div class="span4 statbox blueDark" ontablet="span8" ondesktop="span4">' +
+                        '        <div class="number">'+month_total+'</div>' +
+                        '        <div class="title">['+array['LAST_MONTH']+'] Income</div>' +
+                        '    </div>'+
+                        '<div class="span4 statbox greenDark" ontablet="span8" ondesktop="span4">' +
+                        '        <div class="number">'+numberWithCommas(array['CURRENT_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i></div>' +
+                        '        <div class="title">Current Month Income</div>' +
+                        '    </div>'
+                    );
+
+                    $('#row4').html(
+                        '<div class="widget blue span6" ontablet="span6" ondesktop="span6">' +
+                        '        <h2><span class="glyphicons charts"><i></i></span>2 Months Delivered Orders Stats</h2>' +
+                        '        <hr>' +
+                        '        <div class="content">' +
+                        '            <div class="verticalChart">' +
+                        '                <div class="singleBar">' +
+                        '                    <div class="bar">' +
+                        '                        <div class="value" style="height: '+array['DEL_ORDERS_W1_COUNT']+'%;">' +
+                        '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W1_COUNT']+'</span>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                    <div class="title">W1</div>' +
+                        '                </div>' +
+                        '                <div class="singleBar">' +
+                        '                    <div class="bar">' +
+                        '                        <div class="value" style="height: '+array['DEL_ORDERS_W2_COUNT']+'%;">' +
+                        '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W2_COUNT']+'</span>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                    <div class="title">W2</div>' +
+                        '                </div>' +
+                        '                <div class="singleBar">' +
+                        '                    <div class="bar">' +
+                        '                        <div class="value" style="height: '+array['DEL_ORDERS_W3_COUNT']+'%;">' +
+                        '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W3_COUNT']+'</span>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                    <div class="title">W3</div>' +
+                        '                </div>' +
+                        '                <div class="singleBar">' +
+                        '                    <div class="bar">' +
+                        '                        <div class="value" style="height: '+array['DEL_ORDERS_W4_COUNT']+'%;">' +
+                        '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W4_COUNT']+'</span>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                    <div class="title">W4</div>' +
+                        '                </div>' +
+                        '                <div class="singleBar">' +
+                        '                    <div class="bar">' +
+                        '                        <div class="value" style="height: '+array['DEL_ORDERS_W5_COUNT']+'%;">' +
+                        '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W5_COUNT']+'</span>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                    <div class="title">W5</div>' +
+                        '                </div>' +
+                        '                <div class="singleBar">' +
+                        '                    <div class="bar">' +
+                        '                        <div class="value" style="height: '+array['DEL_ORDERS_W6_COUNT']+'%;">' +
+                        '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W6_COUNT']+'</span>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                    <div class="title">W6</div>' +
+                        '                </div>' +
+                        '                <div class="singleBar">' +
+                        '                    <div class="bar">' +
+                        '                        <div class="value" style="height: '+array['DEL_ORDERS_W7_COUNT']+'%;">' +
+                        '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W7_COUNT']+'</span>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                    <div class="title">W7</div>' +
+                        '                </div>' +
+                        '                <div class="singleBar">' +
+                        '                    <div class="bar">' +
+                        '                        <div class="value" style="height: '+array['DEL_ORDERS_W8_COUNT']+'%;">' +
+                        '                            <span style="color: rgb(87, 142, 190); display: inline;">'+array['DEL_ORDERS_W8_COUNT']+'</span>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                    <div class="title">W8</div>' +
+                        '                </div>' +
+                        '                <div class="clearfix"></div>' +
+                        '            </div>' +
+                        '        </div>' +
+                        '    </div>'
+                    );
                 }
-            });
+            }
+        });
         setInterval(function(){
             $.ajax({
                 type:'GET',
@@ -198,17 +203,22 @@
                     var array = $.parseJSON(data);
                     if(array !== '') {
                         $('#row1').html(
-                            '<a class="quick-button metro yellow span4">' +
+                            '<a class="quick-button metro yellow span3">' +
                             '        <i class="icon-group"></i>' +
                             '        <p>Users</p>' +
                             '        <span class="badge">'+array['USERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span4">' +
+                            '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span3">' +
                             '        <i class="icon-tasks"></i>' +
                             '        <p>Active Categories</p>' +
                             '        <span class="badge">'+array['CATEGORIES_COUNT'] + ' / ' + array['ALL_CATEGORIES_COUNT']+'</span>'+
                             '    </a>' +
-                            '    <a id="ProductsDash" onclick="$(\'#content\').load(\'Pages/Products.php\')" class="quick-button metro green span4">' +
+                            '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Designers.php\')" class="quick-button metro blue span3">' +
+                            '        <i class="icon-magic"></i>' +
+                            '        <p>Active Designers</p>' +
+                            '        <span class="badge">'+array['DESIGNERS_COUNT'] + ' / ' + array['ALL_DESIGNERS_COUNT']+'</span>'+
+                            '    </a>' +
+                            '    <a id="ProductsDash" onclick="$(\'#content\').load(\'Pages/Products.php\')" class="quick-button metro green span3">' +
                             '        <i class="icon-gift"></i>' +
                             '        <p>Products</p>' +
                             '        <span class="badge">'+array['PRODUCTS_COUNT']+'</span>' +
@@ -229,20 +239,20 @@
                             '        <p>Pending Orders</p>' +
                             '        <span class="badge">'+array['PEND_ORDERS_COUNT']+'</span>' +
                             '    </a>' +
-                            '    <a id="QueuedDash" onclick="$(\'#content\').load(\'Pages/QueuedOrders.php\')" class="quick-button metro orange span3">' +
+                            '    <a id="QueuedDash" onclick="$(\'#content\').load(\'Pages/QueuedOrders.php\')" class="quick-button metro green span3">' +
                             '        <i class="icon-envelope-alt"></i>' +
                             '        <p>Queued Orders</p>' +
                             '        <span class="badge">'+array['QUEUE_ORDERS_COUNT']+'</span>' +
-                            '    </a>' +
-                            '    <a id="ShippedDash" onclick="$(\'#content\').load(\'Pages/ShippedOrders.php\')" class="quick-button metro black span3">' +
-                            '        <i class="icon-truck"></i>' +
-                            '        <p>Shipped Orders</p>' +
-                            '        <span class="badge">'+array['SHIP_ORDERS_COUNT']+'</span>' +
                             '    </a>' +
                             '    <a id="DeliveredDash" onclick="$(\'#content\').load(\'Pages/DeliveredOrders.php\')" class="quick-button metro purple span3">' +
                             '        <i class="icon-shopping-cart"></i>' +
                             '        <p>Delivered Orders</p>' +
                             '        <span class="badge">'+array['DEL_ORDERS_COUNT']+'</span>' +
+                            '    </a>' +
+                            '    <a id="CancelledDash" onclick="$(\'#content\').load(\'Pages/CancelledOrders.php\')" class="quick-button metro orange span3">' +
+                            '        <i class="icon-ban-circle"></i>' +
+                            '        <p>Cancelled Orders</p>' +
+                            '        <span class="badge">'+array['CANC_ORDERS_COUNT']+'</span>' +
                             '    </a>' +
                             '' +
                             '    <div class="clearfix"></div>'
@@ -254,13 +264,12 @@
                         if(!CheckPrivilege('SHOW_QUEUED_ORDERS')){
                             $('#QueuedDash').unbind('click');
                         }
-                        if(!CheckPrivilege('SHOW_SHIPPED_ORDERS')){
-                            $('#ShippedDash').unbind('click');
-                        }
                         if(!CheckPrivilege('SHOW_DELIVERED_ORDERS')){
                             $('#DeliveredDash').unbind('click');
                         }
-
+                        if(!CheckPrivilege('SHOW_CANCELLED_ORDERS')){
+                            $('#CancelledDash').unbind('click');
+                        }
                         var month_total = '';
                         if(array['LAST_MONTHLY_INCOME'] && array['LAST_2_MONTHLY_INCOME']  === "0.00"){
                             month_total = numberWithCommas(array['LAST_MONTHLY_INCOME'])+' <i class=\'icon-minus\'></i>';

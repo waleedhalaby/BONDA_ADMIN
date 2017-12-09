@@ -20,13 +20,13 @@ $(document).ready(function () {
                         if(role['IS_ACTIVE'].indexOf('1') >= 0){
                             status = '<td class="center"><span class="label label-warning">ACTIVATED</span></td>';
                             icon = '<a id="updateRoleBtn" class="btn btn-info" ' +
-                                'onclick="ShowModal(\'Role '+role['ROLE']+' Deactivate\',\'Close\',\'Pages/PagesPHP/RolesPHP/role_update.php?id='+role['ID']+'&status=false\',true)">' +
+                                'onclick="ShowModal(\'Role '+role['ROLE']+' Deactivate\',\'Close\',\'Pages/PagesPHP/RolesPHP/role_update.php?id='+role['ID']+'&status=false\',false)">' +
                                 '<i class="icon-eye-close"></i></a>';
                         }
                         else if(role['IS_ACTIVE'].indexOf('0') >= 0){
                             status = '<td class="center"><span class="label label-info">DEACTIVATED</span></td>';
                             icon = '<a id="updateRoleBtn" class="btn btn-warning" ' +
-                                'onclick="ShowModal(\'Role '+role['ROLE']+' Activate\',\'Close\',\'Pages/PagesPHP/RolesPHP/role_update.php?id='+role['ID']+'&status=true\',true)">' +
+                                'onclick="ShowModal(\'Role '+role['ROLE']+' Activate\',\'Close\',\'Pages/PagesPHP/RolesPHP/role_update.php?id='+role['ID']+'&status=true\',false)">' +
                                 '<i class="icon-eye-open"></i></a>';
                         }
                         $('#roleTable').append('<tr>' +
@@ -42,13 +42,13 @@ $(document).ready(function () {
                         if(role['IS_ACTIVE'].indexOf('1') >= 0){
                             status = '<td class="center"><span class="label label-warning">ACTIVATED</span></td>';
                             icon = '<a id="updateRoleBtn" class="btn btn-info" ' +
-                                'onclick="ShowModal(\'Role '+role['ROLE']+' Deactivate\',\'Close\',\'Pages/PagesPHP/RolesPHP/role_update.php?id='+role['ID']+'&status=false\',true)">' +
+                                'onclick="ShowModal(\'Role '+role['ROLE']+' Deactivate\',\'Close\',\'Pages/PagesPHP/RolesPHP/role_update.php?id='+role['ID']+'&status=false\',false)">' +
                                 '<i class="icon-eye-close"></i></a>';
                         }
                         else if(role['IS_ACTIVE'].indexOf('0') >= 0){
                             status = '<td class="center"><span class="label label-info">DEACTIVATED</span></td>';
                             icon = '<a id="updateRoleBtn" class="updateRole btn btn-warning" ' +
-                                'onclick="ShowModal(\'Role '+role['ROLE']+' Activate\',\'Close\',\'Pages/PagesPHP/RolesPHP/role_update.php?id='+role['ID']+'&status=true\',true)">' +
+                                'onclick="ShowModal(\'Role '+role['ROLE']+' Activate\',\'Close\',\'Pages/PagesPHP/RolesPHP/role_update.php?id='+role['ID']+'&status=true\',false)">' +
                                 '<i class="icon-eye-open"></i></a>';
                         }
                         $('#roleTable').append('<tr>' +

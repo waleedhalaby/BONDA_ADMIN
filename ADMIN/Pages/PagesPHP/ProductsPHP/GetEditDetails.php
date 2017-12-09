@@ -27,7 +27,7 @@
                         INNER JOIN product_features F ON V.FEATURE_ID = F.ID
                         INNER JOIN data_types DT ON F.DATA_TYPE_ID = DT.ID
                         INNER JOIN products P ON V.PRODUCT_ID = P.ID
-                        WHERE F.IS_ACTIVE = '1' AND P.ID = ".$row['ID'];
+                        WHERE F.IS_ACTIVE = '1' AND F.IS_VISIBLE = '1' AND P.ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
             $rows2 = mysqli_num_rows($result2);
             if($rows2 > 0) {
@@ -43,6 +43,22 @@
             }
             else{
                 $json[$i]['FEATURES'] = Array();
+            }
+
+            $sql = "SELECT DP.DESIGNER_ID, D.NAME AS DESIGNER_NAME FROM designers D 
+                    INNER JOIN designer_products DP ON D.ID = DP.DESIGNER_ID 
+                    WHERE DP.PRODUCT_ID = ".$row['ID'];
+            $result2 = mysqli_query($con,$sql);
+            $rows2 = mysqli_num_rows($result2);
+            if($rows2 > 0) {
+                $j = 0;
+                while ($row2 = mysqli_fetch_array($result2)) {
+                    $json[$i]['DESIGNER_ID']= $row2['DESIGNER_ID'];
+                    $json[$i]['DESIGNER']= $row2['DESIGNER_NAME'];
+                }
+            }
+            else{
+                $json[$i]['DESIGNER'] = null;
             }
 
             $sql = "SELECT ID, IMAGE_PATH FROM products_images

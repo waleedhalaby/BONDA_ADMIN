@@ -48,8 +48,6 @@ $(document).ready(function(){
            }
        });
 
-       console.log(selectedId+' '+selectedLink);
-
        $(items).each(function (id,item) {
            if(item['SUBITEMS'].length === 0){
                $('#menuDiv').append('<li style="cursor: pointer;" id="'+item['ID']+'"><a><i class="'+item['ICON']+'"></i>' +
@@ -172,14 +170,6 @@ function InputEditDataType(id,datatype,feature,value){
 }
 
 function ShowModal(title,button,link,isBind) {
-    if(isBind){
-        $('#MyModal').bind('hide',function(){
-            ShowActionModal();
-        });
-    }
-    else{
-        $('#MyModal').unbind('hide');
-    }
 
     $('#MyModal .modal-title').html(title);
     $('#MyModal .modal-body').empty();
@@ -191,6 +181,17 @@ function ShowModal(title,button,link,isBind) {
             $('#MyModal .modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
             break;
     }
+
+    $('#MyModal').modal();
+}
+
+function ShowMessageModal(title,html) {
+    $('#MyModal .modal-title').html(title);
+    $('#MyModal .modal-body').empty();
+    $('#MyModal .modal-footer').empty();
+    $('#MyModal .modal-body').html(html);
+
+    $('#MyModal .modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
 
     $('#MyModal').modal();
 }

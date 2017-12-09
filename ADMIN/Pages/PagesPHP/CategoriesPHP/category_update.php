@@ -11,15 +11,15 @@ $PERSON_ID = $_SESSION['id'];
     <?php
     if($STATUS == 'true')
     {
-        echo '<p>Are you sure you want to activate category?</p>';
+        echo '<p>Are you sure you want to activate this collection?</p>';
         echo '<input type="hidden" id="editCategoryVal" name="editCategoryVal" value="true"/>';
-        echo '<input type="submit" style="float: right" class="btn btn-warning" id="editCategoryBtn" value="Activate"/>';
+        echo '<input type="submit" style="float: right" class="btn btn-warning" id="updateCategoryBtn" value="Activate"/>';
     }
     else
     {
-        echo '<p>Are you sure you want to deactivate category?</p>';
+        echo '<p>Are you sure you want to deactivate this collection?</p>';
         echo '<input type="hidden" id="editCategoryVal" name="editCategoryVal" value="false"/>';
-        echo '<input type="submit" style="float: right" class="btn btn-danger" id="editCategoryBtn" value="Deactivate"/>';
+        echo '<input type="submit" style="float: right" class="btn btn-danger" id="updateCategoryBtn" value="Deactivate"/>';
     }
     ?>
     </form>
@@ -30,6 +30,10 @@ $PERSON_ID = $_SESSION['id'];
     $(document).ready(function(){
         $('#editCategoryForm').submit(function(e){
             e.preventDefault();
+
+            $('#updateCategoryBtn').attr('disabled','true');
+            $('#updateCategoryBtn').attr('value','Sending, please wait...');
+
             var url = "Pages/PagesPHP/CategoriesPHP/UpdateCategory.php?maker=<?php echo $PERSON_ID ?>&id=<?php echo $CATEGORY_ID ?>";
 
             $.ajax({

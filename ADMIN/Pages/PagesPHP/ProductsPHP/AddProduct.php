@@ -30,6 +30,11 @@ if(isset($_POST['addDescription'])|| !empty($_POST['addDescription'])){
 
 $CATEGORY = $_POST['addCategory'];
 
+$DESIGNER = '-1';
+if(isset($_POST['addDesigner'])){
+    $DESIGNER = $_POST['addDesigner'];
+}
+
 $sql = "INSERT INTO products (SKU_ID,NAME,PRICE,CURRENCY_ID,DESCRIPTION,CATEGORY_ID)
         VALUES ('" . $SKU_ID . "','" . $NAME . "','" . $PRICE . "','" . $CURRENCY . "','" . $DESCRIPTION . "','" . $CATEGORY . "')";
 $result = mysqli_query($con, $sql);
@@ -59,15 +64,32 @@ if (mysqli_num_rows($result) > 0) {
                  $result2 = mysqli_query($con,$sql);
              }
          }
-        $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
-                                ('".$DATETIME."','".$MAKER_ID."','9','Product [".$ID."] is added')";
-        $result4 = mysqli_query($con,$sql);
-        if($MAKER_ID != 111111){
-            $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
-                                ('".$DATETIME."','icon-gift','pink','Pages/Products.php','New product is added','0')";
-            $result = mysqli_query($con,$sql);
+        $sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
+                    ('".$ID."','23','".$DATETIME."')";
+        $result2 = mysqli_query($con,$sql);
+
+        if($DESIGNER != '-1'){
+            $sql = "INSERT INTO designer_products (PRODUCT_ID,DESIGNER_ID) VALUES
+                    ('".$ID."','".$DESIGNER."')";
+            $result2 = mysqli_query($con,$sql);
         }
-        echo $ID;
+
+
+        if($result2){
+            $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
+                                ('".$DATETIME."','".$MAKER_ID."','9','Product [".$ID."] is added')";
+            $result4 = mysqli_query($con,$sql);
+            if($MAKER_ID != 111111){
+                $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+                                ('".$DATETIME."','icon-gift','pink','Pages/Products.php','New product is added','0')";
+                $result = mysqli_query($con,$sql);
+            }
+            echo $ID;
+        }
+        else{
+            echo 'Error occurred, please contact your administrator.';
+        }
+
     }
 }
 else{

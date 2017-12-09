@@ -11,7 +11,7 @@
     </li>
     <li>
         <i class="icon-tasks"></i>
-        <em>Categories</em>
+        <em>Collections</em>
     </li>
 </ul>
 <div class="ajax-loader">
@@ -20,9 +20,9 @@
 <div class="row-fluid">
     <div class="box span12">
         <div class="box-header">
-            <h2><i class="halflings-icon white cart"></i><span class="break"></span>Categories</h2>
+            <h2><i class="halflings-icon white cart"></i><span class="break"></span>Collections</h2>
             <div class="box-icon">
-                <a id="addCategoryBtn" onclick="$('#content').load('Add Category','Close','Pages/PagesPHP/CategoriesPHP/category_add.php')"
+                <a id="addCategoryBtn" onclick="$('#content').load('Pages/PagesPHP/CategoriesPHP/category_add.php')"
                    class="btn-setting"><i class="halflings-icon white plus-sign"></i></a>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <table class="table table-striped table-bordered bootstrap-datatable datatable">
                 <thead>
                 <tr style="background-color: #0c5460;color:#F4F4F4;">
-                    <th>Category</th>
+                    <th>Collection</th>
                     <th>Number of Products</th>
                     <th>Status</th>
                     <th>Actions</th>

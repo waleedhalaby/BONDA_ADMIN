@@ -45,6 +45,21 @@
                 $json[$i]['FEATURES'] = Array();
             }
 
+            $sql = "SELECT D.NAME AS DESIGNER_NAME FROM designers D 
+                    INNER JOIN designer_products DP ON D.ID = DP.DESIGNER_ID 
+                    WHERE DP.PRODUCT_ID = ".$row['ID'];
+            $result2 = mysqli_query($con,$sql);
+            $rows2 = mysqli_num_rows($result2);
+            if($rows2 > 0) {
+                $j = 0;
+                while ($row2 = mysqli_fetch_array($result2)) {
+                    $json[$i]['DESIGNER']= $row2['DESIGNER_NAME'];
+                }
+            }
+            else{
+                $json[$i]['DESIGNER'] = null;
+            }
+
             $sql = "SELECT ID, IMAGE_PATH FROM products_images
                     WHERE PRODUCT_ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
