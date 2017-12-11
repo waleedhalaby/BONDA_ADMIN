@@ -28,7 +28,6 @@
                 <tr style="background-color: #0c5460;color:#F4F4F4;">
                     <th>UNIQUE ID</th>
                     <th>FROM</th>
-                    <th>NUMBER OF PRODUCTS</th>
                     <th>ORDER DATE</th>
                     <th>PAYMENT TYPE</th>
                     <th>TOTAL</th>

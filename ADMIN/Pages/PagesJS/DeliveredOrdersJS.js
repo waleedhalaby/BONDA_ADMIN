@@ -13,14 +13,16 @@ $(document).ready(function () {
                     $('#orderTable').append('<tr>' +
                         '<td>' + order['UNIQUE_ID'] + '</td>' +
                         '<td>' + order['PERSON'] + '</td>' +
-                        '<td>' + order['NUMBER_OF_PRODUCTS'] + '</td>' +
                         '<td>' + order['ORDER_DATE_TIME'] + '</td>' +
                         '<td>' + order['PAYMENT_TYPE']+'</td>' +
-                        '<td>' + order['TOTAL']+ ' ' + order['CURRENCY']+'</td>' +
+                        '<td>' + order['TOTAL']+ ' EGP</td>' +
                         '<td class="center">' +
-                        '<a id="detailOrderBtn" class="btn btn-success" ' +
-                        'onclick="$(\'#content\').load(\'Pages/PagesPHP/OrdersPHP/order_details.php?s=4&id='+order['ID']+'\')">' +
+                        '<a id="detailOrderBtn" class="btn btn-primary" ' +
+                        'onclick="$(\'#content\').load(\'Pages/PagesPHP/OrdersPHP/del_order_details.php?s=4&id='+order['ID']+'\')">' +
                         '<i class="halflings-icon white zoom-in"></i></a>'+
+                        //'<a id="deleteOrderBtn" class="btn btn-danger" ' +
+                        //'onclick="ShowModal(\'Order ['+order['UNIQUE_ID']+'] Delete\',\'Close\',\'Pages/PagesPHP/OrdersPHP/order_delete.php?u='+order['UNIQUE_ID']+'&s=4&id='+order['ID']+'\')">' +
+                        //'<i class="halflings-icon white trash"></i></a>'+
                         '</td></tr>'
                     );
                 });

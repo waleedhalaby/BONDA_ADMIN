@@ -1,6 +1,6 @@
 <?php
 require('../../../Handlers/DBCONNECT.php');
-session_start();
+require ('../../../Handlers/Authenticate.php');
 
 $sql = "SELECT L.DATE_TIME, P.FIRST_NAME, P.LAST_NAME, PG.TITLE, L.VALUE FROM log_activities L
         INNER JOIN persons P ON L.PERSON_ID = P.ID

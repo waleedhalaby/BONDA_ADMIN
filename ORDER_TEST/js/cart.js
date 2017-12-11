@@ -44,7 +44,6 @@ $(document).ready(function(){
             url: url,
             data: null,
             success: function (data) {
-                console.log(data);
                 if(data === "1") {
                     document.location.href="index.php";
                     $('#message').html(

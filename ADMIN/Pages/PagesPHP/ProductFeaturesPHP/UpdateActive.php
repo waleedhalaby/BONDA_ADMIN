@@ -1,5 +1,6 @@
-<?php
+    <?php
     require('../../../Handlers/DBCONNECT.php');
+    require ('../../../Handlers/Authenticate.php');
 
     $FEATURE_ID = $_GET['id'];
     $IS_ACTIVE_OLD = $_GET['os'];

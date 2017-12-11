@@ -1,6 +1,6 @@
 <?php
 require ('DBCONNECT.php');
-session_start();
+require ('Authenticate.php');
 $ID = $_SESSION['id'];
 
 $sql = "SELECT DISTINCT PP.ID, P.PRIVILEGE, PP.VALUE FROM person_privileges PP

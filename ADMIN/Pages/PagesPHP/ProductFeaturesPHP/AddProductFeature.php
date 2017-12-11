@@ -1,5 +1,6 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
+require ('../../../Handlers/Authenticate.php');
 
 function getDatetimeNow() {
     $tz_object = new DateTimeZone('Egypt/Cairo');

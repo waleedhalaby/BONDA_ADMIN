@@ -42,6 +42,9 @@ $(document).ready(function () {
                 '                </div>\n' +
                 '                <div style="border:2px solid #2d6987;padding: 10px;border-radius: 5px;" class="logP">\n' +
                 '<h2>LOG ACTIVITIES</h2>' +
+                '                </div>\n' +
+                '                <div style="border:2px solid #2d6987;padding: 10px;border-radius: 5px;" class="pagesP">\n' +
+                '<h2>PAGES</h2>' +
                 '                </div>');
             if(!CheckPrivilege('SHOW_PRODUCTS_PORTAL')){
                 $('.productP').css('display','none');
@@ -58,13 +61,15 @@ $(document).ready(function () {
             if(!CheckPrivilege('SHOW_LOG_ACTIVITIES')){
                 $('.logP').css('display','none');
             }
+            if(!CheckPrivilege('SHOW_PAGES_PORTAL')){
+                $('.pagesP').css('display','none');
+            }
 
             $.get('Pages/PagesPHP/AdminsPrivilegesPHP/GetPrivileges.php',{'id':ID},function(data){
                 if(data !== ''){
                     var array = $.parseJSON(data);
                     var changes = [];
                     var counter = 0;
-                    console.log(array);
                     $(array).each(function(id,val){
                         if(val['CATEGORY'] === 'PRODUCTS_CATEGORIES'){
                             var privilege = val['PRIVILEGE'].replace(/_/g,' ');
@@ -106,6 +111,14 @@ $(document).ready(function () {
                                 privilege +
                                 '</label>');
                         }
+                        else if(val['CATEGORY'] === 'PAGES'){
+                            var privilege = val['PRIVILEGE'].replace(/_/g,' ');
+                            var checked = val['VALUE'] === "0" ? "" : "checked";
+                            $('.privileges .pagesP').append('<label class="checkbox">' +
+                                '<input value="'+val['ID']+'" type="checkbox" '+checked+'>' +
+                                privilege +
+                                '</label>');
+                        }
 
                         counter++;
                     });
@@ -126,7 +139,9 @@ $(document).ready(function () {
                         $('.privileges .logP input[type=checkbox]').each(function(){
                             changes += $(this).val()+ '_' +($(this).attr("checked") ? 1:0)+' ';
                         });
-                        console.log(changes);
+                        $('.privileges .pagesP input[type=checkbox]').each(function(){
+                            changes += $(this).val()+ '_' +($(this).attr("checked") ? 1:0)+' ';
+                        });
 
                         $.post('Pages/PagesPHP/AdminsPrivilegesPHP/UpdatePrivileges.php?maker='+PERSON_ID,{id:ID,changes:changes},function(data){
                             if(data.indexOf('true') >= 0){

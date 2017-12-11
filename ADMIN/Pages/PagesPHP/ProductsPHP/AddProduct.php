@@ -1,5 +1,7 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
+require ('../../../Handlers/Authenticate.php');
+
 date_default_timezone_set('Africa/Cairo');
 $DATETIME = date_create()->format('Y-m-d H:i:s');
 
@@ -29,14 +31,10 @@ if(isset($_POST['addDescription'])|| !empty($_POST['addDescription'])){
 }
 
 $CATEGORY = $_POST['addCategory'];
+$DESIGNER = $_POST['addDesigner'];
 
-$DESIGNER = '-1';
-if(isset($_POST['addDesigner'])){
-    $DESIGNER = $_POST['addDesigner'];
-}
-
-$sql = "INSERT INTO products (SKU_ID,NAME,PRICE,CURRENCY_ID,DESCRIPTION,CATEGORY_ID)
-        VALUES ('" . $SKU_ID . "','" . $NAME . "','" . $PRICE . "','" . $CURRENCY . "','" . $DESCRIPTION . "','" . $CATEGORY . "')";
+$sql = "INSERT INTO products (SKU_ID,NAME,PRICE,CURRENCY_ID,DESCRIPTION,CATEGORY_ID,DESIGNER_ID)
+        VALUES ('" . $SKU_ID . "','" . $NAME . "','" . $PRICE . "','" . $CURRENCY . "','" . $DESCRIPTION . "','" . $CATEGORY . "','".$DESIGNER."')";
 $result = mysqli_query($con, $sql);
 
 
@@ -67,13 +65,6 @@ if (mysqli_num_rows($result) > 0) {
         $sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
                     ('".$ID."','23','".$DATETIME."')";
         $result2 = mysqli_query($con,$sql);
-
-        if($DESIGNER != '-1'){
-            $sql = "INSERT INTO designer_products (PRODUCT_ID,DESIGNER_ID) VALUES
-                    ('".$ID."','".$DESIGNER."')";
-            $result2 = mysqli_query($con,$sql);
-        }
-
 
         if($result2){
             $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES

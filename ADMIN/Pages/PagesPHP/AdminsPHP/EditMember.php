@@ -1,5 +1,7 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
+require ('../../../Handlers/Authenticate.php');
+
 date_default_timezone_set('Africa/Cairo');
 $DATETIME = date_create()->format('Y-m-d H:i:s');
 

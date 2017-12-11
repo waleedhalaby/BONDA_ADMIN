@@ -19,7 +19,7 @@ $(document).ready(function () {
                         '<td>' + order['PAYMENT_TYPE'] + '</td>' +
                         '<td>' + order['TOTAL'] + ' ' + order['CURRENCY'] + '</td>' +
                         '<td class="center">' +
-                        '<a id="detailOrderBtn" class="btn btn-success" ' +
+                        '<a id="detailOrderBtn" class="btn btn-primary" ' +
                         'onclick="$(\'#content\').load(\'Pages/PagesPHP/OrdersPHP/order_details.php?s=3&id='+order['ID']+'\')">' +
                         '<i class="halflings-icon white zoom-in"></i></a>' +
                         '</td></tr>'

@@ -8,6 +8,7 @@ $PERSON_ID = $_SESSION['id'];
         <table class="table table-striped table-bordered member-details-table">
             <tbody>
             <tr><td style="background-color: #0c5460;color:#F4F4F4;">PRIVILEGE</td><td><input id="Privilege" name="Privilege" type="text" placeholder="Enter Privilege" required/></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4;">CATEGORY_ID</td><td><input id="ID" name="ID" type="number" placeholder="Enter Category ID" required/></td></tr>
             </tbody>
         </table>
         <p id="message"></p>

@@ -1,5 +1,6 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
+require ('../../../Handlers/Authenticate.php');
 
 date_default_timezone_set('Africa/Cairo');
 $DATETIME = date_create()->format('Y-m-d H:i:s');
@@ -16,7 +17,7 @@ if(mysqli_num_rows($result) > 0){
     echo 'You cannot update this collection as it has products contained in the order process.';
 }
 else {
-    $sql = "UPDATE product_categories SET IS_ACTIVE = " . $STATUS . " WHERE ID = " . $CATEGORY_ID;
+    $sql = "UPDATE categories SET IS_ACTIVE = " . $STATUS . " WHERE ID = " . $CATEGORY_ID;
     $result = mysqli_query($con, $sql);
 
     if($result){

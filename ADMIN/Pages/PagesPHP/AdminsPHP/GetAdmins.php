@@ -1,6 +1,6 @@
 <?php
     require('../../../Handlers/DBCONNECT.php');
-    session_start();
+    require ('../../../Handlers/Authenticate.php');
 
     $sql = "SELECT DISTINCT PR.ID, PR.EMAIL, PR.FIRST_NAME, PR.LAST_NAME, PT.TYPE, VL.VALUE AS STATUS FROM persons PR 
             INNER JOIN person_feature_values VL ON PR.ID = VL.PERSON_ID 

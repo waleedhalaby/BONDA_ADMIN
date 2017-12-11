@@ -17,6 +17,13 @@ $(document).ready(function () {
             if(data !== ''){
                 categories = $.parseJSON(data);
                 $(categories).each(function (id,category) {
+                    var image;
+                    if(category['IMAGE'] !== null){
+                        image = '<img id="imageThumb'+category['ID']+'" class="img-polaroid compress-image" src="'+category['IMAGE']+'"/>';
+                    }
+                    else{
+                        image = '<img class="img-polaroid compress-image-none" src="Images/default-image.png"/>';
+                    }
                     if(category['PRODUCTS'] > 0){
                         var status,icon;
                         if(category['IS_ACTIVE'].indexOf('1') >= 0){
@@ -32,16 +39,21 @@ $(document).ready(function () {
                                 '<i class="halflings-icon white eye-open"></i></a>';
                         }
                         $('#categoryTable').append('<tr>' +
+                            '<td class="center">'+image+'</td>' +
                             '<td class="center">'+category['CATEGORY']+'</td>' +
+                            '<td class="center"><label class="label label-warning">'+category['DESIGNER']+'</label></td>' +
                             '<td class="center">'+category['PRODUCTS']+' Products</td>' +
                             status +
                             '<td class="center">' +
                             icon +
+                            '<a id="detCategoryBtn" class="detCategory btn btn-primary" ' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_details.php?id='+category['ID']+'\')">' +
+                            '<i class="halflings-icon white zoom-in"></i></a>'+
                             '<a id="editCategoryBtn" class="editCategory btn btn-info" ' +
-                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\')">' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?id='+category['ID']+'\')">' +
                             '<i class="halflings-icon white edit"></i></a>'+
                             '<a id="deleteCategoryBtn" class="deleteCategory btn btn-danger" ' +
-                            'onclick="ShowModal(\'Collection ['+category['CATEGORY']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?val='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\',false)">' +
+                            'onclick="ShowModal(\'Collection ['+category['CATEGORY']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?id='+category['ID']+'\',false)">' +
                             '<i class="halflings-icon white trash"></i></a>'+
                             '</td>' +
                             '</tr>');
@@ -60,16 +72,21 @@ $(document).ready(function () {
                                 '<i class="halflings-icon white eye-open"></i></a>';
                         }
                         $('#categoryTable').append('<tr>' +
+                            '<td class="center">'+image+'</td>' +
                             '<td class="center">'+category['CATEGORY']+'</td>' +
+                            '<td class="center"><label class="label label-warning">'+category['DESIGNER']+'</label></td>' +
                             '<td class="center">No Products</td>' +
                             status +
                             '<td class="center">' +
                             icon +
+                            '<a id="detCategoryBtn" class="detCategory btn btn-primary" ' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_details.php?id='+category['ID']+'\')">' +
+                            '<i class="halflings-icon white zoom-in"></i></a>'+
                             '<a id="editCategoryBtn" class="editCategory btn btn-info" ' +
-                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?value='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\')">' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/CategoriesPHP/category_edit.php?id='+category['ID']+'\')">' +
                             '<i class="halflings-icon white edit"></i></a>'+
                             '<a id="deleteCategoryBtn" class="deleteCategory btn btn-danger" ' +
-                            'onclick="ShowModal(\'Collection ['+category['CATEGORY']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?val='+category['CATEGORY'].replace(' ','_')+'&id='+category['ID']+'\',false)">' +
+                            'onclick="ShowModal(\'Collection ['+category['CATEGORY']+'] Delete\',\'Close\',\'Pages/PagesPHP/CategoriesPHP/category_delete.php?id='+category['ID']+'\',false)">' +
                             '<i class="halflings-icon white trash"></i></a>'+
                             '</td>' +
                             '</tr>');

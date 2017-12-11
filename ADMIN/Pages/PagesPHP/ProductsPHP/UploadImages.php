@@ -1,5 +1,6 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
+require ('../../../Handlers/Authenticate.php');
 
 $ID = $_GET['id'];
 
@@ -53,18 +54,18 @@ function UploadImage($product_id,$id){
                 }
 
                 if(($ID != null || $ID != '') && ($IMAGE != null || $IMAGE != '')){
-                    $sql = "SELECT ID,IMAGE_PATH FROM products_images WHERE PRODUCT_ID = '".$ID."' AND IMAGE_PATH ='Assets/".$_FILES[$id]["name"]."'";
+                    $sql = "SELECT ID,IMAGE_PATH FROM products_images WHERE PRODUCT_ID = '".$ID."' AND IMAGE_PATH ='Assets/Products/".$_FILES[$id]["name"]."'";
                     $result3 = mysqli_query($con,$sql);
                     $rows = mysqli_num_rows($result3);
                     if($rows > 0){
                         return "<div class='container-fluid text-center'><span class='label label-danger'>Image already exists.<span></div>";
                     }
                     else{
-                        $sql = "INSERT INTO products_images (PRODUCT_ID,IMAGE_PATH) VALUES ('".$ID."','Assets/".$_FILES[$id]["name"]."')";
+                        $sql = "INSERT INTO products_images (PRODUCT_ID,IMAGE_PATH) VALUES ('".$ID."','Assets/Products/".$_FILES[$id]["name"]."')";
                         $result2 = mysqli_query($con,$sql);
-                        if (!file_exists("../../../Assets/" . $_FILES[$id]["name"])) {
+                        if (!file_exists("../../../Assets/Products/" . $_FILES[$id]["name"])) {
                             $sourcePath = $_FILES[$id]['tmp_name']; // Storing source path of the file in a variable
-                            $targetPath = "../../../Assets/".$_FILES[$id]['name']; // Target path where file is to be stored
+                            $targetPath = "../../../Assets/Products/".$_FILES[$id]['name']; // Target path where file is to be stored
                             move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
                         }
                         return "<div class='container-fluid text-center'><span class='label label-warning'>Image is uploaded successfully.<span></div>";

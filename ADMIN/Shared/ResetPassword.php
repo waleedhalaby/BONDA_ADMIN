@@ -1,6 +1,8 @@
 <?php
     require ('../Handlers/DBCONNECT.php');
-    $PERSON_ID = $_GET['id'];
+    require ('../Handlers/Authenticate.php');
+
+$PERSON_ID = $_GET['id'];
 
     $PASSWORD = $_POST['editPassword'];
     $CPASSWORD = $_POST['editCPassword'];

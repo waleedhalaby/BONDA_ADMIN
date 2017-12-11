@@ -1,5 +1,6 @@
 <?php
     require ('Handlers/DBCONNECT.php');
+    require ('Handlers/Authenticate.php');
 
     $EMAIL = $_POST['editEmail'];
     $PASSWORD = $_POST['editPassword'];

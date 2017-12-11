@@ -54,14 +54,10 @@
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">NAME</td><td>'+product[0]['NAME']+'</td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">PRICE</td><td>'+product[0]['PRICE'].toLocaleString()+' '+product[0]['CURRENCY']+'</td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">DESCRIPTION</td><td>'+product[0]['DESCRIPTION'].substring(0,100)+'</td></tr>'+
-                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">CATEGORY</td><td><span class="label label-warning">'+product[0]['CATEGORY']+'</span></td></tr>'
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">CATEGORY</td><td><span class="label label-warning">'+product[0]['CATEGORY']+'</span></td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">DESIGNER</td><td><span class="label label-warning">'+product[0]['DESIGNER']+'</span></td></tr>'
              );
 
-            if(product[0]['DESIGNER'] !== null){
-                $('.product-details-table tbody').append(
-                    '<tr><td style="background-color: #0c5460;color:#F4F4F4;">DESIGNER</td><td>'+product[0]['DESIGNER']+'</td></tr>'
-                );
-            }
 
             if(product[0]['FEATURES'].length > 0){
                 $(product[0]['FEATURES']).each(function(id,feature){

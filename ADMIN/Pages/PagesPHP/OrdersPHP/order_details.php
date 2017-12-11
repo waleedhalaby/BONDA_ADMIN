@@ -42,26 +42,50 @@
     <tfoot></tfoot>
 </table>
     <?php
+    if($STATUS == 1){
+        echo '<input type="reset" style="float: right" class="btn btn-danger" onclick="$(\'#content\').load(\'Pages/PendingOrders.php\')" value="Back"/>';
+    }
+    elseif($STATUS == 2){
+        echo '<input type="reset" style="float: right" class="btn btn-danger" onclick="$(\'#content\').load(\'Pages/QueuedOrders.php\')" value="Back"/>';
+    }
+    elseif($STATUS == 3){
+        echo '<input type="reset" style="float: right" class="btn btn-danger" onclick="$(\'#content\').load(\'Pages/ShippedOrders.php\')" value="Back"/>';
+    }
+
         if($STATUS == 1 || $STATUS == 2 || $STATUS == 3){
             echo '<div style="float: right" class="btn-group">
                     <button id="ConfirmBtn" class="btn btn-lg btn-success">Confirm</button>
-                    <button id="RefuseBtn" class="btn btn-lg btn-danger">Refuse</button>
+                    <button id="RefuseBtn" class="btn btn-lg btn-primary">Refuse</button>
                 </div>';
         }
+
+
+
     ?>
 
 </div>
 <script>
     var UNIQUE = '';
+
+    Date.prototype.addDays = function(days) {
+        this.setDate(this.getDate() + parseInt(days));
+        return this;
+    };
+
     $(document).ready(function(){
         $('.ajax-loader2').css('visibility','visible');
         $.get('Pages/PagesPHP/OrdersPHP/GetOrderDetails.php?id=<?php echo $ORDER_ID ?>',function(data){
             var order = $.parseJSON(data);
             UNIQUE = order['UNIQUE_ID'];
+            var ship_date = '';
+            if(order['SHIP_DATE_TIME'] !== null){
+                ship_date = '<tr><td style="background-color: #0c5460;color:#F4F4F4;">SHIPPED DATE</td><td>'+order['SHIP_DATE_TIME']+'</td></tr>';
+            }
             $('.order-table tbody').append(
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">UNIQUE ID</td><td>['+order['UNIQUE_ID']+']</td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">BY</td><td>'+order['PERSON']+'</td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">ORDER DATE</td><td>'+order['ORDER_DATE_TIME']+'</td></tr>'+
+                ship_date+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">PAYMENT TYPE</td><td>'+order['PAYMENT_TYPE']+'</td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">STATUS</td><td><label class="label label-warning">'+order['STATUS']+'</label></td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">TOTAL</td><td>'+order['TOTAL']+ ' ' +order['CURRENCY']+'</td></tr>'
@@ -83,11 +107,6 @@
                         '<td>'+detail['QUANTITY']+'</td>'+
                         '<td>'+detail['PRICE']+ ' ' +detail['CURRENCY']+'</td></tr>'
                     );
-                    $('.order-details-table tbody img#'+detail['IMAGE_ID']).hover(function(){
-                        $('.order-details-table tbody img#Big'+detail['IMAGE_ID']).fadeIn().show();
-                    },function(){
-                        $('.order-details-table tbody img#Big'+detail['IMAGE_ID']).hide();
-                    });
                 });
                 $('.order-details-table tfoot').append(
                     '<tr style="background-color: #a5a5a5; color: #f0f0f0"><td colspan="4">TOTAL</td><td class="text-right">'+order['TOTAL']+ ' ' +order['CURRENCY']+'</td></tr>'
@@ -100,51 +119,48 @@
         $('#ConfirmBtn').on('click',function(){
             var url = '';
             var status = <?php echo $STATUS ?>;
-            console.log(status);
+
+
             switch(status){
                 case 1:
                     url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?m=<?php echo $_SESSION['id'] ?>&s=2&u="+UNIQUE+"&id=<?php echo $ORDER_ID ?>";
                     break;
                 case 2:
-                    url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?m=<?php echo $_SESSION['id'] ?>&s=3&u="+UNIQUE+"&id=<?php echo $ORDER_ID ?>";
+                    ShowModal('Shipment Date','Close','Pages/PagesPHP/OrdersPHP/shipment_date.php?id=<?php echo $ORDER_ID ?>&m=<?php echo $_SESSION['id'] ?>&s=3&u='+UNIQUE);
                     break;
                 case 3:
                     url = "Pages/PagesPHP/OrdersPHP/UpdateOrderStatus.php?m=<?php echo $_SESSION['id'] ?>&s=4&u="+UNIQUE+"&id=<?php echo $ORDER_ID ?>";
                     break;
             }
+            if(status !== 2){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    success: function (data) {
+                        if(data === "1") {
+                            switch(status){
+                                case 1:
+                                    $('#content').load('Pages/PendingOrders.php');
+                                    ShowMessageModal('Message','<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as queued Successfully.</span></div>');
+                                    $( "#MyModal").unbind( "hide" );
+                                    break;
+                                case 3:
+                                    $('#content').load('Pages/ShippedOrders.php');
+                                    ShowMessageModal('Message','<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as delivered Successfully.</span></div>');
+                                    $( "#MyModal").unbind( "hide" );
+                                    break;
+                            }
 
-            $.ajax({
-                type: "POST",
-                url: url,
-                success: function (data) {
-                    if(data === "1") {
-                        switch(status){
-                            case 1:
-                                $('#content').load('Pages/PendingOrders.php');
-                                $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as queued Successfully.</span></div>');
-                                $( "#MyModal").unbind( "hide" );
-                                break;
-                            case 2:
-                                $('#content').load('Pages/QueuedOrders.php');
-                                $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as shipped Successfully.</span></div>');
-                                $( "#MyModal").unbind( "hide" );
-                                break;
-                            case 3:
-                                $('#content').load('Pages/ShippedOrders.php');
-                                $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Confirmed as delivered Successfully.</span></div>');
-                                $( "#MyModal").unbind( "hide" );
-                                break;
                         }
-
+                        else{
+                            ShowMessageModal('Message','<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');
+                        }
+                    },
+                    error: function(data){
+                        ShowMessageModal('Message','Error occurred, please contact your administrator.');
                     }
-                    else{
-                        $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');
-                    }
-                },
-                error: function(data){
-                    $('.modal-order-content').html('Error occurred, please contact your administrator.');
-                }
-            });
+                });
+            }
         });
 
         $('#RefuseBtn').on('click',function(){
@@ -158,27 +174,27 @@
                         switch(status){
                             case 1:
                                 $('#content').load('Pages/PendingOrders.php');
-                                $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
+                                ShowMessageModal('Message','<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
                                 $( "#MyModal").unbind( "hide" );
                                 break;
                             case 2:
                                 $('#content').load('Pages/QueuedOrders.php');
-                                $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
+                                ShowMessageModal('Message','<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
                                 $( "#MyModal").unbind( "hide" );
                                 break;
                             case 3:
                                 $('#content').load('Pages/ShippedOrders.php');
-                                $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
+                                ShowMessageModal('Message','<div class="container-fluid text-center"><span class="label label-warning">Order is Refused as cancelled Successfully.</span></div>');
                                 $( "#MyModal").unbind( "hide" );
                                 break;
                         }
                     }
                     else{
-                        $('.modal-order-content').html('<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');
+                        ShowMessageModal('Message','<div class="container-fluid text-center"><span class="label label-danger">Error occurred, please contact your administrator.</span></div>');
                     }
                 },
                 error: function(data){
-                    $('.modal-order-content').html('Error occurred, please contact your administrator.');
+                    ShowMessageModal('Message','Error occurred, please contact your administrator.');
                 }
             });
         });

@@ -27,15 +27,16 @@ $(document).ready(function () {
                         '<td>' + product['NAME'] + '</td>' +
                         '<td>' + product['PRICE'] + ' ' + product['CURRENCY'] +'</td>' +
                         '<td><label class="label label-warning">' + product['CATEGORY'] + '</label></td>'+
+                        '<td><label class="label label-warning">' + product['DESIGNER'] + '</label></td>'+
                         '<td class="center">' +
-                        '<a id="detailProductBtn" class="btn btn-success" ' +
+                        '<a id="detailProductBtn" class="btn btn-primary" ' +
                         'onclick="$(\'#content\').load(\'Pages/PagesPHP/ProductsPHP/product_details.php?id='+product['ID']+'\')">' +
                         '<i class="halflings-icon white zoom-in"></i></a>'+
                         '<a id="editProductBtn" class="editProduct btn btn-info" ' +
                         'onclick="$(\'#content\').load(\'Pages/PagesPHP/ProductsPHP/product_edit.php?id='+product['ID']+'\')">' +
                         '<i class="halflings-icon white edit"></i></a>'+
                         '<a id="deleteProductBtn" class="deleteProduct btn btn-danger" ' +
-                        'onclick="ShowModal(\'Product ['+product['NAME']+'] Delete\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_delete.php?val='+product['NAME'].split(' ').join('+')+'&id='+product['ID']+'\',false)">' +
+                        'onclick="ShowModal(\'Product ['+product['NAME']+'] Delete\',\'Close\',\'Pages/PagesPHP/ProductsPHP/product_delete.php?id='+product['ID']+'\',false)">' +
                         '<i class="halflings-icon white trash"></i></a>'+
                         '</td></tr>'
                     );

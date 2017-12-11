@@ -1,8 +1,9 @@
 <?php
     require ('../../../Handlers/DBCONNECT.php');
+    require ('../../../Handlers/Authenticate.php');
 
     $json = Array();
-    $sql = "SELECT DISTINCT O.ID, CT.ID AS CART_ID, O.UNIQUE_ID, CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS PERSON, O.ORDER_DATE_TIME, PY.TYPE, CT.TOTAL
+    $sql = "SELECT DISTINCT O.ID, O.SHIP_DATE_TIME, CT.ID AS CART_ID, O.UNIQUE_ID, CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS PERSON, O.ORDER_DATE_TIME, PY.TYPE, CT.TOTAL
             FROM orders O 
             INNER JOIN persons P ON O.PERSON_ID = P.ID
             INNER JOIN carts CT ON O.CART_ID = CT.ID
@@ -18,6 +19,7 @@
             $json[$i]['UNIQUE_ID'] = $row['UNIQUE_ID'];
             $json[$i]['PERSON'] = $row['PERSON'];
             $json[$i]['ORDER_DATE_TIME'] = $row['ORDER_DATE_TIME'];
+            $json[$i]['SHIP_DATE_TIME'] = $row['SHIP_DATE_TIME'];
             $json[$i]['PAYMENT_TYPE'] = $row['TYPE'];
             $json[$i]['TOTAL'] = $row['TOTAL'];
 

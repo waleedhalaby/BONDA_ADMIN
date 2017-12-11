@@ -1,5 +1,7 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
+require ('../../../Handlers/Authenticate.php');
+
 date_default_timezone_set('Africa/Cairo');
 $DATETIME = date_create()->format('Y-m-d H:i:s');
 
@@ -25,7 +27,10 @@ if(isset($_POST['editDescription'])||empty($_POST['editDescription'])){
     $DESCRIPTION = addcslashes($DESCRIPTION,"';");
 }
 
-$sql = "UPDATE products SET NAME='".$NAME."', PRICE='".$PRICE."', DESCRIPTION='".$DESCRIPTION."'
+$DESIGNER = $_POST['editDesigner'];
+$CATEGORY = $_POST['editCategory'];
+
+$sql = "UPDATE products SET NAME='".$NAME."', PRICE='".$PRICE."', DESCRIPTION='".$DESCRIPTION."', DESIGNER_ID = '".$DESIGNER."', CATEGORY_ID = '".$CATEGORY."'
         WHERE ID=".$PRODUCT_ID;
 $result = mysqli_query($con, $sql);
 
@@ -36,10 +41,6 @@ foreach($IDS AS $ID){
     $i++;
 }
 
-if(isset($_POST['editDesigner'])){
-    $sql = "UPDATE designer_products SET DESIGNER_ID = '".$_POST['editDesigner']."' WHERE PRODUCT_ID = '".$PRODUCT_ID."'";
-    $result = mysqli_query($con,$sql);
-}
 
 $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
                                 ('".$DATETIME."','".$MAKER_ID."','9','Product [".$PRODUCT_ID."] is updated')";

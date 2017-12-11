@@ -31,7 +31,7 @@
                         '    </a>' +
                         '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span3">' +
                         '        <i class="icon-tasks"></i>' +
-                        '        <p>Active Categories</p>' +
+                        '        <p>Active Collections</p>' +
                         '        <span class="badge">'+array['CATEGORIES_COUNT'] + ' / ' + array['ALL_CATEGORIES_COUNT']+'</span>'+
                         '    </a>' +
                         '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Designers.php\')" class="quick-button metro blue span3">' +
@@ -210,7 +210,7 @@
                             '    </a>' +
                             '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Categories.php\')" class="quick-button metro red span3">' +
                             '        <i class="icon-tasks"></i>' +
-                            '        <p>Active Categories</p>' +
+                            '        <p>Active Collections</p>' +
                             '        <span class="badge">'+array['CATEGORIES_COUNT'] + ' / ' + array['ALL_CATEGORIES_COUNT']+'</span>'+
                             '    </a>' +
                             '    <a id="CategoriesDash" onclick="$(\'#content\').load(\'Pages/Designers.php\')" class="quick-button metro blue span3">' +

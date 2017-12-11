@@ -1,5 +1,7 @@
 <?php
 require ('../Handlers/DBCONNECT.php');
+require ('../Handlers/Authenticate.php');
+
 require ('../Handlers/Handler.php');
     $MESSAGE_ID = $_GET['id'];
 

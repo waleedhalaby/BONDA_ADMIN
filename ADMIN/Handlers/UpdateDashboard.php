@@ -1,5 +1,6 @@
 <?php
 require ('../Handlers/DBCONNECT.php');
+require ('Authenticate.php');
 
 $json = Array();
 $sql = "SELECT COUNT(ID) AS Count FROM persons WHERE PERSON_TYPE_ID = 2";
@@ -8,13 +9,13 @@ while ($row = mysqli_fetch_array($result)){
     $json['USERS_COUNT'] = $row['Count'];
 }
 
-$sql = "SELECT COUNT(ID) AS Count FROM product_categories WHERE IS_ACTIVE = 1";
+$sql = "SELECT COUNT(ID) AS Count FROM categories WHERE IS_ACTIVE = 1";
 $result = mysqli_query($con,$sql);
 while ($row = mysqli_fetch_array($result)){
     $json['CATEGORIES_COUNT'] = $row['Count'];
 }
 
-$sql = "SELECT COUNT(ID) AS Count FROM product_categories";
+$sql = "SELECT COUNT(ID) AS Count FROM categories";
 $result = mysqli_query($con,$sql);
 while ($row = mysqli_fetch_array($result)){
     $json['ALL_CATEGORIES_COUNT'] = $row['Count'];
@@ -68,8 +69,7 @@ while ($row = mysqli_fetch_array($result)){
     $json['CANC_ORDERS_COUNT'] = $row['Count'];
 }
 
-$sql = "SELECT SUM(C.TOTAL) AS TOTAL FROM carts C
-        INNER JOIN orders O ON C.ID = O.CART_ID
+$sql = "SELECT SUM(O.TOTAL) AS TOTAL FROM orders O
         WHERE O.ORDER_STATUS_ID = 4";
 $result = mysqli_query($con,$sql);
 if(mysqli_num_rows($result) > 0){
@@ -83,8 +83,7 @@ if(mysqli_num_rows($result) > 0){
     }
 }
 
-$sql = "SELECT SUM(C.TOTAL) AS TOTAL FROM carts C
-        INNER JOIN orders O ON C.ID = O.CART_ID
+$sql = "SELECT SUM(O.TOTAL) AS TOTAL FROM orders O
         WHERE O.ORDER_STATUS_ID = 4 
         AND O.ORDER_DATE_TIME >= DATE_FORMAT(CURRENT_DATE - INTERVAL 2 MONTH , '%Y/%m/01')
         AND O.ORDER_DATE_TIME < DATE_FORMAT(CURRENT_DATE, '%Y/%m/01')";
@@ -100,8 +99,7 @@ if(mysqli_num_rows($result) > 0){
     }
 }
 
-$sql = "SELECT SUM(C.TOTAL) AS TOTAL FROM carts C
-        INNER JOIN orders O ON C.ID = O.CART_ID
+$sql = "SELECT SUM(O.TOTAL) AS TOTAL FROM orders O
         WHERE O.ORDER_STATUS_ID = 4 
         AND O.ORDER_DATE_TIME >= DATE_FORMAT(CURRENT_DATE - INTERVAL 1 MONTH , '%Y/%m/01')
         AND O.ORDER_DATE_TIME < DATE_FORMAT(CURRENT_DATE, '%Y/%m/01')";
@@ -117,8 +115,7 @@ if(mysqli_num_rows($result) > 0){
     }
 }
 
-$sql = "SELECT SUM(C.TOTAL) AS TOTAL FROM carts C
-        INNER JOIN orders O ON C.ID = O.CART_ID
+$sql = "SELECT SUM(O.TOTAL) AS TOTAL FROM orders O
         WHERE O.ORDER_STATUS_ID = 4 
         AND O.ORDER_DATE_TIME >= DATE_FORMAT(CURRENT_DATE, '%Y/%m/01')
         AND O.ORDER_DATE_TIME < NOW()";

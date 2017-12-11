@@ -1,6 +1,7 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
-session_start();
+require ('../../../Handlers/Authenticate.php');
+
 $ID = $_SESSION['id'];
 
 if($_GET['id'] != 0){
@@ -41,6 +42,9 @@ function GetCategory($id){
             break;
         case '7':
             $category = 'LOG_ACTIVITIES';
+            break;
+        case '8':
+            $category = 'PAGES';
             break;
     }
     return $category;

@@ -1,5 +1,7 @@
 <?php
     require ('../Handlers/DBCONNECT.php');
+    require ('../Handlers/Authenticate.php');
+
     require ('../Handlers/Handler.php');
     $PERSON_ID = $_GET['id'];
 

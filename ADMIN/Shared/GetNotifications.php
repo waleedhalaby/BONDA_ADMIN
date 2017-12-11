@@ -1,6 +1,8 @@
 <?php
     require ('../Handlers/DBCONNECT.php');
-    require ('../Handlers/Handler.php');
+    require ('../Handlers/Authenticate.php');
+
+require ('../Handlers/Handler.php');
     $PERSON_ID = $_GET['id'];
 
     $sql = "SELECT * FROM notifications WHERE IS_SEEN = '0' ORDER BY NOTIFY_DATE_TIME DESC LIMIT 5";

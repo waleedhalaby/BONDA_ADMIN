@@ -1,6 +1,5 @@
 <?php
 $CATEGORY_ID = $_GET['id'];
-$CATEGORY = $_GET['val'];
 
     session_start();
     $PERSON_ID = $_SESSION['id'];
@@ -9,6 +8,7 @@ $CATEGORY = $_GET['val'];
 <div class="modal-category-delete-content">
     <form id="deleteCategoryForm">
         <p>Are you sure you want to delete this collection?</p>
+        <p class="label label-success">Note that any products by this collection will be deleted</p>
         <input type="submit" style="float: right" class="btn btn-danger" id="deleteCategoryBtn" value="Delete"/>
     </form>
 </div>
@@ -21,7 +21,7 @@ $CATEGORY = $_GET['val'];
             $('#deleteCategoryBtn').attr('disabled','true');
             $('#deleteCategoryBtn').attr('value','Sending, please wait...');
 
-            var url = "Pages/PagesPHP/CategoriesPHP/DeleteCategory.php?val=<?php echo $CATEGORY ?>&maker=<?php echo $PERSON_ID ?>&id=<?php echo $CATEGORY_ID ?>";
+            var url = "Pages/PagesPHP/CategoriesPHP/DeleteCategory.php?maker=<?php echo $PERSON_ID ?>&id=<?php echo $CATEGORY_ID ?>";
 
             $.ajax({
                 type: 'POST',

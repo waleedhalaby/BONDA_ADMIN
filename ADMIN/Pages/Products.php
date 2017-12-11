@@ -35,6 +35,7 @@
                         <th>Name</th>
                         <th>Price</th>
                         <th>Collection</th>
+                        <th>Designer</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

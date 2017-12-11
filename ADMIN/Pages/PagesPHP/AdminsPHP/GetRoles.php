@@ -1,5 +1,6 @@
 <?php
 require('../../../Handlers/DBCONNECT.php');
+require ('../../../Handlers/Authenticate.php');
 
 $sql = "SELECT * FROM person_types WHERE ID <> '2'";
 $result = mysqli_query($con,$sql);

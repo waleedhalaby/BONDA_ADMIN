@@ -1,6 +1,6 @@
 <?php
     require('../../../Handlers/DBCONNECT.php');
-    session_start();
+    require ('../../../Handlers/Authenticate.php');
 
     $sql = "SELECT ID, TYPE FROM data_types";
     $result = mysqli_query($con,$sql);

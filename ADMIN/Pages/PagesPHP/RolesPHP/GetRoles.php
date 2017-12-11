@@ -1,6 +1,6 @@
 <?php
     require('../../../Handlers/DBCONNECT.php');
-    session_start();
+    require ('../../../Handlers/Authenticate.php');
 
     $sql = "SELECT ID, TYPE, IS_ACTIVE FROM person_types PC WHERE ID <> 2";
     $result = mysqli_query($con,$sql);

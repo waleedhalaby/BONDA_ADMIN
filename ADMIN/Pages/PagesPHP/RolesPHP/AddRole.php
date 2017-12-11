@@ -1,5 +1,6 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
+require ('../../../Handlers/Authenticate.php');
 
 $ROLE = strtoupper($_POST['addRole']);
 date_default_timezone_set('Africa/Cairo');

@@ -46,11 +46,6 @@ $(document).ready(function(){
                         '<tr><td>'+feature['FEATURE']+'</td><td>'+feature['VALUE']+'</td></tr>'
                 );
             });
-            $('#main_container .row#mainRow .col-md-5 #details').append(
-                    '</table>'+
-                    '<p style="font-weight: 700;font-size: large;width: 100%;text-align: right;color:#2d6987;"><i>'+product['PRICE']+ ' ' +product['CURRENCY']+'</i></p>'+
-                    '</div>'
-            );
         }
         $('#main_container .row#mainRow .col-md-5 #details').append(
             '<p style="font-weight: 700;font-size: large;width: 100%;text-align: right;color:#2d6987;"><i>'+product['PRICE']+ ' ' +product['CURRENCY']+'</i></p>'+

@@ -1,5 +1,6 @@
 <?php
     require ('../../../Handlers/DBCONNECT.php');
+    require ('../../../Handlers/Authenticate.php');
 
     $json = Array();
     $sql = "SELECT DISTINCT O.ID, CT.ID AS CART_ID, O.UNIQUE_ID, CONCAT(P.FIRST_NAME,' ',P.LAST_NAME) AS PERSON, O.ORDER_DATE_TIME, PY.TYPE, CT.TOTAL

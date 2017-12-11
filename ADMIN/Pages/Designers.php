@@ -30,8 +30,9 @@
             <table class="table table-striped table-bordered bootstrap-datatable datatable">
                 <thead>
                 <tr style="background-color: #0c5460;color:#F4F4F4;">
+                    <th>Image</th>
                     <th>Name</th>
-                    <th>Number of Products</th>
+                    <th>Number of Collections</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>

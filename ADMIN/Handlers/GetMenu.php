@@ -1,5 +1,6 @@
 <?php
     require ('DBCONNECT.php');
+    require ('Authenticate.php');
     $sql = "SELECT * FROM pages WHERE PARENT = '0'";
     $res = mysqli_query($con,$sql);
     $i = 0;

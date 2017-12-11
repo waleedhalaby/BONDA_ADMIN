@@ -1,5 +1,6 @@
 <?php
 require ('../../../Handlers/DBCONNECT.php');
+require ('../../../Handlers/Authenticate.php');
 
 date_default_timezone_set('Africa/Cairo');
 $DATETIME = date_create()->format('Y-m-d H:i:s');
@@ -8,6 +9,7 @@ $MAKER_ID = $_GET['maker'];
 
 $privilege = $_POST['Privilege'];
 $privilege = strtoupper(str_replace(' ','_',$privilege));
+$category_id = $_POST['ID'];
 if(!isset($privilege) || empty($privilege) || $privilege == ' '){
     echo "Privilege name is required.";
 }
@@ -18,8 +20,8 @@ else{
         echo "Privilege is already exists.";
     }
     else {
-        $sql = "INSERT INTO privileges (PRIVILEGE) VALUES
-            ('" . $privilege . "')";
+        $sql = "INSERT INTO privileges (PRIVILEGE,CATEGORY_ID) VALUES
+            ('" . $privilege . "','".$category_id."')";
         $result = mysqli_query($con, $sql);
 
         if ($result) {

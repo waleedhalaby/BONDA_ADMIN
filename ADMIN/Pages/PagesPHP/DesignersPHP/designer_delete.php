@@ -9,6 +9,7 @@
 <div class="modal-designer-delete-content">
     <form id="deleteDesignerForm">
         <p>Are you sure you want to delete <?php echo $DESIGNER_NAME ?>?</p>
+        <p class="label label-success">Note that any collections or products by this designer will be deleted.</p>
         <input type="submit" style="float: right" id="deleteDesignerBtn" class="btn btn-danger" value="Delete"/>
     </form>
 </div>

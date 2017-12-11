@@ -1,6 +1,6 @@
 <?php
     require('../../../Handlers/DBCONNECT.php');
-    session_start();
+    require ('../../../Handlers/Authenticate.php');
 
     $sql = "SELECT PC.ID, PC.FEATURE, DT.TYPE, PC.IS_ACTIVE FROM product_features PC
             INNER JOIN data_types DT ON PC.DATA_TYPE_ID = DT.ID WHERE PC.IS_ACTIVE = 1 AND PC.IS_VISIBLE = 1";

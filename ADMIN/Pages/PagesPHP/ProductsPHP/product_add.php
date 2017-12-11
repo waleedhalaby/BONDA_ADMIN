@@ -33,13 +33,13 @@ $PERSON_ID = $_SESSION['id'];
             <tr><td style="background-color: #0c5460;color:#F4F4F4">PRICE*</td><td colspan="2"><input id="addPrice" name="addPrice" type="number" placeholder="Enter Price" step="0.01" required/></td></tr>
             <tr><td style="background-color: #0c5460;color:#F4F4F4">CURRENCY*</td><td colspan="2"><select id="addCurrency" name="addCurrency" data-rel="chosen" required></select></td></tr>
             <tr><td style="background-color: #0c5460;color:#F4F4F4">DESCRIPTION</td><td colspan="2"><textarea id="addDescription" name="addDescription" class="cleditor" rows="3"></textarea></td></tr>
+            <tr><td style="background-color: #0c5460;color:#F4F4F4">DESIGNER*</td><td colspan="2"><select id="addDesigner" name="addDesigner" data-rel="chosen" required></select></td></tr>
             <tr><td style="background-color: #0c5460;color:#F4F4F4">COLLECTION*</td><td colspan="2"><select id="addCategory" name="addCategory" data-rel="chosen" required></select></td></tr>
             </tbody>
         </table>
         <label>Product Features Details (OPTIONAL)</label>
         <table class="table table-striped table-bordered product-features-details-table">
             <tbody>
-            <tr><td style="background-color: #0c5460;color:#F4F4F4">DESIGNER</td><td colspan="2"><select id="addDesigner" name="addDesigner" data-rel="chosen"><option selected disabled value="-1">Select Designer</option></select></td></tr>
             </tbody>
         </table>
         <label>Product Images (OPTIONAL)</label>
@@ -169,32 +169,53 @@ $PERSON_ID = $_SESSION['id'];
     $(document).ready(function(){
         $('#addSKUID').val('#'+randomString(8, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'));
 
-        $.get('Pages/PagesPHP/CategoriesPHP/GetProductCategories.php',function (data) {
-            if(data !== ''){
-                var array = $.parseJSON(data);
-                $(array).each(function (id,val) {
-                    var ID = val[0];
-                    var CATEGORY = val[1];
-
-                    $('#addCategory').append(
-                        '<option value="'+ID+'">'+CATEGORY+'</option>'
-                    );
-                });
-            }
-        });
 
         $.get('Pages/PagesPHP/DesignersPHP/GetDesigners.php',function (data) {
             if(data !== ''){
                 var array = $.parseJSON(data);
+                var id = array[0]['ID'];
                 $(array).each(function (id,val) {
                     var ID = val['ID'];
-                    var DESIGNER = val['NAME'];
+                    var DESIGNER = val['DESIGNER'];
 
                     $('#addDesigner').append(
                         '<option value="'+ID+'">'+DESIGNER+'</option>'
                     );
                 });
+                $.get('Pages/PagesPHP/CategoriesPHP/GetDesignerCategories.php?id='+id,function (data) {
+                    if(data !== ''){
+                        var array = $.parseJSON(data);
+                        $('#addCategory').html('');
+                        $(array).each(function (id,val) {
+                            var ID = val['ID'];
+                            var CATEGORY = val['CATEGORY'];
+
+                            $('#addCategory').append(
+                                '<option value="'+ID+'">'+CATEGORY+'</option>'
+                            );
+                        });
+                    }
+                });
             }
+        });
+
+
+        $('#addDesigner').on('change',function(){
+            var id = $(this).val();
+            $('#addCategory').html('');
+            $.get('Pages/PagesPHP/CategoriesPHP/GetDesignerCategories.php?id='+id,function (data) {
+                if(data !== ''){
+                    var array = $.parseJSON(data);
+                    $(array).each(function (id,val) {
+                        var ID = val['ID'];
+                        var CATEGORY = val['CATEGORY'];
+
+                        $('#addCategory').append(
+                            '<option value="'+ID+'">'+CATEGORY+'</option>'
+                        );
+                    });
+                }
+            });
         });
 
         $.get('Pages/PagesPHP/GetCurrencies.php',function (data) {

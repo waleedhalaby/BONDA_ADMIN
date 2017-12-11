@@ -28,7 +28,7 @@ $(document).ready(function () {
                         '<td class="center"><span class="label label-success">'+val[4]+'</span></td>' +
                         status +
                         '<td class="center">' +
-                        '<a id="detailMemberBtn" class="btn btn-success" ' +
+                        '<a id="detailMemberBtn" class="btn btn-primary" ' +
                         'onclick="$(\'#content\').load(\'Pages/PagesPHP/AdminsPHP/member_details.php?id='+val[0]+'\')">' +
                         '<i class="halflings-icon white zoom-in"></i></a>'+
                         '<a id="editMemberBtn" class="editMember btn btn-info" ' +

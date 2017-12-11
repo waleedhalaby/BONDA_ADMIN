@@ -68,7 +68,7 @@ $PERSON_ID = $_SESSION['id'];
 
         var changes;
         var length = 0;
-        $.get('Pages/PagesPHP/ProductsPHP/GetEditDetails.php?id=<?php echo $PRODUCT_ID ?>',function(data) {
+        $.get('Pages/PagesPHP/ProductsPHP/GetDetails.php?id=<?php echo $PRODUCT_ID ?>',function(data) {
             var product = $.parseJSON(data);
             var counter2 = 0;
             $('.product-details-table tbody').html(
@@ -77,31 +77,64 @@ $PERSON_ID = $_SESSION['id'];
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">NAME*</td><td><input id="editName" name="editName" type="text" value="'+product[0]['NAME']+'"/></td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">PRICE*</td><td><input id="editPrice" name="editPrice" type="number" step="0.01" value="'+product[0]['PRICE']+'"/></td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">DESCRIPTION</td><td><textarea id="editDescription" name="editDescription" class="cleditor">'+product[0]['DESCRIPTION']+'</textarea></td></tr>'+
-                '<tr><td style="background-color: #0c5460;color:#F4F4F4;">COLLECTION*</td><td><span class="label label-warning">'+product[0]['CATEGORY']+'</span></td></tr>'
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4">DESIGNER*</td><td colspan="2"><select id="editDesigner" name="editDesigner" data-rel="chosen" required></select></td></tr>'+
+                '<tr><td style="background-color: #0c5460;color:#F4F4F4">COLLECTION*</td><td colspan="2"><select id="editCategory" name="editCategory" data-rel="chosen" required></select></td></tr>'
             );
 
-            if(product[0]['DESIGNER'] !== null){
-                $('product-features-details-table tbody').append(
-                    '<tr><td style="background-color: #0c5460;color:#F4F4F4">DESIGNER</td><td colspan="2">'+
-                    '<select id="editDesigner" name="editDesigner" data-rel="chosen"></select></td></tr>'
-                );
-                $.get('Pages/PagesPHP/DesignersPHP/GetDesigners.php',function (data) {
+            $.get('Pages/PagesPHP/DesignersPHP/GetDesigners.php',function (data) {
+                if(data !== ''){
+                    var array = $.parseJSON(data);
+                    var id = array[0]['ID'];
+                    $(array).each(function (id,val) {
+                        var ID = val['ID'];
+                        var DESIGNER = val['DESIGNER'];
+
+                        $('#editDesigner').append(
+                            '<option id="'+ID+'" value="'+ID+'">'+DESIGNER+'</option>'
+                        );
+                    });
+
+                    var optionVal = product[0]['DESIGNER_ID'];
+                    $("#editDesigner option#"+optionVal).attr('selected', true);
+
+                    $.get('Pages/PagesPHP/CategoriesPHP/GetDesignerCategories.php?id='+optionVal,function (data) {
+                        if(data !== ''){
+                            var array = $.parseJSON(data);
+                            $('#editCategory').html('');
+                            $(array).each(function (id,val) {
+                                var ID = val['ID'];
+                                var CATEGORY = val['CATEGORY'];
+
+                                $('#editCategory').append(
+                                    '<option id="'+ID+'" value="'+ID+'">'+CATEGORY+'</option>'
+                                );
+                            });
+
+                            var optionVal = product[0]['CATEGORY_ID'];
+                            $("#editCategory option#"+optionVal).attr('selected', true);
+                        }
+                    });
+                }
+            });
+
+
+            $('#editDesigner').on('change',function(){
+                var id = $(this).val();
+                $('#editCategory').html('');
+                $.get('Pages/PagesPHP/CategoriesPHP/GetDesignerCategories.php?id='+id,function (data) {
                     if(data !== ''){
                         var array = $.parseJSON(data);
                         $(array).each(function (id,val) {
                             var ID = val['ID'];
-                            var DESIGNER = val['NAME'];
+                            var CATEGORY = val['CATEGORY'];
 
-                            $('#editDesigner').append(
-                                '<option id="'+ID+'" value="'+ID+'">'+DESIGNER+'</option>'
+                            $('#editCategory').append(
+                                '<option value="'+ID+'">'+CATEGORY+'</option>'
                             );
                         });
                     }
                 });
-
-                var optionVal = product[0]['DESIGNER_ID'];
-                $("#editDesigner option#"+optionVal).attr('selected', true);
-            }
+            });
 
             $(product[0]['FEATURES']).each(function(id,feature){
                 $('.product-features-details-table tbody').append(
@@ -165,7 +198,6 @@ $PERSON_ID = $_SESSION['id'];
             });
 
             $('.product-features-details-table tbody input[type="checkbox"]').on('change',function(){
-                console.log('changed from '+$(this).prop('checked'));
                 if($(this).prop('checked') === true)
                     $(this).val('true');
                 else

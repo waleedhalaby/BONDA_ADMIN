@@ -1,5 +1,6 @@
 <?php
 require ('DBCONNECT.php');
+require ('Authenticate.php');
 
 $PAGE_ID = $_POST['id'];
 

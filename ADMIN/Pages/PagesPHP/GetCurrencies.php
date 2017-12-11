@@ -1,6 +1,6 @@
 <?php
     require('../../Handlers/DBCONNECT.php');
-    session_start();
+    require ('../../Handlers/Authenticate.php');
 
     $sql = "SELECT ID, CURRENCY FROM currencies";
     $result = mysqli_query($con,$sql);

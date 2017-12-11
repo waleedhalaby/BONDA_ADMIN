@@ -17,36 +17,44 @@ $(document).ready(function () {
             if(data !== ''){
                 designers = $.parseJSON(data);
                 $(designers).each(function (id,designer) {
-                    if(designer['PRODUCTS'] > 0){
+                    var image;
+                    if(designer['IMAGE'] !== null){
+                        image = '<img id="imageThumb'+designer['ID']+'" class="img-polaroid compress-image" src="'+designer['IMAGE']+'"/>';
+                    }
+                    else{
+                        image = '<img class="img-polaroid compress-image-none" src="Images/default-image.png"/>';
+                    }
+                    if(designer['CATEGORIES'] > 0){
                         var status,icon;
+
                         if(designer['IS_ACTIVE'].indexOf('1') >= 0){
                             status = '<td class="center"><span class="label label-warning">ACTIVATED</span></td>';
                             icon = '<a id="updateDesignerBtn" class="btn btn-success" ' +
-                                'onclick="ShowModal(\'Designer '+designer['NAME']+' Deactivate\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_update.php?id='+designer['ID']+'&status=false\',false)">' +
+                                'onclick="ShowModal(\'Designer '+designer['DESIGNER']+' Deactivate\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_update.php?id='+designer['ID']+'&status=false\',false)">' +
                                 '<i class="halflings-icon white eye-close"></i></a>';
                         }
                         else if(designer['IS_ACTIVE'].indexOf('0') >= 0){
                             status = '<td class="center"><span class="label label-info">DEACTIVATED</span></td>';
                             icon = '<a id="updateDesignerBtn" class="btn btn-warning" ' +
-                                'onclick="ShowModal(\'Designer '+designer['NAME']+' Activate\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_update.php?id='+designer['ID']+'&status=true\',false)">' +
+                                'onclick="ShowModal(\'Designer '+designer['DESIGNER']+' Activate\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_update.php?id='+designer['ID']+'&status=true\',false)">' +
                                 '<i class="halflings-icon white eye-open"></i></a>';
                         }
                         var d = designer['DESCRIPTION'].replace(' ','_');
-                        console.log("desc.:"+d);
                         $('#designerTable').append('<tr>' +
-                            '<td class="center">'+designer['NAME']+'</td>' +
-                            '<td class="center">'+designer['PRODUCTS']+' Products</td>' +
+                            '<td class="center">'+image+'</td>' +
+                            '<td class="center">'+designer['DESIGNER']+'</td>' +
+                            '<td class="center">'+designer['CATEGORIES']+' Collections</td>' +
                             status +
                             '<td class="center">' +
                             icon +
                             '<a id="detDesignerBtn" class="detDesigner btn btn-primary" ' +
-                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/DesignersPHP/designer_details.php?value='+designer['NAME'].split(' ').join('+')+'$'+designer['DESCRIPTION'].split(' ').join('+')+'&id='+designer['ID']+'\')">' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/DesignersPHP/designer_details.php?id='+designer['ID']+'\')">' +
                             '<i class="halflings-icon white zoom-in"></i></a>'+
                             '<a id="editDesignerBtn" class="editDesigner btn btn-info" ' +
-                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/DesignersPHP/designer_edit.php?value='+designer['NAME'].split(' ').join('+')+'$'+designer['DESCRIPTION'].split(' ').join('+')+'&id='+designer['ID']+'\')">' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/DesignersPHP/designer_edit.php?id='+designer['ID']+'\')">' +
                             '<i class="halflings-icon white edit"></i></a>'+
                             '<a id="deleteDesignerBtn" class="deleteDesigner btn btn-danger" ' +
-                            'onclick="ShowModal(\'Designer ['+designer['NAME']+'] Delete\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_delete.php?val='+designer['NAME'].split(' ').join('+')+'&id='+designer['ID']+'\',false)">' +
+                            'onclick="ShowModal(\'Designer ['+designer['DESIGNER']+'] Delete\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_delete.php?val='+designer['DESIGNER'].split(' ').join('+')+'&id='+designer['ID']+'\',false)">' +
                             '<i class="halflings-icon white trash"></i></a>'+
                             '</td>' +
                             '</tr>');
@@ -55,29 +63,30 @@ $(document).ready(function () {
                         if(designer['IS_ACTIVE'].indexOf('1') >= 0){
                             status = '<td class="center"><span class="label label-warning">ACTIVATED</span></td>';
                             icon = '<a id="updateDesignerBtn" class="btn btn-success" ' +
-                                'onclick="ShowModal(\'Designer '+designer['NAME']+' Deactivate\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_update.php?id='+designer['ID']+'&status=false\',false)">' +
+                                'onclick="ShowModal(\'Designer '+designer['DESIGNER']+' Deactivate\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_update.php?id='+designer['ID']+'&status=false\',false)">' +
                                 '<i class="halflings-icon white eye-close"></i></a>';
                         }
                         else if(designer['IS_ACTIVE'].indexOf('0') >= 0){
                             status = '<td class="center"><span class="label label-info">DEACTIVATED</span></td>';
                             icon = '<a id="updateDesignerBtn" class="updateDesigner btn btn-warning" ' +
-                                'onclick="ShowModal(\'Designer '+designer['NAME']+' Activate\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_update.php?id='+designer['ID']+'&status=true\',false)">' +
+                                'onclick="ShowModal(\'Designer '+designer['DESIGNER']+' Activate\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_update.php?id='+designer['ID']+'&status=true\',false)">' +
                                 '<i class="halflings-icon white eye-open"></i></a>';
                         }
                         $('#designerTable').append('<tr>' +
-                            '<td class="center">'+designer['NAME']+'</td>' +
-                            '<td class="center">No Products</td>' +
+                            '<td class="center">'+image+'</td>' +
+                            '<td class="center">'+designer['DESIGNER']+'</td>' +
+                            '<td class="center">No Collections</td>' +
                             status +
                             '<td class="center">' +
                             icon +
                             '<a id="detDesignerBtn" class="detDesigner btn btn-primary" ' +
-                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/DesignersPHP/designer_details.php?value='+designer['NAME'].split(' ').join('+')+'$'+designer['DESCRIPTION'].split(' ').join('+')+'&id='+designer['ID']+'\')">' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/DesignersPHP/designer_details.php?id='+designer['ID']+'\')">' +
                             '<i class="halflings-icon white zoom-in"></i></a>'+
                             '<a id="editDesignerBtn" class="editDesigner btn btn-info" ' +
-                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/DesignersPHP/designer_edit.php?value='+designer['NAME'].split(' ').join('+')+'$'+designer['DESCRIPTION'].split(' ').join('+')+'&id='+designer['ID']+'\')">' +
+                            'onclick="$(\'#content\').load(\'Pages/PagesPHP/DesignersPHP/designer_edit.php?id='+designer['ID']+'\')">' +
                             '<i class="halflings-icon white edit"></i></a>'+
                             '<a id="deleteDesignerBtn" class="deleteDesigner btn btn-danger" ' +
-                            'onclick="ShowModal(\'Designer ['+designer['NAME']+'] Delete\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_delete.php?val='+designer['NAME'].split(' ').join('+')+'&id='+designer['ID']+'\',false)">' +
+                            'onclick="ShowModal(\'Designer ['+designer['DESIGNER']+'] Delete\',\'Close\',\'Pages/PagesPHP/DesignersPHP/designer_delete.php?val='+designer['DESIGNER'].split(' ').join('+')+'&id='+designer['ID']+'\',false)">' +
                             '<i class="halflings-icon white trash"></i></a>'+
                             '</td>' +
                             '</tr>');

@@ -1,8 +1,9 @@
 <?php
     require('../../../Handlers/DBCONNECT.php');
-    session_start();
+    require ('../../../Handlers/Authenticate.php');
 
-    $sql = "SELECT ID, CATEGORY, IS_ACTIVE FROM product_categories PC";
+    $sql = "SELECT C.ID, C.IMAGE_PATH,D.DESIGNER, C.CATEGORY, C.DESCRIPTION, C.IS_ACTIVE FROM categories C
+            INNER JOIN designers D ON C.DESIGNER_ID = D.ID";
     $result = mysqli_query($con,$sql);
     $rows = mysqli_num_rows($result);
     $json = Array();
@@ -10,7 +11,10 @@
         $i = 0;
         while($row = mysqli_fetch_array($result)){
             $json[$i]['ID'] = $row['ID'];
+            $json[$i]['IMAGE'] = $row['IMAGE_PATH'];
             $json[$i]['CATEGORY'] = $row['CATEGORY'];
+            $json[$i]['DESIGNER'] = $row['DESIGNER'];
+            $json[$i]['DESCRIPTION'] = $row['DESCRIPTION'];
             $json[$i]['IS_ACTIVE'] = $row['IS_ACTIVE'];
             $sql = "SELECT COUNT(ID) FROM products WHERE CATEGORY_ID = ".$row['ID'];
             $result2 = mysqli_query($con,$sql);
