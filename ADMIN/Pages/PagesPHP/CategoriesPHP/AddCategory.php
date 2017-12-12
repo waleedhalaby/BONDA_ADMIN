@@ -38,14 +38,11 @@ else {
             $sql = "INSERT INTO category_feature_values (CATEGORY_ID,FEATURE_ID,VALUE) VALUES
                     ('".$row['ID']."','1','0')";
             $result2 = mysqli_query($con,$sql);
-        }
+            $sql = "INSERT INTO category_feature_values (CATEGORY_ID,FEATURE_ID,VALUE) VALUES
+                    ('".$row['ID']."','2','".$DATETIME."')";
+            $result2 = mysqli_query($con,$sql);
 
-        if (mysqli_num_rows($result) > 0) {
-            $ID = 0;
-            while ($row = mysqli_fetch_array($result)) {
-                $ID = $row['ID'];
-            }
-            echo $ID;
+            echo $row['ID'];
         }
     }
     else{

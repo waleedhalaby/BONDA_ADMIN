@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 11, 2017 at 05:46 PM
+-- Generation Time: Dec 11, 2017 at 10:40 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -21,6 +21,44 @@ SET time_zone = "+00:00";
 --
 -- Database: `jewelrydb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `about_us`
+--
+
+DROP TABLE IF EXISTS `about_us`;
+CREATE TABLE IF NOT EXISTS `about_us` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `PARAGRAPH` varchar(10000) DEFAULT NULL,
+  `IMAGE_PATH` varchar(2222) DEFAULT NULL,
+  `OWNER_NAME` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `about_us`
+--
+
+INSERT INTO `about_us` (`ID`, `PARAGRAPH`, `IMAGE_PATH`, `OWNER_NAME`) VALUES
+(1, NULL, 'Assets/Contact/e2.jpg', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banner_images`
+--
+
+DROP TABLE IF EXISTS `banner_images`;
+CREATE TABLE IF NOT EXISTS `banner_images` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `IMAGE_PATH` varchar(2222) DEFAULT NULL,
+  `TITLE` varchar(200) DEFAULT NULL,
+  `DESCRIPTION` varchar(2222) DEFAULT NULL,
+  `LINK` varchar(2222) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -136,6 +174,30 @@ CREATE TABLE IF NOT EXISTS `category_feature_values` (
   KEY `FEATURE_ID` (`FEATURE_ID`),
   KEY `CATEGORY_ID` (`CATEGORY_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_info`
+--
+
+DROP TABLE IF EXISTS `contact_info`;
+CREATE TABLE IF NOT EXISTS `contact_info` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `IMAGE_PATH` varchar(2222) DEFAULT NULL,
+  `LOCATION` varchar(2222) DEFAULT NULL,
+  `TELEPHONE1` varchar(200) DEFAULT NULL,
+  `TELEPHONE2` varchar(200) DEFAULT NULL,
+  `EMAIL` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `contact_info`
+--
+
+INSERT INTO `contact_info` (`ID`, `IMAGE_PATH`, `LOCATION`, `TELEPHONE1`, `TELEPHONE2`, `EMAIL`) VALUES
+(1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -256,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `log_activities` (
   KEY `PERSON_ID` (`PERSON_ID`),
   KEY `PAGE_ID` (`PAGE_ID`),
   KEY `PERSON_ID_2` (`PERSON_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -340,15 +402,15 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `IS_VISIBLE` tinyint(1) NOT NULL,
   `LAST_VISITED` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
 --
 
 INSERT INTO `pages` (`ID`, `TITLE`, `LINK`, `ICON`, `PARENT`, `IS_VISIBLE`, `LAST_VISITED`) VALUES
-(1, 'Dashboard', 'Pages/Dashboard.php', 'icon-dashboard', 0, 1, 0),
-(2, 'Pages Portal', 'Pages/Pages.php', 'icon-file', 0, 1, 1),
+(1, 'Dashboard', 'Pages/Dashboard.php', 'icon-dashboard', 0, 1, 1),
+(2, 'Pages Portal', '#', 'icon-file', 0, 1, 0),
 (3, 'Products Portal', '#', 'icon-star', 0, 1, 0),
 (4, 'Orders Portal', '#', 'icon-book', 0, 1, 0),
 (5, 'Administration', '#', 'icon-lock', 0, 0, 0),
@@ -365,7 +427,10 @@ INSERT INTO `pages` (`ID`, `TITLE`, `LINK`, `ICON`, `PARENT`, `IS_VISIBLE`, `LAS
 (17, 'Cancelled Orders', 'Pages/CancelledOrders.php', 'icon-ban-circle', 4, 1, 0),
 (18, 'Member Roles', 'Pages/MemberRoles.php', 'icon-sitemap', 5, 1, 0),
 (19, 'Search Orders', 'Pages/SearchOrders.php', 'icon-search', 4, 1, 0),
-(20, 'Designers', 'Pages/Designers.php', 'icon-magic', 3, 1, 0);
+(20, 'Designers', 'Pages/Designers.php', 'icon-magic', 3, 1, 0),
+(21, 'Banners', 'Pages/Banner.php', 'icon-picture', 2, 1, 0),
+(22, 'About', 'Pages/About.php', 'icon-question-sign', 2, 1, 0),
+(23, 'Contact', 'Pages/Contact.php', 'icon-exclamation-sign', 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -405,7 +470,7 @@ CREATE TABLE IF NOT EXISTS `persons` (
   `PERSON_TYPE_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PERSON_TYPE_ID` (`PERSON_TYPE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=111161 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=111162 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `persons`
@@ -453,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `person_feature_values` (
   PRIMARY KEY (`ID`),
   KEY `PERSON_ID` (`PERSON_ID`,`PERSON_FEATURE_ID`),
   KEY `FEATURE_ID` (`PERSON_FEATURE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_feature_values`
@@ -497,7 +562,7 @@ CREATE TABLE IF NOT EXISTS `person_privileges` (
   PRIMARY KEY (`ID`),
   KEY `PRIVILEGE_ID` (`PRIVILEGE_ID`,`PERSON_ID`),
   KEY `PERSON_ID` (`PERSON_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `person_privileges`
@@ -543,7 +608,13 @@ INSERT INTO `person_privileges` (`ID`, `PRIVILEGE_ID`, `PERSON_ID`, `VALUE`) VAL
 (72, 68, 111111, 1),
 (73, 69, 111111, 1),
 (74, 70, 111111, 1),
-(75, 71, 111111, 1);
+(75, 71, 111111, 1),
+(76, 73, 111111, 1),
+(77, 74, 111111, 1),
+(78, 75, 111111, 1),
+(79, 76, 111111, 1),
+(124, 77, 111111, 1),
+(125, 78, 111111, 1);
 
 -- --------------------------------------------------------
 
@@ -579,7 +650,7 @@ CREATE TABLE IF NOT EXISTS `privileges` (
   `PRIVILEGE` varchar(255) NOT NULL,
   `CATEGORY_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `privileges`
@@ -625,7 +696,13 @@ INSERT INTO `privileges` (`ID`, `PRIVILEGE`, `CATEGORY_ID`) VALUES
 (68, 'ADD_DESIGNER', 3),
 (69, 'DELETE_DESIGNER', 3),
 (70, 'EDIT_DESIGNER', 3),
-(71, 'UPDATE_DESIGNER', 3);
+(71, 'UPDATE_DESIGNER', 3),
+(73, 'SHOW_BANNER', 8),
+(74, 'ADD_BANNER', 8),
+(75, 'EDIT_BANNER', 8),
+(76, 'DELETE_BANNER', 8),
+(77, 'SHOW_ABOUT', 8),
+(78, 'SHOW_CONTACT', 8);
 
 -- --------------------------------------------------------
 

@@ -20,11 +20,15 @@ else {
     if($result2){
         $sql = "SELECT ID FROM designers WHERE DESIGNER = '" . $DESIGNER . "'";
         $res = mysqli_query($con, $sql);
-
         while ($row = mysqli_fetch_array($res)) {
             $sql = "INSERT INTO designer_feature_values (DESIGNER_ID,FEATURE_ID,VALUE) VALUES
                 ('".$row['ID']."','1','0')";
             $result2 = mysqli_query($con,$sql);
+            $sql = "INSERT INTO designer_feature_values (DESIGNER_ID,FEATURE_ID,VALUE) VALUES
+                ('".$row['ID']."','2','".$DATETIME."')";
+            $result2 = mysqli_query($con,$sql);
+
+            echo $row['ID'];
         }
 
         $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
@@ -34,14 +38,6 @@ else {
             $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
                         ('".$DATETIME."','icon-magic','violet','Pages/Designers.php','New designer is added','0')";
             $result = mysqli_query($con,$sql);
-        }
-
-        if (mysqli_num_rows($res) > 0) {
-            $ID = 0;
-            while ($row = mysqli_fetch_array($res)) {
-                $ID = $row['ID'];
-            }
-            echo $ID;
         }
     }
     else{

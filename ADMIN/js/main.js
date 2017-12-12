@@ -23,83 +23,91 @@ $(document).ready(function(){
         $('#messageDiv').load('Shared/message.php');
     });
 
-   $.get('Handlers/GetMenu.php', function (data) {
-       var items = $.parseJSON(data);
-       var selectedId = items[0]['ID'];
-       var selectedLink = items[0]['LINK'];
+    $.get('Handlers/GetMenu.php', function (data) {
+        var items = $.parseJSON(data);
+        var selectedId = items[0]['ID'];
+        var selectedLink = items[0]['LINK'];
 
-       $(items).each(function (id,item) {
-           if (item['SUBITEMS'].length === 0){
-               if(item['LAST_VISITED'] === "1"){
-                   selectedId = item['ID'];
-                   selectedLink = item['LINK'];
-               }
-           }
-           else if (item['SUBITEMS'].length > 0){
-               $(item['SUBITEMS']).each(function(id,subitem){
-                   if(subitem['IS_VISIBLE'].indexOf("1") >= 0)
-                   {
-                       if(subitem['LAST_VISITED'] === "1"){
-                           selectedId = subitem['ID'];
-                           selectedLink = subitem['LINK'];
-                       }
-                   }
-               });
-           }
-       });
+        $(items).each(function (id,item) {
+            if (item['SUBITEMS'].length === 0){
+                if(item['LAST_VISITED'] === "1"){
+                    selectedId = item['ID'];
+                    selectedLink = item['LINK'];
+                }
+            }
+            else if (item['SUBITEMS'].length > 0){
+                $(item['SUBITEMS']).each(function(id,subitem){
+                    if(subitem['IS_VISIBLE'].indexOf("1") >= 0)
+                    {
+                        if(subitem['LAST_VISITED'] === "1"){
+                            selectedId = subitem['ID'];
+                            selectedLink = subitem['LINK'];
+                        }
+                    }
+                });
+            }
+        });
 
-       $(items).each(function (id,item) {
-           if(item['SUBITEMS'].length === 0){
-               $('#menuDiv').append('<li style="cursor: pointer;" id="'+item['ID']+'"><a><i class="'+item['ICON']+'"></i>' +
-                   '<span class="hidden-tablet"> '+item['TITLE']+'</span></a></li>');
+        $(items).each(function (id,item) {
+            if(item['SUBITEMS'].length === 0){
+                $('#menuDiv').append('<li style="cursor: pointer;" id="'+item['ID']+'"><a><i class="'+item['ICON']+'"></i>' +
+                    '<span class="hidden-tablet"> '+item['TITLE']+'</span></a></li>');
 
-               $('#menuDiv li#'+item['ID']).on('click',function(){
-                   var id = $(this).attr('id');
-                   $.post('Handlers/UpdateVisited.php',{id:id},function(data){
-                       $('#menuDiv li').removeClass('active');
-                       $('#menuDiv li#'+item['ID']).addClass('active');
-                       $('#content').load(item['LINK']);
-                   });
-               });
-           }
-           else if(item['SUBITEMS'].length > 0){
-               $('#menuDiv').append('<li style="cursor: pointer;" id="'+item['ID']+'"><a class="dropmenu"><i class="'+item['ICON']+'">' +
-                   '</i><span class="hidden-tablet"> '+
-                   item['TITLE']+'</span><span class="icon-angle-down"></span></a>' +
-                   '<ul>');
-               $(item['SUBITEMS']).each(function(id,subitem){
-                   if(subitem['IS_VISIBLE'].indexOf("1") >= 0)
-                   {
-                       $('#menuDiv #'+item['ID']+' ul').append(
-                           '<li style="cursor: pointer;" id="'+subitem['ID']+'"><a class="submenu">' +
-                           '<i class="'+subitem['ICON']+'"></i><span class="hidden-tablet">'+subitem['TITLE']+'</span></a></li>'
-                       );
+                $('#menuDiv li#'+item['ID']).on('click',function(){
+                    var id = $(this).attr('id');
+                    $.post('Handlers/UpdateVisited.php',{id:id},function(data){
+                        $('#menuDiv li').removeClass('active');
+                        $('#menuDiv li#'+item['ID']).addClass('active');
+                        $('#content').load(item['LINK']);
+                    });
+                });
+            }
+            else if(item['SUBITEMS'].length > 0){
+                $('#menuDiv').append('<li style="cursor: pointer;" id="'+item['ID']+'"><a class="dropmenu"><i class="'+item['ICON']+'">' +
+                    '</i><span class="hidden-tablet"> '+
+                    item['TITLE']+'</span><span class="icon-angle-down"></span></a>' +
+                    '<ul>');
+                $(item['SUBITEMS']).each(function(id,subitem){
+                    if(subitem['IS_VISIBLE'].indexOf("1") >= 0)
+                    {
+                        $('#menuDiv #'+item['ID']+' ul').append(
+                            '<li style="cursor: pointer;" id="'+subitem['ID']+'"><a class="submenu">' +
+                            '<i class="'+subitem['ICON']+'"></i><span class="hidden-tablet">'+subitem['TITLE']+'</span></a></li>'
+                        );
 
-                       $('#menuDiv #'+item['ID']+' ul li#'+subitem['ID']).on('click',function(){
-                           var id = $(this).attr('id');
-                           $.post('Handlers/UpdateVisited.php',{id:id},function(data){
-                               $('#menuDiv li').removeClass('active');
-                               $('#menuDiv #'+item['ID']+' ul li#'+subitem['ID']).addClass('active');
-                               $('#content').load(subitem['LINK']);
-                           });
-                       });
-                   }
-               });
-               $('#menuDiv').append('</ul></li>');
-           }
-       });
+                        $('#menuDiv #'+item['ID']+' ul li#'+subitem['ID']).on('click',function(){
+                            var id = $(this).attr('id');
+                            $.post('Handlers/UpdateVisited.php',{id:id},function(data){
+                                $('#menuDiv li').removeClass('active');
+                                $('#menuDiv #'+item['ID']+' ul li#'+subitem['ID']).addClass('active');
+                                $('#content').load(subitem['LINK']);
+                            });
+                        });
+                    }
+                });
+                $('#menuDiv').append('</ul></li>');
+            }
+        });
 
-       $('.dropmenu').click(function(e){
+        $('.dropmenu').click(function(e){
 
-           e.preventDefault();
+            e.preventDefault();
 
-           $(this).parent().find('ul').slideToggle();
+            $(this).parent().find('ul').slideToggle();
 
-       });
+        });
 
-       $('#menuDiv #'+selectedId).addClass('active');
-       $('#content').load(selectedLink);
-   });
+        $('#menuDiv #'+selectedId).addClass('active');
+        $('#content').load(selectedLink);
+    });
+
+    $('#MyModal').bind('hide',function(){
+        $(this).css('visibility','hidden');
+    });
+
+    $('#MyActionModal').bind('hide',function(){
+        $(this).css('visibility','hidden');
+    });
 });
 
 function CheckPrivilege(PrivilegeName){
@@ -137,7 +145,7 @@ function InputDataType(id,datatype,feature){
             break;
         case 'BOOLEAN':
             return '<input type="checkbox" value="off" id="value'+id+'" name="value'+id+'"/>';
-        break;
+            break;
     }
 }
 
@@ -170,7 +178,7 @@ function InputEditDataType(id,datatype,feature,value){
 }
 
 function ShowModal(title,button,link,isBind) {
-
+    $('#MyModal').css('visibility','visible');
     $('#MyModal .modal-title').html(title);
     $('#MyModal .modal-body').empty();
     $('#MyModal .modal-footer').empty();
@@ -186,6 +194,7 @@ function ShowModal(title,button,link,isBind) {
 }
 
 function ShowMessageModal(title,html) {
+    $('#MyModal').css('visibility','visible');
     $('#MyModal .modal-title').html(title);
     $('#MyModal .modal-body').empty();
     $('#MyModal .modal-footer').empty();
@@ -197,6 +206,7 @@ function ShowMessageModal(title,html) {
 }
 
 function ShowActionModal() {
+    $('#MyActionModal').css('visibility','visible');
     $('#MyActionModal .modal-title').html('Warning');
     $('#MyActionModal .modal-body').empty();
     $('#MyActionModal .modal-footer').empty();
