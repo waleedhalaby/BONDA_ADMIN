@@ -27,7 +27,8 @@ $(document).ready(function(){
                 '<div class="card" style="width: 20rem;">'+
                 image+
                 '<div style="min-height: 200px;padding: 10px;" class="card-block">'+
-                '<h4 class="card-title">'+product['NAME']+'</h4><label style="font-size: small;font-weight: 600;color: #f0f0f0;border-radius: 5px;padding: 3px 10px;" class="label bg-danger">'+product['CATEGORY']+'</label>'+
+                '<h4 class="card-title">'+product['NAME']+'</h4><label style="font-size: small;font-weight: 600;color: #f0f0f0;border-radius: 5px;padding: 3px 10px;" class="label bg-success">'+product['COLLECTION']+'</label>' +
+                '<label style="font-size: small;font-weight: 600;color: #f0f0f0;border-radius: 5px;padding: 3px 10px;" class="label bg-danger">'+product['DESIGNER']+'</label>'+
                 '<p class="card-text">'+product['DESCRIPTION'].substring(0,50)+'...'+'</p>'+
                 '<a onclick="AddToCart('+product['ID']+')" style="color:white;position: absolute;bottom: 0;left: 0;"  class="btn btn-success">Add to cart</a>'+
                 '<label style="position: absolute;bottom: 0;right: 0;" class="label label-info">'+product['PRICE']+' '+product['CURRENCY']+'</label>'+

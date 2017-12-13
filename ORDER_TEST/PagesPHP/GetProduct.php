@@ -3,9 +3,11 @@ require ('../DBCONNECT.php');
 
 $PRODUCT_ID = $_GET['id'];
 
-$sql = "SELECT P.ID,P.SKU_ID,P.NAME,P.PRICE,C.ID AS CURRENCY_ID ,C.CURRENCY,P.DESCRIPTION, CT.ID AS CATEGORY_ID, CT.CATEGORY FROM products P 
+$sql = "SELECT P.ID,P.SKU_ID,P.NAME,P.PRICE,C.ID AS CURRENCY_ID ,C.CURRENCY,P.DESCRIPTION, 
+        CT.ID AS CATEGORY_ID, CT.CATEGORY, D.ID AS DESIGNER_ID, D.DESIGNER FROM products P 
                 INNER JOIN currencies C ON P.CURRENCY_ID = C.ID
-                INNER JOIN product_categories CT ON P.CATEGORY_ID = CT.ID
+                INNER JOIN categories CT ON P.CATEGORY_ID = CT.ID
+                INNER JOIN designers D ON P.DESIGNER_ID = D.ID
                 WHERE P.ID = ".$PRODUCT_ID;
 $result = mysqli_query($con,$sql);
 $rows = mysqli_num_rows($result);
@@ -19,8 +21,10 @@ if($rows > 0){
         $json['CURRENCY_ID']= $row['CURRENCY_ID'];
         $json['CURRENCY']= $row['CURRENCY'];
         $json['DESCRIPTION']= $row['DESCRIPTION'];
-        $json['CATEGORY_ID']= $row['CATEGORY_ID'];
-        $json['CATEGORY']= $row['CATEGORY'];
+        $json['COLLECTION_ID']= $row['CATEGORY_ID'];
+        $json['COLLECTION']= $row['CATEGORY'];
+        $json['DESIGNER_ID']= $row['DESIGNER_ID'];
+        $json['DESIGNER']= $row['DESIGNER'];
 
         $sql = "SELECT V.ID,F.FEATURE, F.DATA_TYPE_ID, DT.TYPE,V.VALUE FROM product_feature_values V
                         INNER JOIN product_features F ON V.FEATURE_ID = F.ID

@@ -2,9 +2,10 @@
 require ('../DBCONNECT.php');
 
 
-$sql = "SELECT P.ID,P.SKU_ID,P.NAME,P.PRICE,C.CURRENCY, CT.CATEGORY,P.DESCRIPTION FROM products P 
+$sql = "SELECT P.ID,P.SKU_ID,P.NAME,P.PRICE,C.CURRENCY, CT.CATEGORY, D.DESIGNER,P.DESCRIPTION FROM products P 
             INNER JOIN currencies C ON P.CURRENCY_ID = C.ID
-            INNER JOIN product_categories CT ON P.CATEGORY_ID = CT.ID";
+            INNER JOIN categories CT ON P.CATEGORY_ID = CT.ID
+            INNER JOIN designers D ON P.DESIGNER_ID = D.ID WHERE D.IS_ACTIVE <> 0 AND CT.IS_ACTIVE <> 0";
 $result = mysqli_query($con,$sql);
 $rows = mysqli_num_rows($result);
 $json = Array();
@@ -16,7 +17,8 @@ if($rows > 0){
         $json[$i]['NAME']= $row['NAME'];
         $json[$i]['PRICE']= number_format($row['PRICE'], 2);
         $json[$i]['CURRENCY']= $row['CURRENCY'];
-        $json[$i]['CATEGORY']= $row['CATEGORY'];
+        $json[$i]['COLLECTION']= $row['CATEGORY'];
+        $json[$i]['DESIGNER']= $row['DESIGNER'];
         $json[$i]['DESCRIPTION']= $row['DESCRIPTION'];
         $json[$i]['IMAGES'] = Array();
 

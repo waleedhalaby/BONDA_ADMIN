@@ -31,7 +31,8 @@ $(document).ready(function(){
                 '</div>' +
                 '<div id="maindetails" class="col-md-5">'+
                     '<div id="details" style="border: 4px solid #CCC;border-radius: 5px;padding: 10px;">' +
-                    '<label style="padding:2px 10px;border-radius: 5px;color:white;" class="bg-danger">'+product['CATEGORY']+'</label><br/>'+
+                    '<label style="padding:2px 10px;border-radius: 5px;color:white;" class="bg-danger">'+product['DESIGNER']+'</label><br/>'+
+                    '<label style="padding:2px 10px;border-radius: 5px;color:white;" class="bg-success">'+product['COLLECTION']+'</label><br/>'+
                     '<em style="color:#0b2e13;">'+product['SKU_ID']+'</em>'+
                     '<h3>'+product['NAME']+'</h3>'+
                     '<p style="border-radius: 5px;color:#1C2B36;">'+product['DESCRIPTION']+'</p>'
