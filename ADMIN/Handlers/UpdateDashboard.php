@@ -115,10 +115,9 @@ if(mysqli_num_rows($result) > 0){
     }
 }
 
-$sql = "SELECT SUM(O.TOTAL) AS TOTAL FROM orders O
-        WHERE O.ORDER_STATUS_ID = 4 
-        AND O.ORDER_DATE_TIME >= DATE_FORMAT(CURRENT_DATE, '%Y/%m/01')
-        AND O.ORDER_DATE_TIME < NOW()";
+$sql = "SELECT sum(TOTAL) as TOTAL FROM orders O WHERE O.ORDER_STATUS_ID = 4 
+		AND O.ORDER_DATE_TIME >= DATE_FORMAT(CURRENT_DATE, '%Y/%m/01') 
+		AND O.ORDER_DATE_TIME <  ((NOW() + INTERVAL 1 day));";
 $result = mysqli_query($con,$sql);
 if(mysqli_num_rows($result) > 0){
     while ($row = mysqli_fetch_array($result)){

@@ -14,7 +14,7 @@ function getBaseUrl()
     $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https://'?'https://':'http://';
 
     // return: http://localhost/myproject/
-    return $protocol.$hostName."/";
+    return getenv('APP_ROOT_PATH');
 }
 
 function GetDateFormat($timestamp){

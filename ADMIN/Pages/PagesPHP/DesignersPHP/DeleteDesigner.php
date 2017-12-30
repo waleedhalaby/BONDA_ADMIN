@@ -22,19 +22,6 @@ else {
             WHERE P.DESIGNER_ID ='" . $DESIGNER_ID . "'";
     $res2 = mysqli_query($con, $sql);
 
-    $sql = "SELECT PI.IMAGE_PATH FROM products_images PI
-            INNER JOIN products P ON PI.PRODUCT_ID = P.ID 
-            WHERE P.DESIGNER_ID = ".$DESIGNER_ID;
-    $result = mysqli_query($con,$sql);
-    while($row = mysqli_fetch_array($result)){
-        $IMAGE_PATH = $row['IMAGE_PATH'];
-        $filename = $_SERVER['SERVER_NAME'].':8080/BONDA_ADMIN/ADMIN/'.$IMAGE_PATH;
-        if (file_exists($filename))
-        {
-            unlink($filename);
-        }
-    }
-
     $sql = "DELETE PI FROM products_images PI
             INNER JOIN products P ON PI.PRODUCT_ID = P.ID 
             WHERE DESIGNER_ID ='" . $DESIGNER_ID . "'";
@@ -43,18 +30,12 @@ else {
     if ($res2) {
         $sql = "DELETE FROM products WHERE DESIGNER_ID = " . $DESIGNER_ID;
         $result = mysqli_query($con, $sql);
+		
+		$sql = "DELETE CFV FROM category_feature_values CFV
+				INNER JOIN categories C ON CFV.CATEGORY_ID = C.ID
+            WHERE C.DESIGNER_ID ='" . $DESIGNER_ID . "'";
+        $res2 = mysqli_query($con, $sql);
 
-
-        $sql = "SELECT IMAGE_PATH FROM categories WHERE DESIGNER_ID = ".$DESIGNER_ID;
-        $result = mysqli_query($con,$sql);
-        while($row = mysqli_fetch_array($result)){
-            $IMAGE_PATH = $row['IMAGE_PATH'];
-            $filename = $_SERVER['SERVER_NAME'].':8080/BONDA_ADMIN/ADMIN/'.$IMAGE_PATH;
-            if (file_exists($filename))
-            {
-                unlink($filename);
-            }
-        }
 
         $sql = "DELETE FROM categories WHERE DESIGNER_ID ='" . $DESIGNER_ID . "'";
         $res2 = mysqli_query($con, $sql);
@@ -63,20 +44,10 @@ else {
             WHERE DFV.DESIGNER_ID ='" . $DESIGNER_ID . "'";
         $res2 = mysqli_query($con, $sql);
 
-        $sql = "SELECT IMAGE_PATH FROM designers WHERE ID = ".$DESIGNER_ID;
-        $result = mysqli_query($con,$sql);
-        while($row = mysqli_fetch_array($result)){
-            $IMAGE_PATH = $row['IMAGE_PATH'];
-            $filename = $_SERVER['SERVER_NAME'].':8080/BONDA_ADMIN/ADMIN/'.$IMAGE_PATH;
-            if (file_exists($filename))
-            {
-                unlink($filename);
-            }
-        }
 
         $sql = "DELETE FROM designers WHERE ID = ".$DESIGNER_ID;
         $result = mysqli_query($con,$sql);
-
+		
         if($result){
             $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
                                 ('".$DATETIME."','".$MAKER_ID."','20','Designer is deleted')";

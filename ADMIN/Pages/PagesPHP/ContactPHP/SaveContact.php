@@ -6,9 +6,12 @@ $LOCATION = $_POST['Location'];
 $TEL1 = $_POST['Tel1'];
 $TEL2 = $_POST['Tel2'];
 $EMAIL = $_POST['Email'];
+$LATITUDE = $_POST['Latitude'];
+$LONGITUDE = $_POST['Longitude'];
 
 $BANNER_ID = 1;
-$sql = "UPDATE contact_info SET LOCATION = '".$LOCATION."', TELEPHONE1 = '".$TEL1."', TELEPHONE2 = '".$TEL2."', EMAIL = '".$EMAIL."' WHERE ID = '".$BANNER_ID."'";
+$sql = "UPDATE contact_info SET LOCATION = '".$LOCATION."', TELEPHONE1 = '".$TEL1."', TELEPHONE2 = '".$TEL2."', EMAIL = '".$EMAIL."',
+        LATITUDE = '".$LATITUDE."', LONGITUDE = '".$LONGITUDE."' WHERE ID = '".$BANNER_ID."'";
 $result = mysqli_query($con,$sql);
 
 if($result){

@@ -31,19 +31,15 @@ else {
             $result = mysqli_query($con,$sql);
         }
 
-        $sql = "SELECT ID FROM categories WHERE CATEGORY = '" . $CATEGORY . "'";
-        $result = mysqli_query($con, $sql);
+		$id = mysqli_insert_id($con);
+		$sql = "INSERT INTO category_feature_values (CATEGORY_ID,FEATURE_ID,VALUE) VALUES
+				('".$id."','1','0')";
+		$result2 = mysqli_query($con,$sql);
+		$sql = "INSERT INTO category_feature_values (CATEGORY_ID,FEATURE_ID,VALUE) VALUES
+				('".$id."','2','".$DATETIME."')";
+		$result2 = mysqli_query($con,$sql);
 
-        while ($row = mysqli_fetch_array($result)) {
-            $sql = "INSERT INTO category_feature_values (CATEGORY_ID,FEATURE_ID,VALUE) VALUES
-                    ('".$row['ID']."','1','0')";
-            $result2 = mysqli_query($con,$sql);
-            $sql = "INSERT INTO category_feature_values (CATEGORY_ID,FEATURE_ID,VALUE) VALUES
-                    ('".$row['ID']."','2','".$DATETIME."')";
-            $result2 = mysqli_query($con,$sql);
-
-            echo $row['ID'];
-        }
+		echo $id;
     }
     else{
         echo 'Error occurred, please contact your administrator.';

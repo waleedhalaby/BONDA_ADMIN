@@ -18,18 +18,6 @@ else{
     $sql = "DELETE FROM product_feature_values WHERE PRODUCT_ID = ".$PRODUCT_ID;
     $result = mysqli_query($con,$sql);
 
-    $sql = "SELECT PI.IMAGE_PATH FROM products_images PI
-            INNER JOIN products P ON PI.PRODUCT_ID = P.ID 
-            WHERE P.ID = ".$PRODUCT_ID;
-    $result = mysqli_query($con,$sql);
-    while($row = mysqli_fetch_array($result)){
-        $IMAGE_PATH = $row['IMAGE_PATH'];
-        $filename = $_SERVER['SERVER_NAME'].':8080/BONDA_ADMIN/ADMIN/'.$IMAGE_PATH;
-        if (file_exists($filename))
-        {
-            unlink($filename);
-        }
-    }
 
     $sql = "DELETE FROM products_images WHERE PRODUCT_ID = ".$PRODUCT_ID;
     $result = mysqli_query($con,$sql);

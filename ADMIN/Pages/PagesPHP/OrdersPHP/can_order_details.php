@@ -27,6 +27,10 @@
 <table class="table table-striped table-bordered order-table">
     <tbody></tbody>
 </table>
+<h4>Order Products</h4>
+<div id="order_details">
+
+</div>
     <?php
     echo '<input type="reset" style="float: right" class="btn btn-danger" onclick="$(\'#content\').load(\'Pages/CancelledOrders.php\')" value="Back"/>';
     ?>
@@ -51,6 +55,26 @@
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">STATUS</td><td><label class="label label-warning">'+order['STATUS']+'</label></td></tr>'+
                 '<tr><td style="background-color: #0c5460;color:#F4F4F4;">TOTAL</td><td>'+order['TOTAL']+ ' EGP</td></tr>'
             );
+
+            $(order['DETAILS']).each(function (id,detail) {
+                var image;
+                if(detail['IMAGE_PATH'] !== ''){
+                    image = '<img id="'+detail['IMAGE_ID']+'" style="width: 150px; height:150px;border:8px solid #ccc;" src="'+detail['IMAGE_PATH']+'"/>';
+                }
+                else{
+                    image = '<img style="width: 150px; height:150px;border:5=8px solid #ccc;" src="Images/default-image.png"/>';
+                }
+                $('#order_details').append(
+                    '<div style="border-radius: 5px;padding: 10px;margin-bottom:10px;background-color: #0c5460;">'+
+                    '<div>'+
+                    image+
+                    '</div>'+
+                    '<div style="border-radius: 5px;padding: 10px;color:white">'+
+                    '<p>'+detail['DATA']+'</p>'+
+                    '</div>'+
+                    '</div>'
+                );
+            });
         }).success(function () {
             $('.ajax-loader2').css('visibility','hidden');
         });

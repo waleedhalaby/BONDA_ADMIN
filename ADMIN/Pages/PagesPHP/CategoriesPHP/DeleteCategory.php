@@ -21,18 +21,6 @@ else{
         WHERE P.CATEGORY_ID ='".$CATEGORY_ID."'";
     $result = mysqli_query($con,$sql);
 
-    $sql = "SELECT PI.IMAGE_PATH FROM products_images PI
-            INNER JOIN products P ON PI.PRODUCT_ID = P.ID 
-            WHERE P.CATEGORY_ID = ".$CATEGORY_ID;
-    $result = mysqli_query($con,$sql);
-    while($row = mysqli_fetch_array($result)){
-        $IMAGE_PATH = $row['IMAGE_PATH'];
-        $filename = $_SERVER['SERVER_NAME'].':8080/BONDA_ADMIN/ADMIN/'.$IMAGE_PATH;
-        if (file_exists($filename))
-        {
-            unlink($filename);
-        }
-    }
 
     $sql = "DELETE PI FROM products_images PI INNER JOIN products P ON PI.PRODUCT_ID = P.ID
         WHERE P.CATEGORY_ID ='".$CATEGORY_ID."'";
@@ -47,18 +35,10 @@ else{
             WHERE CFV.CATEGORY_ID ='" . $CATEGORY_ID . "'";
         $res2 = mysqli_query($con, $sql);
 
-        $sql = "SELECT IMAGE_PATH FROM categories WHERE ID = ".$CATEGORY_ID;
+		$sql = "DELETE FROM category_feature_values WHERE ID = ".$CATEGORY_ID;
         $result = mysqli_query($con,$sql);
-        while($row = mysqli_fetch_array($result)){
-            $IMAGE_PATH = $row['IMAGE_PATH'];
-            $filename = $_SERVER['SERVER_NAME'].':8080/BONDA_ADMIN/ADMIN/'.$IMAGE_PATH;
-            if (file_exists($filename))
-            {
-                unlink($filename);
-            }
-        }
-
-        $sql = "DELETE FROM categories WHERE ID = ".$CATEGORY_ID;
+        
+		$sql = "DELETE FROM categories WHERE ID = ".$CATEGORY_ID;
         $result = mysqli_query($con,$sql);
         if($result){
             $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES

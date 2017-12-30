@@ -24,6 +24,16 @@
             $json['PAYMENT_TYPE'] = $row['TYPE'];
             $json['STATUS'] = $row['STATUS'];
             $json['TOTAL'] = $row['TOTAL'];
+
+            $json['DETAILS'] = Array();
+            $i = 0;
+            $sql = "SELECT * FROM order_products_history WHERE ORDER_ID = ".$ORDER_ID;
+            $res = mysqli_query($con,$sql);
+            while($row2 = mysqli_fetch_array($res)){
+                $json['DETAILS'][$i]['IMAGE_PATH'] = $row2['IMAGE_PATH'];
+                $json['DETAILS'][$i]['DATA'] = $row2['DATA'];
+                $i++;
+            }
         }
     }
     echo json_encode($json);

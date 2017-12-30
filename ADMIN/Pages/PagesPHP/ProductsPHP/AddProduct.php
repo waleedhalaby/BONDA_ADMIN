@@ -27,63 +27,55 @@ $CURRENCY = $_POST['addCurrency'];
 $DESCRIPTION = null;
 if(isset($_POST['addDescription'])|| !empty($_POST['addDescription'])){
     $DESCRIPTION = ucfirst(strtolower($_POST['addDescription']));
-    $DESCRIPTION = addcslashes($DESCRIPTION,"';");
+    $DESCRIPTION = addslashes($DESCRIPTION);
 }
 
 $CATEGORY = $_POST['addCategory'];
 $DESIGNER = $_POST['addDesigner'];
 
-$sql = "INSERT INTO products (SKU_ID,NAME,PRICE,CURRENCY_ID,DESCRIPTION,CATEGORY_ID,DESIGNER_ID)
-        VALUES ('" . $SKU_ID . "','" . $NAME . "','" . $PRICE . "','" . $CURRENCY . "','" . $DESCRIPTION . "','" . $CATEGORY . "','".$DESIGNER."')";
+$sql = "INSERT INTO products (SKU_ID,NAME,PRICE,CURRENCY_ID,DESCRIPTION,CATEGORY_ID,DESIGNER_ID,SOLD_COUNT)
+        VALUES ('" . $SKU_ID . "','" . $NAME . "','" . $PRICE . "','" . $CURRENCY . "','" . $DESCRIPTION . "','" . $CATEGORY . "','".$DESIGNER."','0')";
 $result = mysqli_query($con, $sql);
 
 
-$sql = "SELECT ID FROM products WHERE NAME = '" . $NAME . "'";
-$result = mysqli_query($con, $sql);
+$ID = mysqli_insert_id($con);
+ $i = 0;
+ if($CHANGES[0] != ''){
+	 foreach ($CHANGES AS $CHANGE){
+		 if($CHANGE != '' && $IDS[$i] != ''){
+			 $sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
+			('".$ID."','".$IDS[$i]."','".$CHANGE."')";
+			 $result2 = mysqli_query($con,$sql);
+		 }
+		 $i++;
+	 }
+ }
+ else{
+	 foreach ($IDS as $ID1){
+		 $sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
+			('".$ID."','".$ID1."',NULL)";
+		 $result2 = mysqli_query($con,$sql);
+	 }
+ }
+$sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
+			('".$ID."','23','".$DATETIME."')";
+$result2 = mysqli_query($con,$sql);
+$sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
+			('".$ID."','25','0')";
+$result2 = mysqli_query($con,$sql);
 
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_array($result)) {
-        $ID = $row['ID'];
-         $i = 0;
-         if($CHANGES[0] != ''){
-             foreach ($CHANGES AS $CHANGE){
-                 if($CHANGE != '' && $IDS[$i] != ''){
-                     $sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
-                    ('".$ID."','".$IDS[$i]."','".$CHANGE."')";
-                     $result2 = mysqli_query($con,$sql);
-                 }
-                 $i++;
-             }
-         }
-         else{
-             foreach ($IDS as $ID1){
-                 $sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
-                    ('".$ID."','".$ID1."',NULL)";
-                 $result2 = mysqli_query($con,$sql);
-             }
-         }
-        $sql = "INSERT INTO product_feature_values (PRODUCT_ID,FEATURE_ID,VALUE) VALUES
-                    ('".$ID."','23','".$DATETIME."')";
-        $result2 = mysqli_query($con,$sql);
-
-        if($result2){
-            $sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
-                                ('".$DATETIME."','".$MAKER_ID."','9','Product [".$ID."] is added')";
-            $result4 = mysqli_query($con,$sql);
-            if($MAKER_ID != 111111){
-                $sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
-                                ('".$DATETIME."','icon-gift','pink','Pages/Products.php','New product is added','0')";
-                $result = mysqli_query($con,$sql);
-            }
-            echo $ID;
-        }
-        else{
-            echo 'Error occurred, please contact your administrator.';
-        }
-
-    }
+if($result2){
+	$sql = "INSERT INTO log_activities (DATE_TIME,PERSON_ID,PAGE_ID,VALUE) VALUES
+						('".$DATETIME."','".$MAKER_ID."','9','Product [".$ID."] is added')";
+	$result4 = mysqli_query($con,$sql);
+	if($MAKER_ID != 111111 || $MAKER_ID != 111112){
+		$sql = "INSERT INTO notifications (NOTIFY_DATE_TIME,ICON,COLOR,PAGE_URL,DESCRIPTION,IS_SEEN) VALUES
+						('".$DATETIME."','icon-gift','pink','Pages/Products.php','New product is added','0')";
+		$result = mysqli_query($con,$sql);
+	}
+	echo $ID;
 }
 else{
-    echo null;
+	echo 'Error occurred, please contact your administrator.';
 }
 ?>

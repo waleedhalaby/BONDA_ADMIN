@@ -249,16 +249,15 @@ $PERSON_ID = $_SESSION['id'];
             for(var i = 0 ; i < counter ; i++){
                 values += $('#value'+i).val()+'$';
             }
-
             var url = "Pages/PagesPHP/ProductsPHP/AddProduct.php?maker=<?php echo $PERSON_ID ?>&ids="+ids+"&values="+values;
 
             $.ajax({
                 type: "POST",
                 url: url,
                 data: $('#addProductForm').serialize(),
-                success: function (data) {
-                    if(!(data.indexOf('Error')>= 0)){
-                        var url = "Pages/PagesPHP/ProductsPHP/UploadImages.php?id="+data;
+                success: function (data1) {
+                    if(!(data1.indexOf('Error')>= 0)){
+                        var url = "Pages/PagesPHP/ProductsPHP/UploadImages.php?id="+data1;
                         var form_data = new FormData();
                         var file_data1 = document.getElementById('fileupload1').files[0];
                         form_data.append("fileupload1",file_data1);
@@ -294,11 +293,11 @@ $PERSON_ID = $_SESSION['id'];
                         });
                     }
                     else{
-                        $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');
+                        $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data1+'</span></div>');
                     }
                 },
                 error: function(data){
-                    $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data+'</span></div>');
+                    $('#message').html('<div class="container-fluid text-center"><span class="label label-danger">'+data1+'</span></div>');
                 }
             });
         });

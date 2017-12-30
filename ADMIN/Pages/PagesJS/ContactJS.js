@@ -102,12 +102,16 @@ $(document).ready(function () {
                 var tel1 = contact['TEL1'] !== null ? contact['TEL1'] : '';
                 var tel2 = contact['TEL2'] !== null ? contact['TEL2'] : '';
                 var email = contact['EMAIL'] !== null ? contact['EMAIL'] : '';
+                var latitude = contact['LATITUDE'] !== null ? contact['LATITUDE'] : '';
+                var longitude = contact['LONGITUDE'] !== null ? contact['LONGITUDE'] : '';
                 $('.contact-details-table tbody').html(
                     image+
                     '<tr><td style="background-color: #0c5460;color:#F4F4F4;">LOCATION</td><td><input name="Location" id="Location" type="text" value="'+ location +'" placeholder="Enter Location"/></td></tr>'+
                     '<tr><td style="background-color: #0c5460;color:#F4F4F4;">TELEPHONE 1</td><td><input name="Tel1" id="Tel1" type="text" value="'+ tel1 +'" placeholder="Enter Telephone 1"/></td></tr>'+
                     '<tr><td style="background-color: #0c5460;color:#F4F4F4;">TELEPHONE 2</td><td><input name="Tel2" id="Tel2" type="text" value="'+ tel2 +'" placeholder="Enter Telephone 2"/></td></tr>'+
-                    '<tr><td style="background-color: #0c5460;color:#F4F4F4;">E-MAIL</td><td><input name="Email" id="Email" type="text" value="'+ email +'" placeholder="Enter E-mail"/></td></tr>'
+                    '<tr><td style="background-color: #0c5460;color:#F4F4F4;">E-MAIL</td><td><input name="Email" id="Email" type="text" value="'+ email +'" placeholder="Enter E-mail"/></td></tr>',
+                    '<tr><td style="background-color: #0c5460;color:#F4F4F4;">LATITUDE</td><td><input name="Latitude" id="Latitude" type="number" step="0.00001" value="'+ latitude +'" placeholder="Enter Latitude"/></td></tr>',
+                    '<tr><td style="background-color: #0c5460;color:#F4F4F4;">LONGITUDE</td><td><input name="Longitude" id="Longitude" type="text" step="0.00001" value="'+ longitude +'" placeholder="Enter Longitude"/></td></tr>'
                 );
             }
 

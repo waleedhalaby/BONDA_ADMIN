@@ -99,7 +99,7 @@
                         <div class="clearfix"></div>
 
                         <label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
-                        <div class="container-fluid text-center">
+                        <div class="container-fluid">
                                 <?php if(isset($_SESSION['ERROR']) || !empty($_SESSION['ERROR'])){echo $_SESSION['ERROR'];}; ?>
                             </div>
                         <div class="button-login">
